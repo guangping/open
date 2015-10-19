@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/rabbit
+		http://www.springframework.org/schema/rabbit/spring-rabbit-1.2.xsd">
+    <!-- 连接服务配置  -->
+    <rabbit:connection-factory id="connectionFactory"
+                               host="${rabbitmq.host}" port="${rabbitmq.port}" username="${rabbitmq.username}"
+                               password="${rabbitmq.password}" virtual-host="${rabbitmq.virtualhost}"/>
+
+    <rabbit:admin id="amqpAdmin" connection-factory="connectionFactory"/>
+
+    <!-- status 队列声明 -->
+    <rabbit:queue id="lance" name="${rabbitmq.queue}" declared-by="amqpAdmin"/>
+
+    <!--exchange queue binging key 绑定 -->
+    <rabbit:direct-exchange name="${rabbitmq.direct.exchange}"
+                            declared-by="amqpAdmin" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="lance"
+                            key="lance"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+
+
+    <rabbit:template exchange="${rabbitmq.direct.exchange}" id="amqpTemplate"
+                     connection-factory="connectionFactory"
+            />
+
+    <bean id="messageErrorHandler" class="com.varela.rabbitmq.MessageErrorHandler"/>
+    <bean id="fastJsonMessageConverter" class="com.varela.rabbitmq.FastJsonMessageConverter"/>
+    <bean id="mqTestConsumer" class="com.varela.rabbitmq.listener.MQTestConsumer"/>
+
+    <!-- queue litener  观察 监听模式 当有消息到达时会通知监听在对应的队列上的监听对象-->
+    <rabbit:listener-container connection-factory="connectionFactory"
+                               error-handler="messageErrorHandler"
+                               message-converter="fastJsonMessageConverter"
+                               acknowledge="auto">
+        <rabbit:listener queues="lance" method="onMessage" ref="mqTestConsumer"/>
+    </rabbit:listener-container>
+</beans>

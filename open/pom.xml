@@ -220,6 +220,13 @@
             <version>${httpcore.version}</version>
         </dependency>
 
+        <!--mq-->
+        <dependency>
+            <groupId>org.springframework.amqp</groupId>
+            <artifactId>spring-rabbit</artifactId>
+            <version>1.4.5.RELEASE</version>
+        </dependency>
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
@@ -252,6 +259,6 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
-           </plugins>
+        </plugins>
     </build>
 </project>
