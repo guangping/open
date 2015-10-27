@@ -28,15 +28,13 @@ public class InItService {
     @Autowired
     private LevelService levelService;
 
-    @Autowired
-    private RedisCache redisCache;
+/*    @Autowired
+    private RedisCache redisCache;*/
 
     @PostConstruct
     public void init() {
         logger.info("初始化接入者信息.......");
         this.initDev();
-
-
     }
 
     /**
@@ -51,7 +49,7 @@ public class InItService {
                 key = RedisKey.getAccessAppKey(developer.getAccessId());
                 level = this.levelService.queryById(developer.getId());
                 developer.setLevel(level);
-                this.redisCache.set(key, developer);
+             /*   this.redisCache.set(key, developer);*/
             }
         }
     }
