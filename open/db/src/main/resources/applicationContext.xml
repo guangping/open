@@ -22,16 +22,6 @@
     </bean>
     <bean class="com.varela.spring.SpringApplicationContext"/>
 
-    <!--加载属性文件-->
-    <bean class="com.varela.utils.ResourceUtils" scope="prototype">
-        <constructor-arg>
-            <array>
-                <value>config/jdbc</value>
-                <value>config/test</value>
-            </array>
-        </constructor-arg>
-    </bean>
-
     <import resource="classpath:spring/applicationContext-database.xml"/>
 
 </beans>
