@@ -10,8 +10,7 @@
     <context:annotation-config/>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-
-
+    <bean class="com.varela.spring.SpringApplicationContext"/>
     <!--加载属性文件-->
     <bean class="com.varela.utils.properties.ResourceUtils" scope="prototype">
         <constructor-arg>
@@ -21,4 +20,5 @@
             </array>
         </constructor-arg>
     </bean>
+    <bean class="com.varela.spring.SpringApplicationContext"/>
 </beans>

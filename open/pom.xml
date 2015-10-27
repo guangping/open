@@ -11,6 +11,7 @@
         <module>db</module>
         <module>rop</module>
         <module>common</module>
+        <module>alipay</module>
     </modules>
     <packaging>pom</packaging>
 

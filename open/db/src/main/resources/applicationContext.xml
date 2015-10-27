@@ -20,7 +20,6 @@
             </list>
         </property>
     </bean>
-    <bean class="com.varela.spring.SpringApplicationContext"/>
 
     <import resource="classpath:spring/applicationContext-database.xml"/>
 
