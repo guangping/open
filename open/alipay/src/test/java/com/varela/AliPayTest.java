@@ -16,6 +16,9 @@ import org.testng.annotations.Test;
 public class AliPayTest extends AbstractTestNGSpringContextTests {
 
 
+    /**
+     * 及时到账
+     * */
     @Test
     public void pcPay() {
         String outTradeNo = String.valueOf(System.currentTimeMillis());
@@ -28,6 +31,10 @@ public class AliPayTest extends AbstractTestNGSpringContextTests {
         System.out.println(url);
     }
 
+    /**
+     * wap支付
+     *
+     * **/
     @Test
     public void mobilePay() {
         String outTradeNo = String.valueOf(System.currentTimeMillis());
