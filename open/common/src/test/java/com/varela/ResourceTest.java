@@ -3,13 +3,14 @@ package com.varela;
 import com.varela.utils.properties.ResourceUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 /**
  * Created by lance on 10/27/2015.
  */
 @ContextConfiguration("classpath:applicationContext.xml")
-public class ResourceTest {
+public class ResourceTest  extends AbstractTestNGSpringContextTests {
     @Autowired
     private ResourceUtils resourceUtils;
 
