@@ -12,6 +12,7 @@
         <module>rop</module>
         <module>common</module>
         <module>alipay</module>
+        <module>weChat</module>
     </modules>
     <packaging>pom</packaging>
 
