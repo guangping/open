@@ -3,6 +3,8 @@ package com.varela.unionpay.service;
 
 import com.varela.unionpay.conf.UpmpConfig;
 import com.varela.unionpay.util.UpmpCore;
+import com.varela.utils.http.HttpClientUtils;
+import com.varela.utils.http.HttpResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +30,10 @@ public class UpmpService {
                                 Map<String, String> resp) {
         String nvp = buildReq(req);
 
-	/*	String respString = post(UpmpConfig.TRADE_URL, nvp);
-        return verifyResponse(respString, resp);*/
+        HttpResponse response = HttpClientUtils.postForm(UpmpConfig.TRADE_URL, nvp);
+        if (response.isSuccess()) {
+            return verifyResponse(response.getResult(), resp);
+        }
         return false;
     }
 
@@ -45,8 +49,8 @@ public class UpmpService {
         String nvp = buildReq(req);
 
         //调用post
-		/*String respString = post(UpmpConfig.QUERY_URL, nvp);
-		return verifyResponse(respString, resp);*/
+        /*String respString = post(UpmpConfig.QUERY_URL, nvp);
+        return verifyResponse(respString, resp);*/
         return false;
     }
 

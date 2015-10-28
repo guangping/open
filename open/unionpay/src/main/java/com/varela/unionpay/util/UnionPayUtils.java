@@ -81,10 +81,10 @@ public class UnionPayUtils {
             //交易号
             String tn = resp.get("tn");
             //银联返回码
-            String respCode = resp.get("respCode");
+            String respCode = resp.get(UpmpConfig.RESPONSE_CODE);
             //描述
-            String respMsg = resp.get("respMsg");
-            if (respCode.equals(UpmpConfig.SUCCESS)) {
+            String respMsg = resp.get(UpmpConfig.RESPONSE_MSG);
+            if (respCode.equals(UpmpConfig.RESPONSE_CODE_SUCCESS)) {
                 response.setSuccess(true);
                 response.setTn(tn);
             }
