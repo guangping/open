@@ -12,5 +12,5 @@ public class DatePattern {
 
     public static final String YYYYMMDDHHMM = "yyyyMMddHHmm";
 
-    
+
 }
