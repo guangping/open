@@ -5,27 +5,27 @@ import java.util.Map;
 
 /**
  * Created by guangping.lance on 2015-06-16.
+ * 退款响应
  */
 public class RefundResponse implements Serializable {
-	private static final long serialVersionUID = 1118848128252396308L;
 
-	private boolean success = false;
+    private boolean success = false;
 
-	private Map<String, String> resp;
+    private Map<String, String> resp;//返回值
 
-	public Map<String, String> getResp() {
-		return resp;
-	}
+    public Map<String, String> getResp() {
+        return resp;
+    }
 
-	public void setResp(Map<String, String> resp) {
-		this.resp = resp;
-	}
+    public void setResp(Map<String, String> resp) {
+        this.resp = resp;
+    }
 
-	public boolean isSuccess() {
-		return success;
-	}
+    public boolean isSuccess() {
+        return success;
+    }
 
-	public void setSuccess(boolean success) {
-		this.success = success;
-	}
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
 }

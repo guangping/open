@@ -12,5 +12,9 @@ public class DatePattern {
 
     public static final String YYYYMMDDHHMM = "yyyyMMddHHmm";
 
+    private static final String YYYYMMDDHHMMSS="yyyyMMddHHmmss";
+
+    public static final String YYYYMMDDHHMMSSSSS="yyyyMMddHHmmssSSS";
+
 
 }

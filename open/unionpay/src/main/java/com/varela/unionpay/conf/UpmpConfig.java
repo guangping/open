@@ -96,4 +96,7 @@ public class UpmpConfig {
         }
     }
 
+
+    public static final String SUCCESS="00";
+
 }
