@@ -135,4 +135,9 @@ public class RedisCache {
         return new ArrayList<String>(set);
     }
 
+    public List<String> keys(String key) {
+        Set<String> set = redisTemplate.keys(key + "*");
+        return new ArrayList<String>(set);
+    }
+
 }
