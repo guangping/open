@@ -1,6 +1,5 @@
 package com.varela.utils.http;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -9,6 +8,7 @@ import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -41,7 +41,7 @@ public class HttpClientUtils {
      * @param url    地址
      * @param params 提交参数
      */
-    public static HttpResponse post(String url, Map<String, String> params) {
+    public static HttpResponse postForm(String url, String params) {
         HttpResponse rval = new HttpResponse();
         String rsp = null;
         // 创建默认的httpClient实例.
@@ -49,6 +49,63 @@ public class HttpClientUtils {
         // 创建httppost
         HttpPost post = new HttpPost(url);
         try {
+            post.setHeader("Content-Type", "application/x-www-form-urlencoded");
+            post.setHeader("Connection", "Keep-Alive");
+            RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT).
+                    setConnectTimeout(TIME_OUT).setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
+            post.setConfig(config);
+
+            StringEntity requestEntity = new StringEntity(params, CHARSET);
+            post.setEntity(requestEntity);
+            CloseableHttpResponse response = client.execute(post);
+            try {
+                logger.info("status line:" + response.getStatusLine());
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    HttpEntity entity = response.getEntity();
+                    if (entity != null) {
+                        rsp = EntityUtils.toString(entity, CHARSET);
+                        rval.setSuccess(true);
+                        rval.setResult(rsp);
+                        logger.info("Response content: " + rsp);
+                    }
+                }
+            } finally {
+                response.close();
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭连接,释放资源
+            try {
+                client.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return rval;
+        }
+    }
+
+
+    /**
+     * post form形式
+     *
+     * @param url    地址
+     * @param params 提交参数
+     */
+    public static HttpResponse postForm(String url, Map<String, String> params) {
+        HttpResponse rval = new HttpResponse();
+        String rsp = null;
+        // 创建默认的httpClient实例.
+        CloseableHttpClient client = HttpClients.createDefault();
+        // 创建httppost
+        HttpPost post = new HttpPost(url);
+        try {
+            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
+            post.addHeader("Connection", "Keep-Alive");
             RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT).
                     setConnectTimeout(TIME_OUT).setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
             post.setConfig(config);
@@ -99,12 +156,8 @@ public class HttpClientUtils {
      * @param url
      * @param json
      */
-    public static HttpResponse post(String url, String json) {
+    public static HttpResponse postStream(String url, String json) {
         HttpResponse rval = new HttpResponse();
-        if (StringUtils.isBlank(json)) {
-            rval.setResult("json is null!");
-            return rval;
-        }
         String rsp = null;
         // 创建默认的httpClient实例.
         CloseableHttpClient client = HttpClients.createDefault();
@@ -153,18 +206,18 @@ public class HttpClientUtils {
      *
      * @param url 地址
      */
-    public static HttpResponse get(String url) {
+    public static HttpResponse getStream(String url) {
         HttpResponse rval = new HttpResponse();
         String rsp = null;
         // 创建默认的httpClient实例.
         CloseableHttpClient client = HttpClients.createDefault();
         // 创建httppost
-        HttpPost post = new HttpPost(url);
+        HttpGet get = new HttpGet(url);
         try {
             RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT).
                     setConnectTimeout(TIME_OUT).setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
-            post.setConfig(config);
-            CloseableHttpResponse response = client.execute(post);
+            get.setConfig(config);
+            CloseableHttpResponse response = client.execute(get);
             try {
                 logger.info("status line:" + response.getStatusLine());
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
