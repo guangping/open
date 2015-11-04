@@ -41,7 +41,7 @@ public class InItService {
      * 初始化接入者信息
      */
     public void initDev() {
-        List<Developer> list = this.developerService.queryList();
+       /* List<Developer> list = this.developerService.queryList();
         String key = null;
         Level level = null;
         if (null != list && list.size() > 0) {
@@ -49,8 +49,8 @@ public class InItService {
                 key = RedisKey.getAccessAppKey(developer.getAccessId());
                 level = this.levelService.queryById(developer.getId());
                 developer.setLevel(level);
-             /*   this.redisCache.set(key, developer);*/
+             *//*   this.redisCache.set(key, developer);*//*
             }
-        }
+        }*/
     }
 }

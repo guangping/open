@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order">
+
+    <resultMap id="resultMap-Order" type="Order">
+
+    </resultMap>
+
+    <select id="queryList" parameterType="Order" resultMap="resultMap-Order">
+        <![CDATA[
+          select * from sd_express_order
+        ]]>
+        <where>
+            <if test=" id!=null and id!='' ">
+                <![CDATA[  and id=#{id} ]]>
+            </if>
+        </where>
+
+    </select>
+
+
+</mapper>
