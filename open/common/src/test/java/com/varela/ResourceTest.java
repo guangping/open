@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 /**
  * Created by lance on 10/27/2015.
  */
-@ContextConfiguration("classpath:applicationContext.xml")
+@ContextConfiguration("classpath:applicationContext-common.xml")
 public class ResourceTest  extends AbstractTestNGSpringContextTests {
     @Autowired
     private ResourceUtils resourceUtils;
