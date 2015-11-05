@@ -18,6 +18,16 @@
             <artifactId>db</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.varela.open</groupId>
+            <artifactId>rop-client</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.varela.open</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -50,7 +60,6 @@
                                 <source>src/main/core</source>
                                 <source>src/main/default</source>
                                 <source>src/main/sample</source>
-                                <source>src/main/client</source>
                             </sources>
                         </configuration>
                     </execution>
