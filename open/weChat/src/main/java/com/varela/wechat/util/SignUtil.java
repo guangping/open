@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.TreeMap;
 
 /**
- * @author ListFeng
+ * @author
  * @ClassName: SignUtil
  * @date 2015年8月18日 上午11:36:07
  * @Description: 生成签名
