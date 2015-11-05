@@ -20,5 +20,4 @@
             </array>
         </constructor-arg>
     </bean>
-    <bean class="com.varela.spring.SpringApplicationContext"/>
 </beans>
