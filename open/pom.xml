@@ -15,6 +15,7 @@
         <module>weChat</module>
         <module>unionpay</module>
         <module>rop-client</module>
+        <module>admin</module>
     </modules>
     <packaging>pom</packaging>
 
