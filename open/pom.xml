@@ -16,6 +16,7 @@
         <module>unionpay</module>
         <module>rop-client</module>
         <module>admin</module>
+        <module>lock</module>
     </modules>
     <packaging>pom</packaging>
 
