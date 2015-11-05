@@ -18,7 +18,7 @@ public class LevelAspect {
 
     private Logger logger = LoggerFactory.getLogger(LevelAspect.class);
 
-    @Pointcut("target(com.varela.service.bus.LevelService)")
+    @Pointcut("target(com.varela.service.api.bus.LevelService)")
     private void pointCut() {
     }
 

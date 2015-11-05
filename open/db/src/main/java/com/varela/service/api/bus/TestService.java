@@ -1,4 +1,4 @@
-package com.varela.service.bus;
+package com.varela.service.api.bus;
 
 import com.varela.entity.API;
 import com.varela.entity.Developer;

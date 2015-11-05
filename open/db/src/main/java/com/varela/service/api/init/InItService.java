@@ -1,18 +1,13 @@
-package com.varela.service.init;
+package com.varela.service.api.init;
 
-import com.varela.cache.RedisCache;
-import com.varela.cache.RedisKey;
-import com.varela.entity.Developer;
-import com.varela.entity.Level;
-import com.varela.service.bus.DeveloperService;
-import com.varela.service.bus.LevelService;
+import com.varela.service.api.bus.DeveloperService;
+import com.varela.service.api.bus.LevelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 /**
  * Created by lance on 9/29/2015.

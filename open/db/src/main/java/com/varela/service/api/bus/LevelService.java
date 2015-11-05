@@ -1,4 +1,4 @@
-package com.varela.service.bus;
+package com.varela.service.api.bus;
 
 import com.varela.dao.api.impl.LevelDBService;
 import com.varela.entity.Level;
