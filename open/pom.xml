@@ -38,7 +38,7 @@
         <log4j.version>1.2.17</log4j.version>
         <jedis.version>2.6.2</jedis.version>
         <spring-data-redis.version>1.6.0.RELEASE</spring-data-redis.version>
-        <pagehelper.version>4.0.0</pagehelper.version>
+        <pagehelper.version>4.0.2</pagehelper.version>
         <httpcore.version>4.4.3</httpcore.version>
         <httpclient.version>4.5</httpclient.version>
         <cglib.version>3.1</cglib.version>
