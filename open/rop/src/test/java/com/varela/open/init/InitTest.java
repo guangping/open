@@ -1,7 +1,7 @@
 package com.varela.open.init;
 
 import com.varela.dao.api.impl.LevelDBService;
-import com.varela.service.bus.TestService;
+import com.varela.service.api.bus.TestService;
 import com.varela.spring.SpringApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
