@@ -1,4 +1,4 @@
-package com.varela.rabbitmq;
+package com.varela.mq.rabbitmq;
 
 import org.apache.log4j.Logger;
 import org.springframework.util.ErrorHandler;

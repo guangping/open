@@ -1,4 +1,4 @@
-package com.varela.rabbitmq;
+package com.varela.mq.rabbitmq;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.amqp.core.Message;

@@ -1,4 +1,4 @@
-package com.varela.rabbitmq.listener;
+package com.varela.mq.rabbitmq.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
