@@ -1,6 +1,6 @@
 package com.varela.service.bus;
 
-import com.varela.dao.impl.LevelDBService;
+import com.varela.dao.api.impl.LevelDBService;
 import com.varela.entity.Level;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

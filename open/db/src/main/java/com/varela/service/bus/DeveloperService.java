@@ -1,6 +1,6 @@
 package com.varela.service.bus;
 
-import com.varela.dao.impl.DeveloperDBService;
+import com.varela.dao.api.impl.DeveloperDBService;
 import com.varela.entity.Developer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
