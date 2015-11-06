@@ -23,6 +23,16 @@ public class SysUser extends BaseEntity implements Serializable {
 
     private int sort=0;
 
+    private int state=0;
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     public String getName() {
         return name;
     }

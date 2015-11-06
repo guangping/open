@@ -34,7 +34,9 @@
     </plugins>
 
     <mappers>
-
+        <mapper resource="/maps/sysRole.xml"/>
+        <mapper resource="/maps/sysUser.xml"/>
+        <mapper resource="/maps/sysResource.xml"/>
     </mappers>
 
 </configuration>

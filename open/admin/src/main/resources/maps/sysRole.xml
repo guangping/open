@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SysRole">
+
+    <resultMap id="resultMap-SysRole" type="SysRole">
+
+    </resultMap>
+
+    <select id="queryList" parameterType="SysRole" resultMap="resultMap-SysRole">
+        <![CDATA[
+          select * from sys_role
+        ]]>
+        <where>
+            <if test=" id!=null and id!='' ">
+                <![CDATA[  and id=#{id} ]]>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
