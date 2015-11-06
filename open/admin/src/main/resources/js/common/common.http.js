@@ -1,10 +1,10 @@
 /*通用发送请求*/
-var Service = Service || {};
-Service = {
+var ServiceHttp = ServiceHttp || {};
+ServiceHttp = {
     /* 同步 */
-    execute: function (url, params, callBack,method,dataType) {
-        dataType=dataType || 'json';
-        method=method || 'post';
+    execute: function (url, params, callBack, method, dataType) {
+        dataType = dataType || 'json';
+        method = method || 'post';
         var data = jQuery.param(params || {});
         $(document).mask("处理中...");
         $.ajax({
@@ -19,7 +19,7 @@ Service = {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $(document).unmask();
-                alert(XMLHttpRequest.status+'==>'+textStatus+'==>'+errorThrown);
+                alert(XMLHttpRequest.status + '==>' + textStatus + '==>' + errorThrown);
             }
         });
     },
@@ -39,7 +39,7 @@ Service = {
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 $(document).unmask();
-                alert(XMLHttpRequest.status+'==>'+textStatus+'==>'+errorThrown);
+                alert(XMLHttpRequest.status + '==>' + textStatus + '==>' + errorThrown);
             }
         });
     }
