@@ -29,6 +29,12 @@ public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport {
         return page;
     }
 
+    /**
+     * bootstrap datatables 数据格式
+     * @param dts 分页参数
+     * @param statement mybatis
+     * @param arg 查询条件
+     */
     protected PageDataTables<T> queryDataTables(DataTables dts, String statement, Object arg) {
         int sEcho = dts.getsEcho(), iDisplayStart = dts.getiDisplayStart(), iDisplayLength = dts.getiDisplayLength();
 
@@ -45,4 +51,6 @@ public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport {
         dataTables.setiTotalDisplayRecords(pageInfo.getTotal());
         return dataTables;
     }
+
+
 }
