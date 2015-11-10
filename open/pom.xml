@@ -17,6 +17,7 @@
         <module>rop-client</module>
         <module>admin</module>
         <module>lock</module>
+        <module>drools</module>
     </modules>
     <packaging>pom</packaging>
 
