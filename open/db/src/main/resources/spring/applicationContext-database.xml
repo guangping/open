@@ -36,6 +36,9 @@
         <property name="configLocation">
             <value>classpath:/maps/sql-map-config.xml</value>
         </property>
+  <!--      <property name="mapperLocations">
+            <value>classpath:maps/*.xml</value>
+        </property>-->
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
