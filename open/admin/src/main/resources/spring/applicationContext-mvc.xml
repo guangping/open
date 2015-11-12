@@ -42,7 +42,7 @@
 
     <!-- freemarker的配置 -->
     <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="location" value="classpath:freemarker.properties"/>
+        <property name="location" value="classpath:config/freemarker.properties"/>
     </bean>
 
     <bean id="freemarkerConfigurer"
