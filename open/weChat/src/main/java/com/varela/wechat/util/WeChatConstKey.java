@@ -5,13 +5,16 @@ package com.varela.wechat.util;
  */
 public class WeChatConstKey {
 
-    public static final String WECHAT_API_SECRET = "wechat.api.secret";
+    /**
+     * 公众号相关
+     **/
+    public static final String WECHAT_PUBLIC_API_SECRET = "wechat.public.api.secret";
 
-    public static final String WECHAT_APP_APPID = "wechat.app.appid";
+    public static final String WECHAT_PUBLIC_APPID = "wechat.public.appid";
 
-    public static final String WECHAT_APP_SECRET = "wechat.app.secret";
+    public static final String WECHAT_PUBLIC_SECRET = "wechat.public.secret";
 
-    public static final String WECHAT_PAY_MCH_ID = "wechat.pay.mchId";
+    public static final String WECHAT_PUBLIC_MCH_ID = "wechat.public.mchId";
 
     public static final String SCAN_QRCODE_UNIFIEDORDER = "wechat.scan.qrcode.unifiedorder";
 

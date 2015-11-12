@@ -95,7 +95,7 @@ public class ParamCheckUtil {
 	 * 校验OrderQuery参数
 	 * 
 	 * @param result
-	 * @param orderQuery
+	 * @param
 	 */
 	public static void checkOrderQuery(PayResult result, WeChatPay order) {
 		baseCheck(result, order);// 基础校验

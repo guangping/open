@@ -1,7 +1,6 @@
 package com.varela.wechat.pojo;
 
 import com.varela.wechat.util.RandomUtil;
-import com.varela.wechat.util.WeChatConstUtil;
 
 import java.io.Serializable;
 
@@ -13,9 +12,9 @@ public class WeChatPay implements Serializable {
      * 公众账号ID appid 是 String(32) wx8888888888888888,
      * 微信分配的公众账号ID（企业号corpid即为此appId）
      */
-    private String appid = WeChatConstUtil.WECHAT_APP_APPID;
+    private String appid;
     // 商户号 mch_id 是 String(32) 1900000109 微信支付分配的商户号
-    private String mch_id = WeChatConstUtil.WECHAT_PAY_MCH_ID;
+    private String mch_id;
     // 签名 sign 是 String(32) 5K8264ILTKCH16CQ2502SI8ZNMTM67VS 签名
     private String sign;
 

@@ -23,10 +23,8 @@ public class SignUtil {
      * @throws IllegalAccessException
      * @throws IllegalArgumentException
      */
-    public static String generateSign(TreeMap<String, Object> params)
+    public static String generateSign(TreeMap<String, Object> params, String secret)
             throws IllegalArgumentException, IllegalAccessException {
-        String api_secret = WeChatConstUtil.getProp(WeChatConstKey.WECHAT_API_SECRET);
-
         StringBuffer sBuffer = new StringBuffer();
         for (String key : params.keySet()) {
             if (key.equals(WeChatConstKey.SIGN) || key.equals("success")) {
@@ -34,7 +32,7 @@ public class SignUtil {
             }
             sBuffer.append(key + "=" + params.get(key).toString() + "&");
         }
-        String str = sBuffer.append("key=" + api_secret).toString();
+        String str = sBuffer.append("key=" + secret).toString();
         return EncryptUtils.MD5Encode(str).toUpperCase();
     }
 
