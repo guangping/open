@@ -74,7 +74,7 @@ public class WeChatService {
      */
     public VoucherResult getJsapiTicket(String accessToken) {
         VoucherResult result = new VoucherResult();
-        
+
         StringBuilder builder = new StringBuilder(200);
         builder.append(this.resourceUtils.getStringValue(WeChatConstKey.JSAPI_TICKET_URL));
         builder.append("&access_token=" + accessToken);
@@ -108,15 +108,35 @@ public class WeChatService {
      * @return
      * @throws Exception
      */
-    public PayResult unifiedOrder(WeChatPay order) throws Exception {
+    public UnifiedOrderResponse unifiedOrder(WeChatPay order) throws Exception {
+        UnifiedOrderResponse response = new UnifiedOrderResponse();
         this.initSomeParam(order);
         PayResult result = new PayResult();
         ParamCheckUtil.checkUnifiedOrder(result, order);
         if (result.getErrorCode() != 0) {
-            return result;
+            response.setErrCodeDes(result.getMessage());
+            return response;
         }
+        ResponseResult responseResult;
         this.execRequest(result, order, this.resourceUtils.getStringValue(WeChatConstKey.SCAN_QRCODE_UNIFIEDORDER), false);
-        return result;
+        if (result.getErrorCode() == 0) {
+            responseResult = (ResponseResult) result.getResult();
+            String err_code = responseResult.getErr_code();
+            String err_code_des = responseResult.getErr_code_des();
+            if (responseResult.isSuccess()) {
+                String codeUrl = responseResult.getCode_url();//二维码链接
+                String tradeType = responseResult.getTrade_type();//交易类型
+                String prepayId = responseResult.getPrepay_id();//预支付交易会话标识
+                logger.info("二维码地址:{},交易类型:{},预支付交易会话标识:{}", codeUrl, tradeType, prepayId);
+
+                response.setCodeUrl(codeUrl);
+                response.setTradeType(tradeType);
+                response.setPrepayId(prepayId);
+            }
+            response.setErrCode(err_code);
+            response.setErrCodeDes(err_code_des);
+        }
+        return response;
     }
 
 
