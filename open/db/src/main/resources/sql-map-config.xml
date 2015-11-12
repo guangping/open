@@ -34,10 +34,10 @@
     </plugins>
 
     <mappers>
-        <mapper resource="maps/api.xml"/>
+      <!--  <mapper resource="maps/api.xml"/>
         <mapper resource="maps/developer.xml"/>
         <mapper resource="maps/developerApi.xml"/>
-        <mapper resource="maps/level.xml"/>
+        <mapper resource="maps/level.xml"/>-->
     </mappers>
 
 </configuration>

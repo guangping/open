@@ -34,11 +34,11 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation">
-            <value>classpath:/maps/sql-map-config.xml</value>
+            <value>classpath:sql-map-config.xml</value>
         </property>
-  <!--      <property name="mapperLocations">
+        <property name="mapperLocations">
             <value>classpath:maps/*.xml</value>
-        </property>-->
+        </property>
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
