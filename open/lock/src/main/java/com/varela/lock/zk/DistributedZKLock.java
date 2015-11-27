@@ -2,7 +2,6 @@ package com.varela.lock.zk;
 
 
 import com.varela.lock.DistributedLock;
-import com.varela.lock.LocKey;
 import com.varela.utils.properties.ResourceUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;

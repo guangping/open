@@ -1,4 +1,4 @@
-package com.varela.lock;
+package com.varela.lock.zk;
 
 import java.io.Serializable;
 
