@@ -1,6 +1,6 @@
 package com.varela.wechat.pojo;
 
-public enum Msg {
+public enum WeChatMsg {
 
 	Success(0, "成功"), 
 	CodeException(1, "代码异常"), 
@@ -45,7 +45,7 @@ public enum Msg {
 	TradeTypeIsNull(1036, "trade_type为空"),
 	TradeTypeLengthOver(1037, "trade_type长度大于16");
 
-	Msg(int errorCode, String msg) {
+	WeChatMsg(int errorCode, String msg) {
 		this.errorCode = errorCode;
 		this.msg = msg;
 	}

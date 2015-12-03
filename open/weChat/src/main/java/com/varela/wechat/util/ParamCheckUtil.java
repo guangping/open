@@ -1,6 +1,6 @@
 package com.varela.wechat.util;
 
-import com.varela.wechat.pojo.Msg;
+import com.varela.wechat.pojo.WeChatMsg;
 import com.varela.wechat.pojo.PayResult;
 import com.varela.wechat.pojo.WeChatPay;
 import org.apache.commons.lang3.StringUtils;
@@ -24,70 +24,70 @@ public class ParamCheckUtil {
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getBody(), 32, Msg.BodyLengthOver);
+        checklength(result, order.getBody(), 32, WeChatMsg.BodyLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getDetail(), 8192, Msg.DetailLengthOver);
+        checklength(result, order.getDetail(), 8192, WeChatMsg.DetailLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getAttach(), 127, Msg.AttachLengthOver);
+        checklength(result, order.getAttach(), 127, WeChatMsg.AttachLengthOver);
 
-        checkNull(result, order.getOut_trade_no(), Msg.OutTradeNoIsNull);
+        checkNull(result, order.getOut_trade_no(), WeChatMsg.OutTradeNoIsNull);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getOut_trade_no(), 32, Msg.OutTradeLengthOver);
+        checklength(result, order.getOut_trade_no(), 32, WeChatMsg.OutTradeLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getFee_type(), 16, Msg.FeeTypeLengthOver);
+        checklength(result, order.getFee_type(), 16, WeChatMsg.FeeTypeLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
         if (order.getTotal_fee() != null) {
             checkNumber(result, order.getTotal_fee().toString(),
-                    Msg.TotalfeeIsIllegal);
+                    WeChatMsg.TotalfeeIsIllegal);
             if (result.getErrorCode() != 0) {
                 return;
             }
         }
-        checkNull(result, order.getSpbill_create_ip(), Msg.SpbillCreateIpIsNUll);
+        checkNull(result, order.getSpbill_create_ip(), WeChatMsg.SpbillCreateIpIsNUll);
         if (result.getErrorCode() != 0) {
             return;
         }
         checklength(result, order.getSpbill_create_ip(), 16,
-                Msg.SpbillCreateIpLengthOver);
+                WeChatMsg.SpbillCreateIpLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checkTimePattern(result, order.getTime_start(), Msg.TimePatternError);
+        checkTimePattern(result, order.getTime_start(), WeChatMsg.TimePatternError);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checkTimePattern(result, order.getTime_expire(), Msg.TimePatternError);
+        checkTimePattern(result, order.getTime_expire(), WeChatMsg.TimePatternError);
         if (result.getErrorCode() != 0) {
             return;
         }
         checkMistiming(result, order.getTime_start(), order.getTime_expire(),
-                Msg.MistimingLess5M);
+                WeChatMsg.MistimingLess5M);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checkNull(result, order.getNotify_url(), Msg.NotifyUrlIsNull);
+        checkNull(result, order.getNotify_url(), WeChatMsg.NotifyUrlIsNull);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getNotify_url(), 256, Msg.NotifyUrlLengthOver);
+        checklength(result, order.getNotify_url(), 256, WeChatMsg.NotifyUrlLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checkNull(result, order.getTrade_type(), Msg.TradeTypeIsNull);
+        checkNull(result, order.getTrade_type(), WeChatMsg.TradeTypeIsNull);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getTrade_type(), 16, Msg.TradeTypeLengthOver);
+        checklength(result, order.getTrade_type(), 16, WeChatMsg.TradeTypeLengthOver);
     }
 
     /**
@@ -104,17 +104,17 @@ public class ParamCheckUtil {
         // 如果transaction_id 不为空校验其长度
         if (StringUtils.isNotBlank(order.getTransaction_id())) {
             checklength(result, order.getTransaction_id(), 32,
-                    Msg.TransactionidLengthOver);
+                    WeChatMsg.TransactionidLengthOver);
             if (result.getErrorCode() != 0) {
                 return;
             }
         } else {// 如果transaction_id为空,OutTradeNo必须不能为空,校验其长度
-            checkNull(result, order.getOut_trade_no(), Msg.OutTradeNoIsNull);
+            checkNull(result, order.getOut_trade_no(), WeChatMsg.OutTradeNoIsNull);
             if (result.getErrorCode() != 0) {
                 return;
             }
             checklength(result, order.getOut_trade_no(), 32,
-                    Msg.OutTradeLengthOver);
+                    WeChatMsg.OutTradeLengthOver);
             if (result.getErrorCode() != 0) {
                 return;
             }
@@ -166,7 +166,7 @@ public class ParamCheckUtil {
         // 总金额 total_fee 是 Int 100 订单总金额，单位为分，只能为整数，详见支付金额
         if (order.getTotal_fee() != null) {
             checkNumber(result, order.getTotal_fee().toString(),
-                    Msg.TotalfeeIsIllegal);
+                    WeChatMsg.TotalfeeIsIllegal);
             if (result.getErrorCode() != 0) {
                 return;
             }
@@ -174,7 +174,7 @@ public class ParamCheckUtil {
         // 退款金额 refund_fee 是 Int 100 退款总金额，订单总金额，单位为分，只能为整数，详见支付金额
         if (order.getRefund_fee() != null) {
             checkNumber(result, order.getRefund_fee().toString(),
-                    Msg.RefundfeeIsIllegal);
+                    WeChatMsg.RefundfeeIsIllegal);
             if (result.getErrorCode() != 0) {
                 return;
             }
@@ -195,21 +195,21 @@ public class ParamCheckUtil {
             return;
         }
         checklength(result, order.getDevice_info(), 32,
-                Msg.DeviceInfoLengthOver);
+                WeChatMsg.DeviceInfoLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
         checklength(result, order.getTransaction_id(), 28,
-                Msg.TransactionidLengthOver);
+                WeChatMsg.TransactionidLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
-        checklength(result, order.getOut_trade_no(), 32, Msg.OutTradeLengthOver);
+        checklength(result, order.getOut_trade_no(), 32, WeChatMsg.OutTradeLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
         checklength(result, order.getOut_refund_no(), 32,
-                Msg.OutRefundNoLengthOver);
+                WeChatMsg.OutRefundNoLengthOver);
         if (result.getErrorCode() != 0) {
             return;
         }
@@ -223,7 +223,7 @@ public class ParamCheckUtil {
                 && StringUtils.isBlank(order.getOut_refund_no())
                 && StringUtils.isBlank(order.getOut_trade_no())
                 && StringUtils.isBlank(order.getTransaction_id())) {
-            result.setMsg(Msg.AllRefundIdIsNull);
+            result.setMsg(WeChatMsg.AllRefundIdIsNull);
         }
     }
 
@@ -248,8 +248,8 @@ public class ParamCheckUtil {
      * @param out_refund_no
      */
     private static void checkOutRefundNo(PayResult result, String out_refund_no) {
-        checkNull(result, out_refund_no, Msg.OutRefundNoIsNull);
-        checklength(result, out_refund_no, 32, Msg.OutRefundNoLengthOver);
+        checkNull(result, out_refund_no, WeChatMsg.OutRefundNoIsNull);
+        checklength(result, out_refund_no, 32, WeChatMsg.OutRefundNoLengthOver);
     }
 
     /**
@@ -259,8 +259,8 @@ public class ParamCheckUtil {
      * @param out_trade_no
      */
     private static void checkOutTradeNo(PayResult result, String out_trade_no) {
-        checkNull(result, out_trade_no, Msg.OutTradeNoIsNull);
-        checklength(result, out_trade_no, 32, Msg.OutTradeLengthOver);
+        checkNull(result, out_trade_no, WeChatMsg.OutTradeNoIsNull);
+        checklength(result, out_trade_no, 32, WeChatMsg.OutTradeLengthOver);
     }
 
     /**
@@ -271,8 +271,8 @@ public class ParamCheckUtil {
      */
     private static void checkTransactionId(PayResult result,
                                            String transaction_id) {
-        checkNull(result, transaction_id, Msg.TransactionidIsNull);
-        checklength(result, transaction_id, 28, Msg.TransactionidLengthOver);
+        checkNull(result, transaction_id, WeChatMsg.TransactionidIsNull);
+        checklength(result, transaction_id, 28, WeChatMsg.TransactionidLengthOver);
     }
 
     /**
@@ -282,8 +282,8 @@ public class ParamCheckUtil {
      * @param device_info
      */
     private static void checkDeviceInfo(PayResult result, String device_info) {
-        checkNull(result, device_info, Msg.DeviceInfoIsNull);
-        checklength(result, device_info, 32, Msg.DeviceInfoLengthOver);
+        checkNull(result, device_info, WeChatMsg.DeviceInfoIsNull);
+        checklength(result, device_info, 32, WeChatMsg.DeviceInfoLengthOver);
     }
 
     /**
@@ -293,8 +293,8 @@ public class ParamCheckUtil {
      * @param op_user_id
      */
     private static void checkOpUserId(PayResult result, String op_user_id) {
-        checkNull(result, op_user_id, Msg.OpUserIdIsNull);
-        checklength(result, op_user_id, 32, Msg.OpUserIdLengthOver);
+        checkNull(result, op_user_id, WeChatMsg.OpUserIdIsNull);
+        checklength(result, op_user_id, 32, WeChatMsg.OpUserIdLengthOver);
     }
 
     /**
@@ -304,8 +304,8 @@ public class ParamCheckUtil {
      * @param nonce_str
      */
     private static void checkNonceStr(PayResult result, String nonce_str) {
-        checkNull(result, nonce_str, Msg.NoncestrIsNull);
-        checklength(result, nonce_str, 32, Msg.NoncestrLengthOver);
+        checkNull(result, nonce_str, WeChatMsg.NoncestrIsNull);
+        checklength(result, nonce_str, 32, WeChatMsg.NoncestrLengthOver);
     }
 
     /**
@@ -315,8 +315,8 @@ public class ParamCheckUtil {
      * @param appid
      */
     private static void checkAppid(PayResult result, String appid) {
-        checkNull(result, appid, Msg.AppidIsNull);
-        checklength(result, appid, 32, Msg.AppidLengthOver);
+        checkNull(result, appid, WeChatMsg.AppidIsNull);
+        checklength(result, appid, 32, WeChatMsg.AppidLengthOver);
     }
 
     /**
@@ -326,8 +326,8 @@ public class ParamCheckUtil {
      * @param mch_id
      */
     private static void checkMchId(PayResult result, String mch_id) {
-        checkNull(result, mch_id, Msg.MchidIsNull);
-        checklength(result, mch_id, 32, Msg.MchidLengthOver);
+        checkNull(result, mch_id, WeChatMsg.MchidIsNull);
+        checklength(result, mch_id, 32, WeChatMsg.MchidLengthOver);
     }
 
     /**
@@ -337,8 +337,8 @@ public class ParamCheckUtil {
      * @param sign
      */
     private static void checkSign(PayResult result, String sign) {
-        checkNull(result, sign, Msg.SignIsNull);
-        checklength(result, sign, 32, Msg.SignLengthOver);
+        checkNull(result, sign, WeChatMsg.SignIsNull);
+        checklength(result, sign, 32, WeChatMsg.SignLengthOver);
     }
 
     /**
@@ -350,7 +350,7 @@ public class ParamCheckUtil {
      * @param msg
      */
     public static void checklength(PayResult result, String str,
-                                   Integer length, Msg msg) {
+                                   Integer length, WeChatMsg msg) {
         if (StringUtils.isNotBlank(str)) {
             if (str.length() > length)
                 result.setMsg(msg);
@@ -364,7 +364,7 @@ public class ParamCheckUtil {
      * @param str
      * @param msg
      */
-    public static void checkNull(PayResult result, String str, Msg msg) {
+    public static void checkNull(PayResult result, String str, WeChatMsg msg) {
         if (StringUtils.isBlank(str)) {
             result.setMsg(msg);
         }
@@ -377,7 +377,7 @@ public class ParamCheckUtil {
      * @param total_fee
      * @param msg
      */
-    private static void checkNumber(PayResult result, String total_fee, Msg msg) {
+    private static void checkNumber(PayResult result, String total_fee, WeChatMsg msg) {
         try {
             Integer.valueOf(total_fee);
         } catch (Exception e) {
@@ -392,7 +392,7 @@ public class ParamCheckUtil {
      * @param time
      * @param msg
      */
-    private static void checkTimePattern(PayResult result, String time, Msg msg) {
+    private static void checkTimePattern(PayResult result, String time, WeChatMsg msg) {
         if (StringUtils.isNotBlank(time)) {
             try {
                 DateUtils.parseDate(time, "yyyyMMddHHmmss");
@@ -412,7 +412,7 @@ public class ParamCheckUtil {
      * @throws ParseException
      */
     private static void checkMistiming(PayResult result, String time_start,
-                                       String time_expire, Msg msg) throws ParseException {
+                                       String time_expire, WeChatMsg msg) throws ParseException {
         if (StringUtils.isNotBlank(time_start)
                 && StringUtils.isNotBlank(time_expire)) {
             Date start = DateUtils.parseDate(time_start, "yyyyMMddHHmmss");
@@ -430,8 +430,8 @@ public class ParamCheckUtil {
      * @param long_url
      */
     private static void checkLongUrl(PayResult result, String long_url) {
-        checkNull(result, long_url, Msg.LongUrlIsNull);
-        checklength(result, long_url, 512, Msg.LongUrlLengthOver);
+        checkNull(result, long_url, WeChatMsg.LongUrlIsNull);
+        checklength(result, long_url, 512, WeChatMsg.LongUrlLengthOver);
     }
 
     /**

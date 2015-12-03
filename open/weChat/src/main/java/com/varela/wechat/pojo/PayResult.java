@@ -22,12 +22,12 @@ public class PayResult implements Serializable {
 		this.errorCode = errorCode;
 	}
 
-	public void setMsg(Msg msg) {
+	public void setMsg(WeChatMsg msg) {
 		this.errorCode = msg.getErrorCode();
 		this.message = msg.getMsg();
 	}
 
-	public void setMsg(Msg msg, Object result) {
+	public void setMsg(WeChatMsg msg, Object result) {
 		this.errorCode = msg.getErrorCode();
 		this.message = msg.getMsg();
 		this.result = result;
