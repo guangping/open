@@ -3,7 +3,6 @@ package com.varela.utils.http;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -16,10 +15,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +27,15 @@ import java.util.Map;
  * Created by lance on 9/28/2015.
  */
 public class HttpClientUtils {
-    private static final Logger logger = Logger.getLogger(HttpClientUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpClientUtils.class);
 
     private static final String CHARSET = "UTF-8";
     private static final int TIME_OUT = 5000;
     private static final int CONN_REQ_TIME_OUT = 5000;
+
+    private static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset:utf-8;";
+
+    private static final String KEEP_ALIVE = "Keep-Alive";
 
 
     /**
@@ -49,22 +52,22 @@ public class HttpClientUtils {
         // 创建httppost
         HttpPost post = new HttpPost(url);
         try {
-            post.setHeader("Content-Type", "application/x-www-form-urlencoded");
-            post.setHeader("Connection", "Keep-Alive");
+            post.setHeader("Content-Type", CONTENT_TYPE);
+            post.setHeader("Connection", KEEP_ALIVE);
             RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT).
-                    setConnectTimeout(TIME_OUT).setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
+                    setConnectTimeout(TIME_OUT).setConnectionRequestTimeout(CONN_REQ_TIME_OUT).setSocketTimeout(TIME_OUT).build();
             post.setConfig(config);
 
             StringEntity requestEntity = new StringEntity(params, CHARSET);
             post.setEntity(requestEntity);
             CloseableHttpResponse response = client.execute(post);
             try {
-                logger.info("status line:" + response.getStatusLine());
+                logger.info("url:{},status line:{}", url, response.getStatusLine());
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setSuccess(true);
+                        rval.setHttpMsg(HttpMsg.Success);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -72,11 +75,8 @@ public class HttpClientUtils {
             } finally {
                 response.close();
             }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
         } catch (IOException e) {
+            rval.setHttpMsg(HttpMsg.Time_Out);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
@@ -104,10 +104,13 @@ public class HttpClientUtils {
         // 创建httppost
         HttpPost post = new HttpPost(url);
         try {
-            post.addHeader("Content-Type", "application/x-www-form-urlencoded");
-            post.addHeader("Connection", "Keep-Alive");
-            RequestConfig config = RequestConfig.custom().setCookieSpec(CookieSpecs.STANDARD_STRICT).
-                    setConnectTimeout(TIME_OUT).setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
+            post.addHeader("Content-Type", CONTENT_TYPE);
+            post.addHeader("Connection", KEEP_ALIVE);
+            RequestConfig config = RequestConfig.custom()
+                    .setCookieSpec(CookieSpecs.STANDARD_STRICT)
+                    .setConnectTimeout(TIME_OUT).setSocketTimeout(TIME_OUT)
+                    .setContentCompressionEnabled(true)
+                    .setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
             post.setConfig(config);
             List<NameValuePair> formparams = new ArrayList<NameValuePair>();
             if (null != params) {
@@ -117,14 +120,15 @@ public class HttpClientUtils {
             }
             StringEntity requestEntity = new UrlEncodedFormEntity(formparams, CHARSET);
             post.setEntity(requestEntity);
+            logger.info("url:{}", url);
             CloseableHttpResponse response = client.execute(post);
             try {
-                logger.info("status line:" + response.getStatusLine());
+                logger.info("status line:{}", response.getStatusLine());
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setSuccess(true);
+                        rval.setHttpMsg(HttpMsg.Success);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -132,11 +136,8 @@ public class HttpClientUtils {
             } finally {
                 response.close();
             }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
         } catch (IOException e) {
+            rval.setHttpMsg(HttpMsg.Time_Out);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
@@ -171,12 +172,12 @@ public class HttpClientUtils {
             post.setEntity(requestEntity);
             CloseableHttpResponse response = client.execute(post);
             try {
-                logger.info("status line:" + response.getStatusLine());
+                logger.info("url:{},status line:{}", url, response.getStatusLine());
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setSuccess(true);
+                        rval.setHttpMsg(HttpMsg.Success);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -184,11 +185,8 @@ public class HttpClientUtils {
             } finally {
                 response.close();
             }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
         } catch (IOException e) {
+            rval.setHttpMsg(HttpMsg.Time_Out);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
@@ -219,12 +217,12 @@ public class HttpClientUtils {
             get.setConfig(config);
             CloseableHttpResponse response = client.execute(get);
             try {
-                logger.info("status line:" + response.getStatusLine());
+                logger.info("url:{},status line:{}", url, response.getStatusLine());
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setSuccess(true);
+                        rval.setHttpMsg(HttpMsg.Success);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -232,11 +230,8 @@ public class HttpClientUtils {
             } finally {
                 response.close();
             }
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
         } catch (IOException e) {
+            rval.setHttpMsg(HttpMsg.Time_Out);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源

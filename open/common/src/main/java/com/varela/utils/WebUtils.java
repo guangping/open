@@ -104,6 +104,12 @@ public class WebUtils {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
+        if (org.apache.commons.lang3.StringUtils.isNotBlank(ip)) {
+            String items[] = ip.split("\\,");
+            if (items.length > 0) {
+                ip = items[0];
+            }
+        }
         return ip;
     }
 
