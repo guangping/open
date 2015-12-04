@@ -6,6 +6,7 @@ package com.varela.enumerate;
 public enum APIMsg {
 
     Success(0, "成功"),
+    PARAM_IS_NULL(1, "参数为空"),
     ERROR(9999, "未知错误!");
 
 
