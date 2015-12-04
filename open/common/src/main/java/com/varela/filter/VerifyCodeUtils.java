@@ -1,4 +1,4 @@
-package com.varela.utils;
+package com.varela.filter;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

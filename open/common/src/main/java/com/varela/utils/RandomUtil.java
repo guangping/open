@@ -15,7 +15,7 @@ public class RandomUtil {
      * @return
      */
     public static String getRandomStr() {
-        StringBuffer s = new StringBuffer();
+        StringBuffer s = new StringBuffer(32);
         for (int i = 0; i < 32; i++) {
             s.append(TEMPLATE_STRING.charAt(getRandomNum()));
         }

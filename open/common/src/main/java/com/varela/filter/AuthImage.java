@@ -1,7 +1,6 @@
 package com.varela.filter;
 
 import com.varela.utils.Constants;
-import com.varela.utils.VerifyCodeUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
