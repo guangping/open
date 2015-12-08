@@ -2,12 +2,13 @@ package com.varela.wechat.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.varela.enumerate.APIMsg;
+import com.varela.pojo.APIResult;
+import com.varela.utils.http.HttpClientUtils;
+import com.varela.utils.http.HttpResponse;
 import com.varela.utils.properties.ResourceUtils;
 import com.varela.wechat.pojo.*;
-import com.varela.wechat.util.ParamCheckUtil;
-import com.varela.wechat.util.SignUtil;
-import com.varela.wechat.util.WeChatConstKey;
-import com.varela.wechat.util.XStreamUtil;
+import com.varela.wechat.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
+import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -34,6 +38,98 @@ public class WeChatService {
 
     @Autowired
     private HttpWeChatUtils httpWeChatUtils;
+
+
+    /**
+     * 生成加密参数
+     */
+    public TreeMap<String, String> getPaySignParam(String prepayId) {
+        String pack = "prepay_id=" + prepayId;
+        String timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
+        String nonceStr = RandomUtil.getRandomStr();
+
+        TreeMap<String, String> params = new TreeMap<String, String>();
+        params.put("appId", this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_PUBLIC_APPID));
+        params.put("timeStamp", timeStamp);
+        params.put("nonceStr", nonceStr);
+        params.put("package", pack);
+        params.put("signType", WeChatConstKey.MD5);
+
+        return params;
+    }
+
+    /**
+     * 微信支付加密请求参数,返回paySign
+     *
+     * @param map
+     * @return
+     */
+    public String encrpty(TreeMap<String, String> map) throws Exception {
+        Set<Map.Entry<String, String>> entrySet = map.entrySet();
+        StringBuffer sb = new StringBuffer();
+        for (Map.Entry<String, String> entry : entrySet) {
+            String key = entry.getKey();
+            String val = entry.getValue();
+            sb.append(key).append("=").append(val).append("&");
+        }
+        String secret = this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_PUBLIC_API_SECRET);
+        sb.append("key=").append(secret);
+
+        logger.info("微信支付请求参数:{}", sb.toString());
+        String sign = MD5Util.MD5Encode(sb.toString()).toUpperCase();
+        logger.info("微信支付paySign签名:{}", sign);
+
+        return sign;
+    }
+
+
+    /**
+     * 生成微信授权地址
+     * redirect_uri 回掉地址
+     */
+    public String getWechatAuth(String no) {
+        StringBuffer buffer = new StringBuffer(300);
+        buffer.append(this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_AUTHORIZE));
+        buffer.append("appid=" + this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_PUBLIC_APPID));
+        buffer.append("&redirect_uri=");
+        buffer.append(MessageFormat.format(this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_REDIRECT_URL), no));
+        buffer.append("&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+
+        return buffer.toString();
+    }
+
+    /**
+     * 用户授权之后,微信服务器返回的用户标识,用户获取用户openid
+     *
+     * @param code 用户授权之后返回的code值
+     */
+    public APIResult getAuthAccessToken(String code) {
+        APIResult apiResult = new APIResult();
+
+        String url = this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_AUTH);
+        String appid = this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_PUBLIC_APPID);
+        String secret = this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_PUBLIC_SECRET);
+        String grant_type = WeChatConstKey.WX_GRANT_TYPE;
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(url).append("appid=").append(appid);
+        sb.append("&secret=").append(secret);
+        sb.append("&code=").append(code);
+        sb.append("&grant_type=").append(grant_type);
+
+        logger.info("微信获取网页授权信息URL:｛｝", url);
+        HttpResponse post = HttpClientUtils.postForm(sb.toString(), "");
+        logger.info("微信获取网页授权信息,请求返回报文:{}", post.getResult());
+
+        if (post.isSuccess()) {
+            JSONObject jo = JSONObject.parseObject(post.getResult());
+            apiResult.setResult(jo.getString("openid"));
+            apiResult.setMsg(APIMsg.Success);
+            return apiResult;
+        }
+        apiResult.setMsg(APIMsg.ERROR);
+        return apiResult;
+    }
 
     /**
      * 获取token

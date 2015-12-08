@@ -34,6 +34,12 @@ public class WeChatConstKey {
 
     public static final String WECHAT_NOTIFY_URL = "wechat.notify.url";
 
+    public static final String WECHAT_AUTHORIZE="wechat.authorize";
+
+    public static final String WECHAT_AUTH = "wechat.auth";//微信获取用户网页授权下单
+
+    public static final String WECHAT_REDIRECT_URL="wechat.redirect.url";
+
     public static final String SUCCESS = "SUCCESS";
 
     public static final String FAIL = "FAIL";
@@ -50,5 +56,12 @@ public class WeChatConstKey {
     public static final String TRADE_TYPE_NATIVE = "NATIVE";
 
     public static final String TRADE_TYPE_APP = "APP";
+
+    //用户取消授权
+    public static final String AUTHDENY = "authdeny";
+
+    public static final String WX_GRANT_TYPE = "authorization_code";// 微信授权相关类型
+
+    public static final String MD5 = "MD5";
 
 }
