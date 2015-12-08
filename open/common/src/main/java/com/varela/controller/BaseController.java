@@ -19,15 +19,16 @@ public class BaseController {
     protected HttpServletRequest request;
     protected HttpServletResponse response;
     protected HttpSession session;
-    private String bestMatchingPattern;//映射实际地址
+/*    protected String bestMatchingPattern;//映射实际地址
+    bestMatchingPattern = String.valueOf(request
+            .getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE));*/
 
     @ModelAttribute
     public void setReqAndRes(HttpServletRequest request, HttpServletResponse response) {
         this.request = request;
         this.response = response;
         this.session = request.getSession();
-        bestMatchingPattern = String.valueOf(request
-                .getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE));
+
     }
 
 }
