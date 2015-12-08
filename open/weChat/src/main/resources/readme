@@ -1,0 +1,23 @@
+	/*
+		1) 引入constants.js文件,
+		   微信支付所需要的脚本文件:
+<script type="text/javascript" charset="UTF-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+		2) 校验是否为微信浏览器,如果不是微信内置浏览器,则不能使用jsapi微信支付;
+		3) 跳转到获取用户网页授权的信息页面,获取到用户授权访问到基本信息(如: 用户账号唯一openid, 头像信息等);
+
+		4) 微信网页授权之后,重定向到配置的redirect_uri,从跳转回来的URL携带的参数信息(state,code参数)查看用户授权;
+		5) 从后台获取微信 预支付id ----> prepayId;
+		6) 从后台加密支付请求数据,返回paySign;// 为保证数据安全性,appSercret 配置在后台,所以加密需要在后台
+		7) 准备参数,调用JSAPI微信支付;
+	*/
+支付流程
+1.生成授权链接,进行授权
+2.授权成功返回,根据code值获取openId,在调用统一下单获取预支付prepayId
+3.生成加密参数,加密串
+4.页面调用 com.varela.wechat.view.WeChatController
+
+
+
+注意点:
+1.授权回调地址需加入  微信公众平台===》开发者中心===》 	网页授权获取用户基本信息
+2.支付授权目录  微信公众平台====》微信支付=====》开发配置
