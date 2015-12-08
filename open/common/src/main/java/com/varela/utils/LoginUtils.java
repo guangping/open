@@ -92,5 +92,13 @@ public class LoginUtils {
         response.addCookie(cookie);
     }
 
+    public static void addCookie(String name,
+                                 String value) {
+        HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+    }
+
 
 }
