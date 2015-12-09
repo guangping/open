@@ -86,6 +86,7 @@ public class WeChatService {
     /**
      * 生成微信授权地址
      * redirect_uri 回掉地址
+     * scope根据需要进行调整
      */
     public String getWechatAuth(String no) {
         StringBuffer buffer = new StringBuffer(300);
@@ -93,7 +94,8 @@ public class WeChatService {
         buffer.append("appid=" + this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_PUBLIC_APPID));
         buffer.append("&redirect_uri=");
         buffer.append(MessageFormat.format(this.resourceUtils.getStringValue(WeChatConstKey.WECHAT_REDIRECT_URL), no));
-        buffer.append("&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect");
+        buffer.append("&response_type=code&scope="+WeChatConstKey.SNSAPI_USERINFO);
+        buffer.append("&state=STATE#wechat_redirect");
 
         return buffer.toString();
     }
