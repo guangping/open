@@ -18,6 +18,8 @@
         <module>admin</module>
         <module>lock</module>
         <module>drools</module>
+        <module>api</module>
+        <module>mongodb</module>
     </modules>
     <packaging>pom</packaging>
 
