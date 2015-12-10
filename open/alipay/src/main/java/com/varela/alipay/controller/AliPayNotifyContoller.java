@@ -47,7 +47,7 @@ public class AliPayNotifyContoller extends BaseController {
             //支付金额
             double price = Double.valueOf(params.get("price"));
             //错误编码
-            String errorCode=params.get("error_code");
+            String errorCode = params.get("error_code");
 
             if (tradeStatus.equals(AlipayConfig.TradeStatus.TRADE_SUCCESS)) {
 

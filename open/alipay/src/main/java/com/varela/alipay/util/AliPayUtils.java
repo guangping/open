@@ -6,7 +6,6 @@ import com.varela.alipay.pojo.AliRefund;
 import com.varela.alipay.sign.MD5;
 import com.varela.utils.NumberFormat;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
 import java.util.HashMap;
@@ -97,7 +96,7 @@ public class AliPayUtils {
      * 退款链接
      */
     public static String refund(AliRefund aliRefund) {
-        FastDateFormat format=FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
+        FastDateFormat format = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
         String tradeNo = aliRefund.getTradeNo();
         double price = aliRefund.getPrice();
