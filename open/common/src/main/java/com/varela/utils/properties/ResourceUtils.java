@@ -1,5 +1,6 @@
 package com.varela.utils.properties;
 
+import com.varela.utils.StringCommonUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -39,27 +40,27 @@ public class ResourceUtils {
 
 
     public String getStringValue(String key) {
-        return this.map.get(key);
+        return StringCommonUtils.getSafeString(this.map.get(key));
     }
 
     public int getIntValue(String key) {
         String rval = this.map.get(key);
-        return (StringUtils.isNotBlank(rval)) ? Integer.valueOf(rval) : 0;
+        return StringCommonUtils.getSafeInt(rval);
     }
 
     public long getLongValue(String key) {
         String rval = this.map.get(key);
-        return (StringUtils.isNotBlank(rval)) ? Long.valueOf(rval) : 0;
+        return StringCommonUtils.getSafeLong(rval);
     }
 
     public double getDoubleValue(String key) {
         String rval = this.map.get(key);
-        return (StringUtils.isNotBlank(rval)) ? Double.valueOf(rval) : 0;
+        return StringCommonUtils.getSafeDouble(rval);
     }
 
     public float getFloatValue(String key) {
         String rval = this.map.get(key);
-        return (StringUtils.isNotBlank(rval)) ? Float.valueOf(rval) : 0;
+        return StringCommonUtils.getSafeFloat(rval);
     }
 
     public boolean getBooleanValue(String key) {
