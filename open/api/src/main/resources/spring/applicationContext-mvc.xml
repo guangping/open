@@ -38,20 +38,18 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-        <mvc:interceptors>
-            <mvc:interceptor>
-                <mvc:mapping path="/api/**"/>
-                <bean class="com.api.interceptors.AuthInterceptor"/>
-            </mvc:interceptor>
-
-        </mvc:interceptors>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/api/**"/>
+            <bean class="com.api.interceptors.AuthInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
         <property name="viewClass"
                   value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="order" value="1"/>
     </bean>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
