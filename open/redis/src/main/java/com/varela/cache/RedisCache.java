@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -33,6 +34,18 @@ public class RedisCache {
     public boolean set(String key, String value) {
         redisTemplate.opsForValue().set(key, value);
         return true;
+    }
+
+    public boolean setNx(String key, String value) {
+        final RedisSerializer<String> serializer = this.redisTemplate.getStringSerializer();
+        Boolean sign = (Boolean) this.redisTemplate.execute(new RedisCallback<Boolean>() {
+            @Override
+            public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
+                boolean val = redisConnection.setNX(serializer.serialize(key), serializer.serialize(value));
+                return val;
+            }
+        });
+        return sign;
     }
 
 
@@ -138,6 +151,15 @@ public class RedisCache {
     public List<String> keys(String key) {
         Set<String> set = redisTemplate.keys(key + "*");
         return new ArrayList<String>(set);
+    }
+
+    public long setSet(String key, long seconds, String... values) {
+        redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+        return redisTemplate.opsForSet().add(key, values);
+    }
+
+    public Set<String> getSet(String key) {
+        return redisTemplate.opsForSet().members(key);
     }
 
 }
