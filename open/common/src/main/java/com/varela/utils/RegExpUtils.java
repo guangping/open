@@ -111,12 +111,15 @@ public class RegExpUtils {
     /*
     * 手机正则
     * */
-    public static final String PHONE_PATTERN = "^(13[0-9]|14[0-9]|15[0-9]|18[0-9]|17[0-9])\\d{8}$";
+    public static final String MOBILE_PATTERN = "^(13[0-9]|14[0-9]|15[0-9]|18[0-9]|17[0-9])\\d{8}$";
+
+    public static final String MOBILE="^1\\d{10}$";
 
     /*
     * 密码格式规则
     * */
     public static final String PASSWD = "^[\\u4E00-\\u9FA5\\uf900-\\ufa2d\\w\\.\\?\\_\\s]{6,18}$";
+
 
 
     /*
