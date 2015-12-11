@@ -1,9 +1,13 @@
 package com.api.view;
 
+import com.api.pojo.User;
 import com.varela.enumerate.APIMsg;
 import com.varela.pojo.APIResult;
+import com.varela.utils.ValidatorResult;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,5 +33,13 @@ public class ApiSessionController extends ApiController {
         return apiResult;
     }
 
+
+    @ResponseBody
+    @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
+    public Object user(@Validated User user, BindingResult bindingResult) {
+        APIResult apiResult = ValidatorResult.handle(bindingResult);
+      
+        return apiResult;
+    }
 
 }
