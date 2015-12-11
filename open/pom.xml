@@ -28,12 +28,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.1.7.RELEASE</spring.version>
+        <spring.version>4.1.8.RELEASE</spring.version>
         <slf4j.version>1.7.5</slf4j.version>
         <druid.version>1.0.15</druid.version>
         <fastjson.version>1.2.6</fastjson.version>
         <jackson.version>1.9.13</jackson.version>
-        <hibernate.validator.version>5.2.1.Final</hibernate.validator.version>
+        <hibernate.validator.version>5.2.2.Final</hibernate.validator.version>
         <jetty.version>6.1.25</jetty.version>
         <mybatis.version>3.3.0</mybatis.version>
         <mybatis-spring.version>1.2.2</mybatis-spring.version>
