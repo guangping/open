@@ -19,6 +19,17 @@ public class AliPay implements Serializable {
 
     private String subject;// 订单描述
 
+    //TODO 支付超时
+    private int payTimeOut = 15 * 24 * 60;
+
+    public int getPayTimeOut() {
+        return payTimeOut;
+    }
+
+    public void setPayTimeOut(int payTimeOut) {
+        this.payTimeOut = payTimeOut;
+    }
+
     public String getSubject() {
         return subject;
     }

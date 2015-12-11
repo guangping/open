@@ -76,7 +76,7 @@ public class AliPayUtils {
         params.put("out_trade_no", mobilePay.getOutTradeNo());
         params.put("subject", mobilePay.getSubject());
         params.put("total_fee", NumberFormat.decimalFormat(mobilePay.getPrice()));//交易金额
-
+        params.put("it_b_pay",mobilePay.getPayTimeOut()+"m");
         Map<String, String> sPara = AlipayCore.paraFilter(params);
         String content = AlipayCore.createLinkString(sPara);
 
