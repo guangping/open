@@ -11,9 +11,10 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 
-    @Pattern(regexp = "^1\\d{10}$", message = "{message.content.mobile}")
+    @Pattern(regexp = "^1\\d{10}$", message = "{message.content.pattern}")
     private String mobile;
 
+    @NotEmpty(message="参数{0}不能为空")
     private String email;
 
 
