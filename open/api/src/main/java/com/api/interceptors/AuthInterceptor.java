@@ -3,9 +3,14 @@ package com.api.interceptors;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.api.pojo.APIKey;
-import com.varela.utils.WebUtils;
+import com.api.security.DefaultAppSecretManager;
+import com.varela.enumerate.APIMsg;
+import com.varela.pojo.APIResult;
+import com.varela.utils.StringCommonUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +30,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     private NamedThreadLocal<Long> startTimeThreadLocal =
             new NamedThreadLocal<Long>("StopWatch-StartTime");
 
+    @Autowired
+    private DefaultAppSecretManager appSecretManager;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //TODO 开始时间
@@ -36,6 +44,14 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (null != object) {
             logger.info("请求路径:{}", object);
         }
+        //TODO 请求验证
+        APIResult apiResult = this.getValidateParams(request);
+        if (!apiResult.isSuccess()) {
+            this.writeJson(apiResult, response);
+            return false;
+        }
+
+
         //相关验证处理
         return super.preHandle(request, response, handler);
     }
@@ -67,16 +83,32 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     /**
      * 获取验证参数
      */
-    public void getValidateParams(HttpServletRequest request) {
-        String appKey = WebUtils.getParams(request, APIKey.ValidateKey.APPKEY, "");
-        String sign = WebUtils.getParams(request, APIKey.ValidateKey.SIGN, "");
-        String timestamp = WebUtils.getParams(request, APIKey.ValidateKey.TIMESTAMP, "");
+    public APIResult getValidateParams(HttpServletRequest request) {
+        APIResult apiResult = new APIResult();
+        String appKey = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.APPKEY));
+        String sign = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.SIGN));
+        long timestamp = StringCommonUtils.getSafeLong(request.getParameter(APIKey.ValidateKey.TIMESTAMP));
         Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
         if (null != object) {
             String method = object.toString();
         }
+        if (StringUtils.isBlank(appKey)) {
+            apiResult.setMsg(APIMsg.APPKEY_IS_NULL);
+            return apiResult;
+        }
+        if (this.appSecretManager.isValidAppKey(appKey)) {
+            apiResult.setMsg(APIMsg.APPKEY_NOT_EXISTS);
+            return apiResult;
+        }
+        long dValue = System.currentTimeMillis()/1000 - timestamp;
+        if(dValue>600 || dValue<-600){
+            apiResult.setMsg(APIMsg.APPKEY_NOT_EXISTS);
+            return apiResult;
+        }
 
 
+        apiResult.setMsg(APIMsg.Success);
+        return apiResult;
     }
 
     /**
