@@ -1,5 +1,9 @@
 package com.api.interceptors;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.api.pojo.APIKey;
+import com.varela.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.NamedThreadLocal;
@@ -9,6 +13,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by lance on 12/8/2015.
@@ -32,8 +37,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             logger.info("请求路径:{}", object);
         }
         //相关验证处理
-
-
         return super.preHandle(request, response, handler);
     }
 
@@ -55,7 +58,37 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             //TODO 记录到日志文件
             logger.error("{}耗时:{} ms", request.getRequestURI(), consumeTime);
         }
+
+
         super.afterCompletion(request, response, handler, ex);
     }
-    
+
+
+    /**
+     * 获取验证参数
+     */
+    public void getValidateParams(HttpServletRequest request) {
+        String appKey = WebUtils.getParams(request, APIKey.ValidateKey.APPKEY, "");
+        String sign = WebUtils.getParams(request, APIKey.ValidateKey.SIGN, "");
+        String timestamp = WebUtils.getParams(request, APIKey.ValidateKey.TIMESTAMP, "");
+        Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
+        if (null != object) {
+            String method = object.toString();
+        }
+
+
+    }
+
+    /**
+     * 拦截器中返回json数据
+     */
+    public void writeJson(String json, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(json);
+    }
+
+    public void writeJson(Object obj, HttpServletResponse response) throws IOException {
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullBooleanAsFalse));
+    }
 }
