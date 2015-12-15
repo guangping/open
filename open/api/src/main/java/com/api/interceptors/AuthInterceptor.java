@@ -35,7 +35,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         long beginTime = System.currentTimeMillis();
         startTimeThreadLocal.set(beginTime);
 
-        //获取路径
+        //获取映射路径
         Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
         if (null != object) {
             logger.info("请求路径:{}", object);

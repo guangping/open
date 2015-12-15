@@ -30,11 +30,15 @@ public class DefaultSecurityManager implements SecurityManager {
             apiResult.setMsg(APIMsg.SIGN_IS_NULL);
             return apiResult;
         }
-        String method = object.toString();
+        String method = null;
+        if(null!=object){
+            method=object.toString();
+        }
         if (StringUtils.isBlank(appKey)) {
             apiResult.setMsg(APIMsg.APPKEY_IS_NULL);
             return apiResult;
         }
+        //检查appKey是否存在
         if (this.appSecretManager.isValidAppKey(appKey)) {
             apiResult.setMsg(APIMsg.APPKEY_NOT_EXISTS);
             return apiResult;
@@ -53,6 +57,10 @@ public class DefaultSecurityManager implements SecurityManager {
         }
 
         //检查方法调用权限
+        if(!this.checkMethod(appKey,method)){
+            apiResult.setMsg(APIMsg.NOT_UNAUTHORIZED);
+            return apiResult;
+        }
 
 
         //检查方法调用次数
@@ -63,6 +71,10 @@ public class DefaultSecurityManager implements SecurityManager {
     }
 
     private boolean checkSign(String appKey, long timestamp, String method, String sign) {
+        return true;
+    }
+
+    private boolean checkMethod(String appKey,String method){
         return true;
     }
 
