@@ -18,7 +18,7 @@ public enum APIMsg {
     APPKEY_NOT_EXISTS(101, "appKey不存在!"),
     SIGN_IS_NULL(102, "签名为空!"),
     SIGN_ERROR(103, "签名错误!"),
-    NOT_UNAUTHORIZED(104, "没有相应权限!"),
+    NOT_UNAUTHORIZED(104, "没有权限!"),
     OVERRUN(105, "调用次数超限!"),
     VALID_TIME(106, "请求时间戳不在有效期内!"),
 
