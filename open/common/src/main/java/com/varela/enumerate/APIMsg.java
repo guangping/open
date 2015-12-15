@@ -20,7 +20,7 @@ public enum APIMsg {
     SIGN_ERROR(103, "签名错误!"),
     NOT_UNAUTHORIZED(104, "没有相应权限!"),
     OVERRUN(105, "调用次数超限!"),
-    VALID_TIME(106, "有效期错误!"),
+    VALID_TIME(106, "请求时间戳不在有效期内!"),
 
 
     ERROR(9999, "未知错误!");
