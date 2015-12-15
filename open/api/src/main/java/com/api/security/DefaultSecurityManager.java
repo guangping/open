@@ -30,6 +30,7 @@ public class DefaultSecurityManager implements SecurityManager {
             apiResult.setMsg(APIMsg.SIGN_IS_NULL);
             return apiResult;
         }
+        String method = object.toString();
         if (StringUtils.isBlank(appKey)) {
             apiResult.setMsg(APIMsg.APPKEY_IS_NULL);
             return apiResult;
@@ -45,19 +46,26 @@ public class DefaultSecurityManager implements SecurityManager {
         }
 
         //检查签名
-        boolean checkSign=this.checkSign();
-        if(!checkSign){
+        boolean checkSign = this.checkSign(appKey, timestamp, method, sign);
+        if (!checkSign) {
             apiResult.setMsg(APIMsg.SIGN_ERROR);
             return apiResult;
         }
+
+        //检查方法调用权限
+
+
+        //检查方法调用次数
 
 
         apiResult.setMsg(APIMsg.Success);
         return apiResult;
     }
 
-    private boolean checkSign(){
+    private boolean checkSign(String appKey, long timestamp, String method, String sign) {
         return true;
     }
+
+
 
 }
