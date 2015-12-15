@@ -185,4 +185,8 @@ public class WebUtils {
                 ? request.getParameter(key) : defaultValue;
     }
 
+    public static long getParams(HttpServletRequest request, String key) {
+        return StringCommonUtils.getSafeLong(request.getParameter(key));
+    }
+
 }

@@ -12,6 +12,9 @@ public enum APIMsg {
     PARAM_LENGTH_ERROR(4, "参数{0}长度错误!"),
     PARAM_ERROR(5, "参数{0}错误!"),
     PARAM_NOT_EXIST(6, "参数{0}不存在!"),
+    APPKEY_IS_NULL(100, "appKey为空!"),
+    APPKEY_NOT_EXISTS(101, "appKey不存在!"),
+
     ERROR(9999, "未知错误!");
 
 

@@ -14,12 +14,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created with IntelliJ IDEA.
- * User: lance
- * Date: 2014-12-12 11:22
- * To change this template use File | Settings | File Templates.
- * <p>
  * 登陆辅助
+ * 线程安全
  */
 public class LoginUtils {
     private Logger logger = LoggerFactory.getLogger(getClass());
