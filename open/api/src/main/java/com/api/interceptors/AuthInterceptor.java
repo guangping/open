@@ -2,12 +2,8 @@ package com.api.interceptors;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.api.pojo.APIKey;
-import com.api.security.DefaultAppSecretManager;
-import com.varela.enumerate.APIMsg;
+import com.api.security.DefaultSecurityManager;
 import com.varela.pojo.APIResult;
-import com.varela.utils.StringCommonUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +27,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             new NamedThreadLocal<Long>("StopWatch-StartTime");
 
     @Autowired
-    private DefaultAppSecretManager appSecretManager;
+    private DefaultSecurityManager securityManager;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -45,7 +41,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             logger.info("请求路径:{}", object);
         }
         //TODO 请求验证
-        APIResult apiResult = this.getValidateParams(request);
+        APIResult apiResult = this.securityManager.validateParams(request);
         if (!apiResult.isSuccess()) {
             this.writeJson(apiResult, response);
             return false;
@@ -79,37 +75,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         super.afterCompletion(request, response, handler, ex);
     }
 
-
-    /**
-     * 获取验证参数
-     */
-    public APIResult getValidateParams(HttpServletRequest request) {
-        APIResult apiResult = new APIResult();
-        String appKey = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.APPKEY));
-        String sign = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.SIGN));
-        long timestamp = StringCommonUtils.getSafeLong(request.getParameter(APIKey.ValidateKey.TIMESTAMP));
-        Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
-        if (null != object) {
-            String method = object.toString();
-        }
-        if (StringUtils.isBlank(appKey)) {
-            apiResult.setMsg(APIMsg.APPKEY_IS_NULL);
-            return apiResult;
-        }
-        if (this.appSecretManager.isValidAppKey(appKey)) {
-            apiResult.setMsg(APIMsg.APPKEY_NOT_EXISTS);
-            return apiResult;
-        }
-        long dValue = System.currentTimeMillis()/1000 - timestamp;
-        if(dValue>600 || dValue<-600){
-            apiResult.setMsg(APIMsg.APPKEY_NOT_EXISTS);
-            return apiResult;
-        }
-
-
-        apiResult.setMsg(APIMsg.Success);
-        return apiResult;
-    }
 
     /**
      * 拦截器中返回json数据

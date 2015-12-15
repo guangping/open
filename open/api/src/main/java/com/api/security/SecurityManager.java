@@ -1,7 +1,13 @@
 package com.api.security;
 
+import com.varela.pojo.APIResult;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
- * Created by lance on 12/15/2015.
+ * 负责对请求数据、会话、业务安全、应用密钥安全进行检查并返回相应的错误
  */
-public class SecurityManager {
+public interface SecurityManager {
+
+    APIResult validateParams(HttpServletRequest request);
 }
