@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.TreeMap;
 
 /**
  * Created by lance on 12/15/2015.
@@ -31,8 +32,8 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
         String method = null;
-        if(null!=object){
-            method=object.toString();
+        if (null != object) {
+            method = object.toString();
         }
         if (StringUtils.isBlank(appKey)) {
             apiResult.setMsg(APIMsg.APPKEY_IS_NULL);
@@ -57,7 +58,7 @@ public class DefaultSecurityManager implements SecurityManager {
         }
 
         //检查方法调用权限
-        if(!this.checkMethod(appKey,method)){
+        if (!this.checkMethod(appKey, method)) {
             apiResult.setMsg(APIMsg.NOT_UNAUTHORIZED);
             return apiResult;
         }
@@ -71,13 +72,18 @@ public class DefaultSecurityManager implements SecurityManager {
     }
 
     private boolean checkSign(String appKey, long timestamp, String method, String sign) {
+        TreeMap<String, String> params = new TreeMap<String, String>();
+        params.put(APIKey.ValidateKey.APPKEY, appKey);
+        params.put(APIKey.ValidateKey.TIMESTAMP, String.valueOf(timestamp));
+        params.put(APIKey.ValidateKey.METHOD, method);
+
+
         return true;
     }
 
-    private boolean checkMethod(String appKey,String method){
+    private boolean checkMethod(String appKey, String method) {
         return true;
     }
-
 
 
 }
