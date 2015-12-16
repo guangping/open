@@ -43,12 +43,7 @@ public class LogAspect {
         recordLog.setUserName("");
         recordLog.setEvent(explain.getEvent());
 
-        /**
-         * 根据获取的参数类型,对参数进行处理
-         * */
-        System.out.println(methodName + "," + packages + "," + args + ",描述信息:" + explain);
-
-        logger.info(methodName + "," + packages + "," + args);
+        logger.info("方法:{},包:{},参数:{},描述信息:{}", methodName, packages, args, explain);
 
         return point.proceed();
     }
@@ -80,19 +75,6 @@ public class LogAspect {
             }
         }
         return operation;
-    }
-
-
-    @Before("pointCut()")
-    public void before() throws Throwable {
-        System.out.println("before");
-        logger.info("before");
-    }
-
-    @After("pointCut()")
-    public void ater() throws Throwable {
-        System.out.println("after");
-        logger.info("after");
     }
 
 }
