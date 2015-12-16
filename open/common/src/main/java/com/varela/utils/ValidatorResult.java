@@ -1,6 +1,6 @@
 package com.varela.utils;
 
-import com.varela.enumerate.APIMsg;
+import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -27,7 +27,7 @@ public class ValidatorResult {
             }
             apiResult.setMessage(MessageFormat.format(oe.getDefaultMessage(), fieldName));
         } else {
-            apiResult.setMsg(APIMsg.Success);
+            apiResult.setMsg(Msg.Success);
         }
         return apiResult;
     }

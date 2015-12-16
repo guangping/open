@@ -3,7 +3,7 @@ package com.varela.enumerate;
 /**
  * Created by lance on 12/3/2015.
  */
-public enum APIMsg {
+public enum Msg {
 
     Success(0, "成功"),
     PARAM_IS_EMPTY(1, "参数{0}为空!"),
@@ -39,7 +39,7 @@ public enum APIMsg {
     }
 
 
-    APIMsg(int code, String msg) {
+    Msg(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
