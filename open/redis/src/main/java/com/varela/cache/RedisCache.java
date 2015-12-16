@@ -36,6 +36,9 @@ public class RedisCache {
         return true;
     }
 
+    /**
+     * 存在返回false,否则返回true
+     */
     public boolean setNx(String key, String value) {
         final RedisSerializer<String> serializer = this.redisTemplate.getStringSerializer();
         Boolean sign = (Boolean) this.redisTemplate.execute(new RedisCallback<Boolean>() {
