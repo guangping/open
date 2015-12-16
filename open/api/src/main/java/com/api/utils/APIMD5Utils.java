@@ -51,6 +51,18 @@ public class APIMD5Utils {
     }
 
     /**
+     * 签名字符串
+     *
+     * @param text 需要签名的字符串
+     * @return 签名结果
+     */
+    public static String sign(String text) {
+        StringBuffer buffer = new StringBuffer(200);
+        buffer.append(text);
+        return DigestUtils.md5Hex(getContentBytes(buffer.toString(), input_charset));
+    }
+
+    /**
      * @param content
      * @param charset
      * @return
