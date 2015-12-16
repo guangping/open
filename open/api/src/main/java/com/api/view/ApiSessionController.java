@@ -1,7 +1,7 @@
 package com.api.view;
 
 import com.api.pojo.User;
-import com.varela.enumerate.APIMsg;
+import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.ValidatorResult;
 import org.springframework.context.annotation.Scope;
@@ -29,7 +29,7 @@ public class ApiSessionController extends ApiController {
     public Object getSession() {
         APIResult apiResult = new APIResult();
         apiResult.setResult(UUID.randomUUID());
-        apiResult.setMsg(APIMsg.Success);
+        apiResult.setMsg(Msg.Success);
         return apiResult;
     }
 

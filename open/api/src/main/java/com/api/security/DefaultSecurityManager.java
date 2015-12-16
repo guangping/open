@@ -2,7 +2,7 @@ package com.api.security;
 
 import com.api.pojo.APIKey;
 import com.api.utils.APIMD5Utils;
-import com.varela.enumerate.APIMsg;
+import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.StringCommonUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +29,7 @@ public class DefaultSecurityManager implements SecurityManager {
         long timestamp = StringCommonUtils.getSafeLong(request.getParameter(APIKey.ValidateKey.TIMESTAMP));
         Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
         if (StringUtils.isBlank(sign)) {
-            apiResult.setMsg(APIMsg.SIGN_IS_NULL);
+            apiResult.setMsg(Msg.SIGN_IS_NULL);
             return apiResult;
         }
         String method = null;
@@ -37,30 +37,31 @@ public class DefaultSecurityManager implements SecurityManager {
             method = object.toString();
         }
         if (StringUtils.isBlank(appKey)) {
-            apiResult.setMsg(APIMsg.APPKEY_IS_NULL);
+            apiResult.setMsg(Msg.APPKEY_IS_NULL);
             return apiResult;
         }
         //检查appKey是否存在
-        if (this.appSecretManager.isValidAppKey(appKey)) {
-            apiResult.setMsg(APIMsg.APPKEY_NOT_EXISTS);
+        boolean appKeySign=this.appSecretManager.isValidAppKey(appKey);
+        if (!appKeySign) {
+            apiResult.setMsg(Msg.APPKEY_NOT_EXISTS);
             return apiResult;
         }
         long dValue = System.currentTimeMillis() / 1000 - timestamp;
         if (dValue > 600 || dValue < -600) {
-            apiResult.setMsg(APIMsg.VALID_TIME);
+            apiResult.setMsg(Msg.VALID_TIME);
             return apiResult;
         }
 
         //检查签名
         boolean checkSign = this.checkSign(appKey, timestamp, method, sign);
         if (!checkSign) {
-            apiResult.setMsg(APIMsg.SIGN_ERROR);
+            apiResult.setMsg(Msg.SIGN_ERROR);
             return apiResult;
         }
 
         //检查方法调用权限
         if (!this.checkMethod(appKey, method)) {
-            apiResult.setMsg(APIMsg.NOT_UNAUTHORIZED);
+            apiResult.setMsg(Msg.NOT_UNAUTHORIZED);
             return apiResult;
         }
 
@@ -68,7 +69,7 @@ public class DefaultSecurityManager implements SecurityManager {
         //检查方法调用次数
 
 
-        apiResult.setMsg(APIMsg.Success);
+        apiResult.setMsg(Msg.Success);
         return apiResult;
     }
 
