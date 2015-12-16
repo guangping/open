@@ -5,6 +5,12 @@ package com.api.pojo;
  */
 public class APIKey {
 
+    public static class ContentType {
+        public static final String CONTENT_TYPE="Content-Type";
+        public static final String X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded;charset=utf-8";
+        public static final String JSON = "application/json;charset=UTF-8";
+    }
+
 
     /**
      * 验证参数key
@@ -21,7 +27,5 @@ public class APIKey {
         public static final String TIMESTAMP = "timestamp";
         //TODO 方法名
         public static final String METHOD = "method";
-
-
     }
 }

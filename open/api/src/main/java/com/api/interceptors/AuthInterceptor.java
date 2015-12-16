@@ -2,8 +2,12 @@ package com.api.interceptors;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.api.pojo.APIKey;
 import com.api.security.DefaultSecurityManager;
+import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
+import com.varela.utils.WebUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by lance on 12/8/2015.
@@ -40,14 +45,22 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (null != object) {
             logger.info("请求路径:{}", object);
         }
+
+        String contentype = request.getHeader(APIKey.ContentType.CONTENT_TYPE);
+        if (StringUtils.isBlank(contentype) || !contentype.equals(APIKey.ContentType.X_WWW_FORM_URLENCODED)) {
+            APIResult apiResult = new APIResult();
+            apiResult.setMsg(Msg.CONTENT_TYPE_ERROR);
+            this.writeJson(apiResult, response);
+            return false;
+        }
+
+
         //TODO 请求验证
         APIResult apiResult = this.securityManager.validateParams(request);
         if (!apiResult.isSuccess()) {
             this.writeJson(apiResult, response);
             return false;
         }
-
-
         //相关验证处理
         return super.preHandle(request, response, handler);
     }
@@ -70,6 +83,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             //TODO 记录到日志文件
             logger.error("{}耗时:{} ms", request.getRequestURI(), consumeTime);
         }
+
+        Map<String, String> params = WebUtils.getParams(request);
+        logger.info("请求参数:{},响应参数:{}", JSONObject.toJSONString(params));
 
 
         super.afterCompletion(request, response, handler, ex);
