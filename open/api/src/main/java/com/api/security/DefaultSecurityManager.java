@@ -1,6 +1,7 @@
 package com.api.security;
 
 import com.api.pojo.APIKey;
+import com.api.utils.APIMD5Utils;
 import com.varela.enumerate.APIMsg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.StringCommonUtils;
@@ -77,8 +78,13 @@ public class DefaultSecurityManager implements SecurityManager {
         params.put(APIKey.ValidateKey.TIMESTAMP, String.valueOf(timestamp));
         params.put(APIKey.ValidateKey.METHOD, method);
 
+        String key = this.appSecretManager.getSecret(appKey);
 
-        return true;
+        String val = APIMD5Utils.sign(params, key);
+        if (sign.equals(val)) {
+            return true;
+        }
+        return false;
     }
 
     private boolean checkMethod(String appKey, String method) {
