@@ -2,7 +2,7 @@ package com.varela.wechat.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.varela.enumerate.APIMsg;
+import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.http.HttpClientUtils;
 import com.varela.utils.http.HttpResponse;
@@ -126,10 +126,10 @@ public class WeChatService {
         if (post.isSuccess()) {
             JSONObject jo = JSONObject.parseObject(post.getResult());
             apiResult.setResult(jo.getString("openid"));
-            apiResult.setMsg(APIMsg.Success);
+            apiResult.setMsg(Msg.Success);
             return apiResult;
         }
-        apiResult.setMsg(APIMsg.ERROR);
+        apiResult.setMsg(Msg.ERROR);
         return apiResult;
     }
 
