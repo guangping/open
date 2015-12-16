@@ -23,6 +23,10 @@ public enum Msg {
     VALID_TIME(106, "请求时间戳不在有效期内!"),
 
 
+    //TODO Content-Type 类型错误
+    CONTENT_TYPE_ERROR(200, "Content-Type类型错误!"),
+
+
     ERROR(9999, "未知错误!");
 
 
