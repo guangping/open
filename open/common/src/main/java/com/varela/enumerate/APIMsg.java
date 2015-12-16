@@ -15,7 +15,7 @@ public enum APIMsg {
 
     //TODO 接入相关错误
     APPKEY_IS_NULL(100, "appKey为空!"),
-    APPKEY_NOT_EXISTS(101, "appKey不存在!"),
+    APPKEY_NOT_EXISTS(101, "appKey非法!"),
     SIGN_IS_NULL(102, "签名为空!"),
     SIGN_ERROR(103, "签名错误!"),
     NOT_UNAUTHORIZED(104, "没有权限!"),
