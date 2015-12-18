@@ -28,7 +28,7 @@ public class APIMD5Utils {
                 continue;
             }
             if (StringUtils.isNotBlank(String.valueOf(params.get(obj))) && !String.valueOf(params.get(obj)).equals("null")) {
-                sBuffer.append(obj + "=" + params.get(obj).toString() + "&");
+                sBuffer.append(obj + "=" + String.valueOf(params.get(obj)) + "&");
             }
         }
         return sign(sBuffer.toString(), key);
