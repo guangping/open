@@ -54,4 +54,13 @@ public class HttpResponse implements Serializable {
         this.result = result;
     }
 
+    @Override
+    public String toString() {
+        return "HttpResponse{" +
+                "success=" + success +
+                ", result='" + result + '\'' +
+                ", code=" + code +
+                ", msg='" + msg + '\'' +
+                '}';
+    }
 }

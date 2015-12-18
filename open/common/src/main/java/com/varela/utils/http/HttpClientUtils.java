@@ -33,7 +33,7 @@ public class HttpClientUtils {
     private static final int TIME_OUT = 5000;
     private static final int CONN_REQ_TIME_OUT = 5000;
 
-    private static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset:utf-8;";
+    private static final String CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8;";
 
     private static final String KEEP_ALIVE = "Keep-Alive";
 
@@ -112,12 +112,8 @@ public class HttpClientUtils {
                     .setContentCompressionEnabled(true)
                     .setConnectionRequestTimeout(CONN_REQ_TIME_OUT).build();
             post.setConfig(config);
-            List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-            if (null != params) {
-                for (String key : params.keySet()) {
-                    formparams.add(new BasicNameValuePair(key, params.get(key)));
-                }
-            }
+            List<NameValuePair> formparams = getParams(params);
+
             StringEntity requestEntity = new UrlEncodedFormEntity(formparams, CHARSET);
             post.setEntity(requestEntity);
             logger.info("url:{}", url);
@@ -148,6 +144,16 @@ public class HttpClientUtils {
             }
             return rval;
         }
+    }
+
+    private static List<NameValuePair> getParams(Map<String, String> params) {
+        List<NameValuePair> formparams = new ArrayList();
+        if (null != params && !params.isEmpty()) {
+            for (String key : params.keySet()) {
+                formparams.add(new BasicNameValuePair(key, String.valueOf(params.get(key))));
+            }
+        }
+        return formparams;
     }
 
 
