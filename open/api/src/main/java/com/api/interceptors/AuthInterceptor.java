@@ -41,7 +41,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         logger.info("请求地址:{},请求参数:{}", request.getRequestURI(), JSONObject.toJSONString(request.getParameterMap()));
 
         String contentType = request.getContentType();
-        if (StringUtils.isBlank(contentType) || !contentType.equals(APIKey.ContentType.X_WWW_FORM_URLENCODED)) {
+        if (StringUtils.isBlank(contentType) || !contentType.startsWith(APIKey.ContentType.X_WWW_FORM_URLENCODED)) {
             APIResult apiResult = new APIResult();
             apiResult.setMsg(Msg.CONTENT_TYPE_ERROR);
             this.writeJson(apiResult, response);
