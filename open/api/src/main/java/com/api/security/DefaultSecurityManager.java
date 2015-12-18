@@ -27,6 +27,7 @@ public class DefaultSecurityManager implements SecurityManager {
         String appKey = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.APPKEY));
         String sign = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.SIGN));
         long timestamp = StringCommonUtils.getSafeLong(request.getParameter(APIKey.ValidateKey.TIMESTAMP));
+        //获取springmvc映射地址
         Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
         if (StringUtils.isBlank(sign)) {
             apiResult.setMsg(Msg.SIGN_IS_NULL);
