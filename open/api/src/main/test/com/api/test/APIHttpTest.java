@@ -34,10 +34,10 @@ public class APIHttpTest {
         apiRequest.setTimestamp(System.currentTimeMillis() / 1000);
         apiRequest.setAppKey(appKey);
         apiRequest.setMethod("/api/session/get");
-        String sign = APIMD5Utils.sign(params, secret);
-        apiRequest.setSign(sign);
 
         params = JSONObject.parseObject(JSONObject.toJSONString(apiRequest), TreeMap.class);
+        String sign = APIMD5Utils.sign(params, secret);
+        params.put("sign",sign);
 
         HttpResponse response = HttpClientUtils.postForm(url, params);
         System.out.println(response);
