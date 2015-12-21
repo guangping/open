@@ -13,8 +13,6 @@
     </context:component-scan>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <!--redis session支持-->
-    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
 
     <!-- 属性文件读入 -->
     <bean id="propertyConfigurer"

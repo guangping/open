@@ -75,5 +75,8 @@
     </bean>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
+    <!--redis session支持-->
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>
+
 
 </beans>
