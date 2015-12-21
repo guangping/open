@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="api">
+
+    <resultMap id="resultMap-api" type="API">
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="queryList" parameterType="API" resultMap="resultMap-api">
+        <![CDATA[  select * from sd_open_api ]]>
+        <where>
+            <if test=" method!=null and method!='' ">
+                and method = #{method}
+            </if>
+            <if test=" title!=null and title!='' ">
+                and title = #{title}
+            </if>
+        </where>
+    </select>
+
+    <insert id="save" parameterType="API" keyProperty="id">
+        <![CDATA[
+        INSERT INTO sd_open_api(version,method,title) VALUES(#{version},#{method},#{title});
+        ]]>
+    </insert>
+
+
+</mapper>

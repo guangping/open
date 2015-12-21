@@ -21,11 +21,13 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath*:config/cache.properties</value>
+                <value>classpath:config/cache.properties</value>
+                <value>classpath:config/jdbc.properties</value>
             </list>
         </property>
     </bean>
     <bean class="com.varela.spring.SpringApplicationContext"/>
     <import resource="classpath:spring/applicationContext-redis.xml"/>
+    <import resource="classpath:spring/applicationContext-database.xml"/>
 
 </beans>
