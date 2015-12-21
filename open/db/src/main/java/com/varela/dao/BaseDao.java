@@ -16,4 +16,9 @@ public interface BaseDao<T> {
     T queryObj(T arg);
 
     int update(T arg);
+
+    int delete(long id);
+
+    int delete(T arg);
+
 }

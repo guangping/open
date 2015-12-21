@@ -80,4 +80,14 @@ public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport implements B
     public int update(T arg) {
         return 0;
     }
+
+    @Override
+    public int delete(long id) {
+        return 0;
+    }
+
+    @Override
+    public int delete(T arg) {
+        return 0;
+    }
 }
