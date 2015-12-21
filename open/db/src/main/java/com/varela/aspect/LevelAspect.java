@@ -18,7 +18,7 @@ public class LevelAspect {
 
     private Logger logger = LoggerFactory.getLogger(LevelAspect.class);
 
-    @Pointcut("target(com.varela.service.api.bus.LevelService)")
+   // @Pointcut("target(com.varela.service.api.bus.LevelService)")
     private void pointCut() {
     }
 
@@ -27,7 +27,7 @@ public class LevelAspect {
     }
 
 
-    @Around(" pointCut() && queryById()")
+   // @Around(" pointCut() && queryById()")
     public Object aroundAdviceAll(ProceedingJoinPoint pjp) throws Throwable {
         Object arg = pjp.getArgs().length >= 1 ? pjp.getArgs()[0] : null;
         logger.info("aop拦截!{}", arg);
