@@ -40,7 +40,10 @@ CREATE TABLE developer_api (
   id bigint(20) NOT NULL AUTO_INCREMENT,
   developer_id int(11) NOT NULL,
   api_id int(11) NOT NULL,
-  PRIMARY KEY (id)
+  create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  modify_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY de_app_id (developer_id,api_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

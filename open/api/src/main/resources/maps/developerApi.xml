@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="developerApi">
+<mapper namespace="DeveloperApi">
 
-	<resultMap id="resultMap-developerapi" type="DeveloperApi">
-		<result property="developerId" column="developer_id" />
-		<result property="apiId" column="api_id" />
-	</resultMap>
+    <resultMap id="resultMap-DeveloperApi" type="DeveloperApi">
+        <result property="developerId" column="developer_id"/>
+        <result property="apiId" column="api_id"/>
+    </resultMap>
 
+    <insert id="save" parameterType="DeveloperApi" keyProperty="id">
+		 <![CDATA[
+        	insert into developer_api
+		(developer_id,api_id)
+		values(#{developerId},#{apiId})
+        ]]>
+	</insert>
+
+    <select id="queryList" parameterType="DeveloperApi" resultMap="resultMap-DeveloperApi">
+        <![CDATA[ select * from developer_api ]]>
+        <where>
+            <if test="id != -1">
+                <![CDATA[  and id = #{id} ]]>
+            </if>
+            <if test="developerId != -1">
+                <![CDATA[  and developer_id = #{developerId} ]]>
+            </if>
+            <if test="apiId != -1">
+                <![CDATA[  and api_id = #{apiId} ]]>
+            </if>
+        </where>
+    </select>
 
 
 </mapper>

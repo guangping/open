@@ -7,9 +7,9 @@ import java.io.Serializable;
 @Alias("DeveloperApi")
 public class DeveloperApi implements Serializable {
 
-	private long id;
-	private long developerId;
-	private long apiId;
+	private long id=-1;
+	private long developerId=-1;
+	private long apiId=-1;
 
 	public long getId() {
 		return id;
