@@ -1,8 +1,8 @@
 package com.api.service.api;
 
-import com.varela.dao.api.impl.DeveloperDBService;
-import com.varela.entity.Developer;
-import org.apache.commons.lang3.StringUtils;
+
+import com.api.dao.impl.DeveloperDBService;
+import com.api.entity.Developer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +18,13 @@ public class DeveloperService {
     @Autowired
     private DeveloperDBService developerDBService;
 
-    public List<Developer> queryList(){
+    public List<Developer> queryList() {
         return this.developerDBService.queryList(new Developer());
     }
 
 
     @Transactional
-    public String save(Developer developer){
-        if(StringUtils.isBlank(developer.getAccessId()) || StringUtils.isBlank(developer.getAccessSecret())){
-            throw new RuntimeException("accessid 或 accessSecret 为空!");
-        }
+    public String save(Developer developer) {
         return this.developerDBService.save(developer);
     }
 }

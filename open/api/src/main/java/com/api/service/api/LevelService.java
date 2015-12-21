@@ -4,7 +4,6 @@ package com.api.service.api;
 import com.api.dao.impl.LevelDBService;
 import com.api.entity.Level;
 import com.varela.log.annotation.MethodLog;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +26,6 @@ public class LevelService {
 
     @Transactional
     public String save(Level level) {
-        if (StringUtils.isBlank(level.getName())) {
-            throw new RuntimeException("名称不能为空!");
-        }
         return this.levelDBService.save(level);
     }
 }

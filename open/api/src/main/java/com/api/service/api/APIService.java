@@ -1,7 +1,8 @@
 package com.api.service.api;
 
-import com.varela.dao.api.impl.APIDBService;
-import com.varela.entity.API;
+
+import com.api.dao.impl.APIDBService;
+import com.api.entity.API;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,6 @@ public class APIService {
 
     @Transactional
     public String save(API api) {
-        if (StringUtils.isBlank(api.getMethod()) || StringUtils.isBlank(api.getVersion()) || StringUtils.isBlank(api.getTitle())) {
-            throw new RuntimeException("参数不能为空!");
-        }
         return this.apiDBService.save(api);
     }
 
