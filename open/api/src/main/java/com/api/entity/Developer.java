@@ -9,7 +9,7 @@ import java.util.Date;
 public class Developer implements Serializable {
 
 
-    private long id;
+    private long id=-1;
 
     private String appKey;// 接入ID
 
@@ -21,7 +21,7 @@ public class Developer implements Serializable {
 
     private String secret;// 接入秘钥
 
-    private String state ;
+    private int state ;
 
     private Date createTime;
 
@@ -57,11 +57,11 @@ public class Developer implements Serializable {
         this.description = description;
     }
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 
@@ -87,5 +87,19 @@ public class Developer implements Serializable {
 
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "id=" + id +
+                ", appKey='" + appKey + '\'' +
+                ", contacts='" + contacts + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", description='" + description + '\'' +
+                ", secret='" + secret + '\'' +
+                ", state=" + state +
+                ", createTime=" + createTime +
+                '}';
     }
 }

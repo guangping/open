@@ -22,4 +22,8 @@ public class APIService {
         return this.apiDBService.save(api);
     }
 
+    public API queryObj(long id){
+        return this.apiDBService.queryObj(id);
+    }
+
 }

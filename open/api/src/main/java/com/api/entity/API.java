@@ -11,7 +11,7 @@ import java.util.Date;
 public class API implements Serializable {
 
 
-    private long id;
+    private long id=-1;
 
     @NotEmpty(message = "{message.content.empty}")
     @Length(max = 200)
@@ -23,7 +23,7 @@ public class API implements Serializable {
     @NotEmpty(message = "{message.content.empty}")
     private int state;
 
-    protected Date createTime;
+    private Date createTime;
 
 
     public long getId() {

@@ -27,4 +27,8 @@ public class DeveloperService {
     public long save(Developer developer) {
         return this.developerDBService.save(developer);
     }
+
+    public Developer queryObj(long id){
+        return this.developerDBService.queryObj(id);
+    }
 }

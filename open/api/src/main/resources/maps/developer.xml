@@ -6,13 +6,15 @@
     <resultMap id="resultMap-developer" type="Developer">
         <result property="createTime" column="create_time"/>
         <result property="appKey" column="app_key"/>
-        <result property="secret" column="secret"/>
     </resultMap>
 
     <select id="queryList" parameterType="Developer" resultMap="resultMap-developer">
-        <![CDATA[select * from eveloper ]]>
+        <![CDATA[select * from developer ]]>
         <where>
-            <if test="contacts != null">
+            <if test="id != -1">
+                <![CDATA[  and id = #{id} ]]>
+            </if>
+            <if test="contacts != null and contacts!='' ">
                 <![CDATA[  and contacts = #{contacts} ]]>
             </if>
         </where>

@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS developer;
 
 CREATE TABLE developer (
   id int(11) NOT NULL AUTO_INCREMENT,
-  appKey varchar(32) NOT NULL COMMENT '接入者标识',
+  app_Key varchar(32) NOT NULL COMMENT '接入者标识',
   create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   modify_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   contacts varchar(50) NOT NULL COMMENT '联系人',
@@ -32,7 +32,7 @@ CREATE TABLE developer (
   secret varchar(32) DEFAULT NULL COMMENT '接入者密钥',
   state tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态 0 禁用  1 可用',
   PRIMARY KEY (id),
-  UNIQUE KEY appKey (appKey)
+  UNIQUE KEY app_Key (app_Key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

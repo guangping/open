@@ -29,4 +29,11 @@ public class DeveloperDBService extends BaseDaoImpl<Developer> {
         return developer.getId();
     }
 
+
+    @Override
+    public Developer queryObj(long id) {
+        Developer developer=new Developer();
+        developer.setId(id);
+        return this.getSqlSession().selectOne("developer.queryList", developer);
+    }
 }
