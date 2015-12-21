@@ -26,4 +26,9 @@ public class APIService {
         return this.apiDBService.queryObj(id);
     }
 
+    public API queryObj(String method){
+        API api=new API();
+        api.setMethod(method);
+        return this.apiDBService.queryObj(api);
+    }
 }
