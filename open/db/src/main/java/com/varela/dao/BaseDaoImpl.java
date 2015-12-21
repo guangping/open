@@ -11,10 +11,13 @@ import java.util.List;
 /**
  *
  */
-public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport {
+public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport implements BaseDao<T> {
 
     private final int PAGE_SIZE = 20;
 
+    /**
+     * 分页
+     */
     @SuppressWarnings({"rawtypes", "unchecked"})
     protected PageInfo queryList(int pageIndex, int pageSize, String statement, Object arg) {
         if (pageIndex <= 0) {
@@ -31,9 +34,10 @@ public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport {
 
     /**
      * bootstrap datatables 数据格式
-     * @param dts 分页参数
+     *
+     * @param dts       分页参数
      * @param statement mybatis
-     * @param arg 查询条件
+     * @param arg       查询条件
      */
     protected PageDataTables<T> queryDataTables(DataTables dts, String statement, Object arg) {
         int sEcho = dts.getsEcho(), iDisplayStart = dts.getiDisplayStart(), iDisplayLength = dts.getiDisplayLength();
@@ -52,5 +56,28 @@ public abstract class BaseDaoImpl<T> extends SqlMapClientDaoSupport {
         return dataTables;
     }
 
+    @Override
+    public long save(T arg) {
+        return 0;
+    }
 
+    @Override
+    public List<T> queryList(T arg) {
+        return null;
+    }
+
+    @Override
+    public T queryObj(long id) {
+        return null;
+    }
+
+    @Override
+    public T queryObj(T arg) {
+        return null;
+    }
+
+    @Override
+    public int update(T arg) {
+        return 0;
+    }
 }

@@ -1,10 +1,10 @@
-import com.alibaba.fastjson.JSON;
+/*import com.alibaba.fastjson.JSON;
 import com.varela.dao.sharding.DataSourceContextHolder;
 import com.varela.entity.Level;
 import com.varela.entity.Order;
 import com.varela.service.api.bus.LevelService;
 import com.varela.service.api.bus.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;*/
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
@@ -17,16 +17,16 @@ import java.util.List;
 @ContextConfiguration("classpath:applicationContext-route.xml")
 public class DBRouteTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+   /* @Autowired
     private OrderService orderService;
 
     @Autowired
     private LevelService levelService;
 
 
-    /**
+    *//**
      * 库1
-     */
+     *//*
     @Test
     public void queryVersion() {
         //切库
@@ -36,9 +36,9 @@ public class DBRouteTest extends AbstractTestNGSpringContextTests {
     }
 
 
-    /**
+    *//**
      * 库2
-     */
+     *//*
     @Test
     public void queryOrder() {
         Order order = new Order();
@@ -46,6 +46,6 @@ public class DBRouteTest extends AbstractTestNGSpringContextTests {
         List<Order> list = this.orderService.query(order);
         System.out.println("list:" + JSON.toJSONString(list));
     }
-
+*/
 
 }
