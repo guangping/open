@@ -1,7 +1,7 @@
 package com.api.service.api;
 
 
-import com.api.dao.impl.LevelDBService;
+import com.api.dao.api.impl.LevelDBService;
 import com.api.entity.Level;
 import com.varela.log.annotation.MethodLog;
 import org.springframework.beans.factory.annotation.Autowired;

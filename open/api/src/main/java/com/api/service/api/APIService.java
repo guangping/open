@@ -1,7 +1,7 @@
 package com.api.service.api;
 
 
-import com.api.dao.impl.APIDBService;
+import com.api.dao.api.impl.APIDBService;
 import com.api.entity.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
