@@ -36,3 +36,11 @@ CREATE TABLE developer (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE developer_api (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  developer_id int(11) NOT NULL,
+  api_id int(11) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
