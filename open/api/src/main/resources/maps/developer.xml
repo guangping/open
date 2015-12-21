@@ -5,27 +5,23 @@
 
     <resultMap id="resultMap-developer" type="Developer">
         <result property="createTime" column="create_time"/>
-        <result property="accessId" column="access_id"/>
-        <result property="accessSecret" column="access_secret"/>
-        <result property="levelId" column="level_id"/>
+        <result property="appKey" column="app_key"/>
+        <result property="secret" column="secret"/>
     </resultMap>
 
     <select id="queryList" parameterType="Developer" resultMap="resultMap-developer">
-        <![CDATA[select * from sd_open_developer ]]>
+        <![CDATA[select * from eveloper ]]>
         <where>
             <if test="contacts != null">
                 <![CDATA[  and contacts = #{contacts} ]]>
-            </if>
-            <if test="levelId != 0 and levelId != null">
-              <![CDATA[   and level_id = #{levelId} ]]>
             </if>
         </where>
     </select>
 
     <insert id="save" parameterType="Developer" keyProperty="id">
-	  <![CDATA[	insert into sd_open_developer
-		(access_id,contacts,mobile,description,access_secret,level_id)
-		values(#{accessId},#{contacts},#{mobile},#{description},#{accessSecret},#{levelId}) ]]>
+	  <![CDATA[	insert into developer
+		(app_key,contacts,mobile,description,secret)
+		values(#{appKey},#{contacts},#{mobile},#{description},#{secret}) ]]>
 	</insert>
 
 </mapper>

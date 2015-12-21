@@ -4,7 +4,6 @@ package com.api.dao.api.impl;
 import com.api.entity.API;
 import com.varela.dao.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,13 +17,16 @@ public class APIDBService extends BaseDaoImpl<API> {
         return this.getSqlSession().selectList("api.queryList", api);
     }
 
-    public API queryObject(API api) {
+
+    @Override
+    public API queryObj(long id) {
+        API api = new API();
+        api.setId(id);
         return this.getSqlSession().selectOne("api.queryList", api);
     }
 
 
-
-    public String save(API api) {
+    public long save(API api) {
         this.getSqlSession().insert("api.save", api);
         return api.getId();
     }

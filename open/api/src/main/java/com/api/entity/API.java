@@ -11,7 +11,7 @@ import java.util.Date;
 public class API implements Serializable {
 
 
-    private String id;
+    private long id;
 
     @NotEmpty(message = "{message.content.empty}")
     @Length(max = 200)
@@ -21,16 +21,16 @@ public class API implements Serializable {
     private String title;
 
     @NotEmpty(message = "{message.content.empty}")
-    private String state;
+    private int state;
 
     protected Date createTime;
 
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -50,11 +50,11 @@ public class API implements Serializable {
         this.title = title;
     }
 
-    public String getState() {
+    public int getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(int state) {
         this.state = state;
     }
 

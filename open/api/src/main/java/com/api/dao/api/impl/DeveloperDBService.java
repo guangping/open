@@ -4,7 +4,6 @@ package com.api.dao.api.impl;
 import com.api.entity.Developer;
 import com.varela.dao.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,9 +23,10 @@ public class DeveloperDBService extends BaseDaoImpl<Developer> {
 
     /**
      * 添加
-     * */
-    public String save(Developer developer)throws RuntimeException{
-        this.getSqlSession().insert("developer.save",developer);
+     */
+    public long save(Developer developer) {
+        this.getSqlSession().insert("developer.save", developer);
         return developer.getId();
     }
+
 }

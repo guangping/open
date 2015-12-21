@@ -24,7 +24,7 @@ public class DeveloperService {
 
 
     @Transactional
-    public String save(Developer developer) {
+    public long save(Developer developer) {
         return this.developerDBService.save(developer);
     }
 }

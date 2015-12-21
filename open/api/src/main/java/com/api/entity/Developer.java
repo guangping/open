@@ -9,7 +9,7 @@ import java.util.Date;
 public class Developer implements Serializable {
 
 
-    private String id;
+    private long id;
 
     private String appKey;// 接入ID
 
@@ -23,25 +23,13 @@ public class Developer implements Serializable {
 
     private String state ;
 
-    private String levelId;// 等级ID
-
     private Date createTime;
 
-    private Level level;
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -75,14 +63,6 @@ public class Developer implements Serializable {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public String getLevelId() {
-        return levelId;
-    }
-
-    public void setLevelId(String levelId) {
-        this.levelId = levelId;
     }
 
     public Date getCreateTime() {

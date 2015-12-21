@@ -7,31 +7,31 @@ import java.io.Serializable;
 @Alias("DeveloperApi")
 public class DeveloperApi implements Serializable {
 
-	private String id;
-	private String developerId;
-	private String apiId;
+	private long id;
+	private long developerId;
+	private long apiId;
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public String getDeveloperId() {
+	public long getDeveloperId() {
 		return developerId;
 	}
 
-	public void setDeveloperId(String developerId) {
+	public void setDeveloperId(long developerId) {
 		this.developerId = developerId;
 	}
 
-	public String getApiId() {
+	public long getApiId() {
 		return apiId;
 	}
 
-	public void setApiId(String apiId) {
+	public void setApiId(long apiId) {
 		this.apiId = apiId;
 	}
 
