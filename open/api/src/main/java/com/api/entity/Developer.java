@@ -10,13 +10,21 @@ public class Developer implements Serializable {
 
 
     private String id;
-    private String accessId;// 接入ID
+
+    private String appKey;// 接入ID
+
     private String contacts;// 联系人
+
     private String mobile;
+
     private String description;
-    private String accessSecret;// 接入秘钥
+
+    private String secret;// 接入秘钥
+
     private String state ;
+
     private String levelId;// 等级ID
+
     private Date createTime;
 
     private Level level;
@@ -35,14 +43,6 @@ public class Developer implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAccessId() {
-        return accessId;
-    }
-
-    public void setAccessId(String accessId) {
-        this.accessId = accessId;
     }
 
     public String getContacts() {
@@ -69,14 +69,6 @@ public class Developer implements Serializable {
         this.description = description;
     }
 
-    public String getAccessSecret() {
-        return accessSecret;
-    }
-
-    public void setAccessSecret(String accessSecret) {
-        this.accessSecret = accessSecret;
-    }
-
     public String getState() {
         return state;
     }
@@ -101,19 +93,19 @@ public class Developer implements Serializable {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "Developer{" +
-                "id='" + id + '\'' +
-                ", accessId='" + accessId + '\'' +
-                ", contacts='" + contacts + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", description='" + description + '\'' +
-                ", accessSecret='" + accessSecret + '\'' +
-                ", state='" + state + '\'' +
-                ", levelId='" + levelId + '\'' +
-                ", createTime=" + createTime +
-                ", level=" + level +
-                '}';
+    public String getAppKey() {
+        return appKey;
+    }
+
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }
