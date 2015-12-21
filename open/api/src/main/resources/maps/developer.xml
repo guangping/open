@@ -17,6 +17,9 @@
             <if test="contacts != null and contacts!='' ">
                 <![CDATA[  and contacts = #{contacts} ]]>
             </if>
+            <if test="appKey != null and appKey!='' ">
+                <![CDATA[  and app_key = #{appKey} ]]>
+            </if>
         </where>
     </select>
 

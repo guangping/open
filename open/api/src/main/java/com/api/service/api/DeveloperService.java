@@ -31,4 +31,10 @@ public class DeveloperService {
     public Developer queryObj(long id){
         return this.developerDBService.queryObj(id);
     }
+
+    public Developer queryObj(String appKey){
+        Developer developer=new Developer();
+        developer.setAppKey(appKey);
+        return this.developerDBService.queryObj(developer);
+    }
 }

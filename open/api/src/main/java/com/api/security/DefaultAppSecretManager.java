@@ -1,10 +1,9 @@
 package com.api.security;
 
-import org.apache.commons.lang3.StringUtils;
+import com.api.entity.Developer;
+import com.api.service.api.DeveloperService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by lance on 12/15/2015.
@@ -12,23 +11,20 @@ import java.util.Map;
 @Component
 public class DefaultAppSecretManager implements AppSecretManager {
 
-    private static Map<String, String> app = new HashMap<String, String>();
+    @Autowired
+    private DeveloperService developerService;
 
-    static {
-        app.put("00001", "123");
-        app.put("00002", "123");
-        app.put("00003", "123");
-        app.put("00004", "123");
-    }
 
     @Override
     public String getSecret(String appKey) {
-        return app.get(appKey);
+        Developer developer = this.developerService.queryObj(appKey);
+        return developer.getSecret();
     }
 
     @Override
     public boolean isValidAppKey(String appKey) {
-        String val = app.get(appKey);
-        return StringUtils.isNotBlank(val) ? true : false;
+        Developer developer = this.developerService.queryObj(appKey);
+
+        return (null == developer) ? false : true;
     }
 }

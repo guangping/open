@@ -36,4 +36,9 @@ public class DeveloperDBService extends BaseDaoImpl<Developer> {
         developer.setId(id);
         return this.getSqlSession().selectOne("developer.queryList", developer);
     }
+
+    @Override
+    public Developer queryObj(Developer arg) {
+        return this.getSqlSession().selectOne("developer.queryList", arg);
+    }
 }
