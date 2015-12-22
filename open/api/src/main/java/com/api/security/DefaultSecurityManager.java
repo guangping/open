@@ -47,6 +47,7 @@ public class DefaultSecurityManager implements SecurityManager {
             apiResult.setMsg(Msg.APPKEY_NOT_EXISTS);
             return apiResult;
         }
+        //检查有效期
         long dValue = System.currentTimeMillis() / 1000 - timestamp;
         if (dValue > 600 || dValue < -600) {
             apiResult.setMsg(Msg.VALID_TIME);
