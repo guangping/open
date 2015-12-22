@@ -67,8 +67,14 @@ public class DBTest extends AbstractTestNGSpringContextTests {
         DeveloperApi developerApi = new DeveloperApi();
         developerApi.setApiId(1);
         developerApi.setDeveloperId(1);
-        long id=this.developerApiService.save(developerApi);
+        long id = this.developerApiService.save(developerApi);
         System.out.println(id);
+    }
+
+    @Test
+    public void queryDeveloperApiByAppIdDeveloperId() {
+        DeveloperApi developerApi = this.developerApiService.queryObj(1, 1);
+        System.out.println(developerApi);
     }
 
 
