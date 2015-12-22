@@ -10,6 +10,8 @@ public class APIRedisKey {
     //TODO api
     private static final String API_KEY = "api:api:id:{0}";
 
+    private static final String API_METHOD_KEY = "api:api:method:{0}";
+
     //TODO developer
     private static final String DEVELOPER_KEY = "api:developer:id:{0}";
 
@@ -29,4 +31,7 @@ public class APIRedisKey {
         return MessageFormat.format(DEVELOPER_APP_KEY, appKey);
     }
 
+    public static String getApiMethodKey(String method) {
+        return MessageFormat.format(API_METHOD_KEY, method);
+    }
 }
