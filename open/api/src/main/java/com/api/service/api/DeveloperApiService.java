@@ -34,7 +34,7 @@ public class DeveloperApiService {
         DeveloperApi developerApi = new DeveloperApi();
         developerApi.setApiId(appId);
         developerApi.setDeveloperId(developerId);
-        return this.developerApiDBService.queryObj(developerId);
+        return this.developerApiDBService.queryObj(developerApi);
     }
 
     public List<DeveloperApi> query(long appId) {
