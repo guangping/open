@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by lance on 12/21/2015.
  */
@@ -35,12 +37,18 @@ public class DeveloperApiService {
         return this.developerApiDBService.queryObj(developerId);
     }
 
+    public List<DeveloperApi> query(long appId) {
+        DeveloperApi arg = new DeveloperApi();
+        arg.setApiId(appId);
+        return this.developerApiDBService.query(arg);
+    }
+
     public boolean query(String appKey, String method) {
         boolean sign = false;
         API api = this.apiService.queryObj(method);
         Developer developer = this.developerService.queryObj(appKey);
 
-        if(null!=api && null!=developer){
+        if (null != api && null != developer) {
             DeveloperApi developerApi = this.queryObj(api.getId(), developer.getId());
             if (null != developerApi) {
                 sign = true;

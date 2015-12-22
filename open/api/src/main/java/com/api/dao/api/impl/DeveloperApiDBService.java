@@ -4,6 +4,8 @@ import com.api.entity.DeveloperApi;
 import com.varela.dao.BaseDaoImpl;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by lance on 12/21/2015.
  */
@@ -17,6 +19,11 @@ public class DeveloperApiDBService extends BaseDaoImpl<DeveloperApi> {
 
     @Override
     public DeveloperApi queryObj(DeveloperApi arg) {
-        return  this.getSqlSession().selectOne("DeveloperApi.queryList", arg);
+        return this.getSqlSession().selectOne("DeveloperApi.queryList", arg);
+    }
+
+
+    public List<DeveloperApi> query(DeveloperApi arg) {
+        return this.getSqlSession().selectList("DeveloperApi.queryList", arg);
     }
 }
