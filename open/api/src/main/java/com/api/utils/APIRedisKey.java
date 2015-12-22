@@ -18,6 +18,8 @@ public class APIRedisKey {
     //TODO developer appKey
     private static final String DEVELOPER_APP_KEY = "api:developer:appKey:{0}";
 
+    private static final String DEVELOPERID_APPID_KEY="api:developerApi:appId:{0}:developerId:{1}";
+
 
     public static String getApiKey(String id) {
         return MessageFormat.format(API_KEY, id);
@@ -33,5 +35,9 @@ public class APIRedisKey {
 
     public static String getApiMethodKey(String method) {
         return MessageFormat.format(API_METHOD_KEY, method);
+    }
+
+    public static String getDeveloperidAppidKey(String appId,String developerId){
+        return MessageFormat.format(DEVELOPERID_APPID_KEY,appId,developerId);
     }
 }
