@@ -29,6 +29,6 @@
     <bean class="com.varela.spring.SpringApplicationContext"/>
     <import resource="classpath:spring/applicationContext-redis.xml"/>
     <import resource="classpath:spring/applicationContext-database.xml"/>
-    <import resource="classpath:spring/applicationContext-mvc.xml"/>
+
 
 </beans>
