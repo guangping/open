@@ -34,7 +34,7 @@ public class ApiAspect {
     }
 
     @Around("pointCut() && queryObj()")
-    public Object aroundAdviceAll(ProceedingJoinPoint pjp) throws Throwable {
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
         Object arg = pjp.getArgs().length >= 1 ? pjp.getArgs()[0] : null;
         String key = null;
         if (arg instanceof String) {

@@ -35,7 +35,7 @@ public class DeveloperApiAspect {
 
 
     @Around("pointCut() && queryObj()")
-    public Object aroundAdviceAll(ProceedingJoinPoint pjp) throws Throwable {
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
         Object params[] = pjp.getArgs();
         Object obj = null;
         if (params.length == 2) {
