@@ -21,6 +21,10 @@ public class DefaultSecurityManager implements SecurityManager {
     @Autowired
     private DefaultAppSecretManager appSecretManager;
 
+    @Autowired
+    private DefaultInvokeTimesController invokeTimesController;
+
+
     @Override
     public APIResult validateParams(HttpServletRequest request) {
         APIResult apiResult = new APIResult();
@@ -42,7 +46,7 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
         //检查appKey是否存在
-        boolean appKeySign=this.appSecretManager.isValidAppKey(appKey);
+        boolean appKeySign = this.appSecretManager.isValidAppKey(appKey);
         if (!appKeySign) {
             apiResult.setMsg(Msg.APPKEY_NOT_EXISTS);
             return apiResult;
@@ -62,7 +66,8 @@ public class DefaultSecurityManager implements SecurityManager {
         }
 
         //检查方法调用权限
-        if (!this.checkMethod(appKey, method)) {
+        boolean checkMethodSign=this.checkMethod(appKey, method);
+        if (!checkMethodSign) {
             apiResult.setMsg(Msg.NOT_UNAUTHORIZED);
             return apiResult;
         }
@@ -91,7 +96,7 @@ public class DefaultSecurityManager implements SecurityManager {
     }
 
     private boolean checkMethod(String appKey, String method) {
-        return true;
+        return this.invokeTimesController.checkMethod(appKey,method);
     }
 
 
