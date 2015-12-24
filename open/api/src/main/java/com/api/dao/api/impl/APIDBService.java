@@ -25,6 +25,10 @@ public class APIDBService extends BaseDaoImpl<API> {
         return this.getSqlSession().selectOne("api.queryList", api);
     }
 
+    @Override
+    public API queryObj(API arg) {
+        return this.getSqlSession().selectOne("api.queryList", arg);
+    }
 
     public long save(API api) {
         this.getSqlSession().insert("api.save", api);
