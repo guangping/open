@@ -3,14 +3,17 @@ package com.api.interceptors;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.api.pojo.APIKey;
+import com.api.pojo.APIRequest;
 import com.api.security.DefaultSecurityManager;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
+import com.varela.utils.StringCommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -25,8 +28,13 @@ import java.io.IOException;
 public class AuthInterceptor extends HandlerInterceptorAdapter {
     private Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
 
+    //计算耗时
     private NamedThreadLocal<Long> startTimeThreadLocal =
-            new NamedThreadLocal<Long>("StopWatch-StartTime");
+            new NamedThreadLocal("StopWatch-StartTime");
+
+    //存储请求基础参数
+    private NamedThreadLocal<APIRequest> requestThreadLocal =
+            new NamedThreadLocal("access-request");
 
     @Autowired
     private DefaultSecurityManager securityManager;
@@ -46,8 +54,10 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             this.writeJson(apiResult, response);
             return false;
         }
+        APIRequest apiRequest = this.getRequest(request);
+        requestThreadLocal.set(apiRequest);
         //TODO 请求验证
-        APIResult apiResult = this.securityManager.validateParams(request);
+        APIResult apiResult = this.securityManager.validateParams(apiRequest);
         if (!apiResult.isSuccess()) {
             this.writeJson(apiResult, response);
             return false;
@@ -74,7 +84,32 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             //TODO 记录到日志文件
             logger.error("{}耗时:{} ms", request.getRequestURI(), consumeTime);
         }
+        //TODO 调用次数存储
+        APIRequest apiRequest = requestThreadLocal.get();
+        logger.info("{}:{}", apiRequest.getAppKey(), apiRequest.getMethod());
+
+
         super.afterCompletion(request, response, handler, ex);
+    }
+
+    /**
+     * 获取验证参数
+     */
+    private APIRequest getRequest(HttpServletRequest request) {
+        String appKey = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.APPKEY));
+        String sign = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.SIGN));
+        long timestamp = StringCommonUtils.getSafeLong(request.getParameter(APIKey.ValidateKey.TIMESTAMP));
+        //获取springmvc映射地址
+        Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
+
+        APIRequest apiRequest = new APIRequest();
+        apiRequest.setSign(sign);
+        apiRequest.setAppKey(appKey);
+        apiRequest.setTimestamp(timestamp);
+        if (null != object) {
+            apiRequest.setMethod(object.toString());
+        }
+        return apiRequest;
     }
 
 

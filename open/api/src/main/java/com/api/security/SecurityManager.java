@@ -1,5 +1,6 @@
 package com.api.security;
 
+import com.api.pojo.APIRequest;
 import com.varela.pojo.APIResult;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,5 +10,5 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface SecurityManager {
 
-    APIResult validateParams(HttpServletRequest request);
+    APIResult validateParams(APIRequest apiRequest);
 }

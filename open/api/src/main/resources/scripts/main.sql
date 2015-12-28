@@ -47,3 +47,20 @@ CREATE TABLE developer_api (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS developer_api_log;
+/**
+调用日志
+*/
+CREATE TABLE developer_api_log (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  api_id bigint(20) DEFAULT NULL,
+  developer_id bigint(20) DEFAULT NULL,
+  create_time datetime DEFAULT CURRENT_TIMESTAMP,
+  count int(11) DEFAULT NULL COMMENT '调用次数',
+  day_time char(8) DEFAULT NULL COMMENT '日期yyyyMMdd',
+  modify_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY idx_api_de_time (api_id,developer_id,day_time)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+

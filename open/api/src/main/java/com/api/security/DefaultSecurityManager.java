@@ -1,16 +1,14 @@
 package com.api.security;
 
 import com.api.pojo.APIKey;
+import com.api.pojo.APIRequest;
 import com.api.utils.APIMD5Utils;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
-import com.varela.utils.StringCommonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.TreeMap;
 
 /**
@@ -26,35 +24,29 @@ public class DefaultSecurityManager implements SecurityManager {
 
 
     @Override
-    public APIResult validateParams(HttpServletRequest request) {
+    public APIResult validateParams(APIRequest apiRequest) {
         APIResult apiResult = new APIResult();
-        String appKey = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.APPKEY));
-        String sign = StringCommonUtils.getSafeString(request.getParameter(APIKey.ValidateKey.SIGN));
-        long timestamp = StringCommonUtils.getSafeLong(request.getParameter(APIKey.ValidateKey.TIMESTAMP));
+        String appKey = apiRequest.getAppKey();
+        String sign = apiRequest.getSign();
+        long timestamp = apiRequest.getTimestamp();
         //获取springmvc映射地址
-        Object object = request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
-        if (StringUtils.isBlank(sign)) {
-            apiResult.setMsg(Msg.SIGN_IS_NULL);
+        String method = apiRequest.getMethod();
+        if (StringUtils.isBlank(sign) || StringUtils.isBlank(method) || StringUtils.isBlank(appKey)) {
+            apiResult.setMsg(Msg.PARAM_IS_EMPTY);
             return apiResult;
         }
-        String method = null;
-        if (null != object) {
-            method = object.toString();
-        }
-        if (StringUtils.isBlank(appKey)) {
-            apiResult.setMsg(Msg.APPKEY_IS_NULL);
-            return apiResult;
-        }
-        //检查appKey是否存在
-        boolean appKeySign = this.appSecretManager.isValidAppKey(appKey);
-        if (!appKeySign) {
-            apiResult.setMsg(Msg.APPKEY_NOT_EXISTS);
-            return apiResult;
-        }
+
         //检查有效期
         long dValue = System.currentTimeMillis() / 1000 - timestamp;
         if (dValue > 600 || dValue < -600) {
             apiResult.setMsg(Msg.VALID_TIME);
+            return apiResult;
+        }
+
+        //检查appKey是否存在
+        boolean appKeySign = this.appSecretManager.isValidAppKey(appKey);
+        if (!appKeySign) {
+            apiResult.setMsg(Msg.APPKEY_NOT_EXISTS);
             return apiResult;
         }
 
@@ -66,7 +58,7 @@ public class DefaultSecurityManager implements SecurityManager {
         }
 
         //检查方法调用权限
-        boolean checkMethodSign=this.checkMethod(appKey, method);
+        boolean checkMethodSign = this.checkMethod(appKey, method);
         if (!checkMethodSign) {
             apiResult.setMsg(Msg.NOT_UNAUTHORIZED);
             return apiResult;
@@ -96,7 +88,7 @@ public class DefaultSecurityManager implements SecurityManager {
     }
 
     private boolean checkMethod(String appKey, String method) {
-        return this.invokeTimesController.checkMethod(appKey,method);
+        return this.invokeTimesController.checkMethod(appKey, method);
     }
 
 
