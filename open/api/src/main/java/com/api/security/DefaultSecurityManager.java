@@ -64,7 +64,13 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
 
-
+        //检查调用频率
+        boolean frequencyExceed = this.invokeTimesController.isAppInvokeFrequencyExceed(appKey);
+        if (!frequencyExceed) {
+            apiResult.setMsg(Msg.OVERRUN);
+            return apiResult;
+        }
+        
         //检查方法调用次数
 
 

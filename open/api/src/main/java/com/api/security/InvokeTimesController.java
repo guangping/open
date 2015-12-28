@@ -21,4 +21,12 @@ public interface InvokeTimesController {
      * */
     boolean isAppInvokeLimitExceed(String appKey, String method);
 
+    /**
+     * 应用对服务的访问频率是否超限
+     *
+     * @param appKey
+     * @return
+     */
+    boolean isAppInvokeFrequencyExceed(String appKey);
+
 }

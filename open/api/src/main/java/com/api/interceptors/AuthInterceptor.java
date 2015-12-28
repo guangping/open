@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.api.pojo.APIKey;
 import com.api.pojo.APIRequest;
+import com.api.security.DefaultInvokeTimesController;
 import com.api.security.DefaultSecurityManager;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
@@ -38,6 +39,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     private DefaultSecurityManager securityManager;
+
+    @Autowired
+    private DefaultInvokeTimesController invokeTimesController;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -87,7 +91,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         //TODO 调用次数存储
         APIRequest apiRequest = requestThreadLocal.get();
         logger.info("{}:{}", apiRequest.getAppKey(), apiRequest.getMethod());
-
+        this.invokeTimesController.caculateInvokeTimes(apiRequest.getAppKey(), apiRequest.getMethod());
 
         super.afterCompletion(request, response, handler, ex);
     }
