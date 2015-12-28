@@ -17,4 +17,14 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
     public boolean checkMethod(String appKey, String method) {
         return developerApiService.query(appKey,method);
     }
+
+    @Override
+    public void caculateInvokeTimes(String appKey, String method) {
+
+    }
+
+    @Override
+    public boolean isAppInvokeLimitExceed(String appKey, String method) {
+        return false;
+    }
 }
