@@ -20,15 +20,17 @@ public class APIHttpTest {
     private String appKey = "00001";
     private String secret = "123";
 
+    private int count=0;
+
     @BeforeTest
     public void before() {
         params = new TreeMap();
     }
 
 
-    @Test
+    @Test(invocationCount = 150)
     public void sessionGet() {
-        url += "/api/session/get";
+        url= "http://magp.varela.com.cn/api/session/get";
 
         APIRequest apiRequest = new APIRequest();
         apiRequest.setTimestamp(System.currentTimeMillis() / 1000);
@@ -40,7 +42,9 @@ public class APIHttpTest {
         params.put("sign",sign);
 
         HttpResponse response = HttpClientUtils.postForm(url, params);
-        System.out.println(response);
-
+        if(!response.isSuccess()){
+            count++;
+            System.out.println("失败次数:"+count+","+response);
+        }
     }
 }
