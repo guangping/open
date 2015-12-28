@@ -35,6 +35,7 @@ CREATE TABLE developer (
   UNIQUE KEY app_Key (app_Key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS developer_api;
 
 CREATE TABLE developer_api (
   id bigint(20) NOT NULL AUTO_INCREMENT,
