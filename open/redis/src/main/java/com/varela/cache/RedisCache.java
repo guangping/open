@@ -69,6 +69,10 @@ public class RedisCache {
         return true;
     }
 
+    public boolean expire(String key, long timeout) {
+        return this.redisTemplate.expire(key, timeout, TimeUnit.SECONDS);
+    }
+
 
     public long incre(String key, long incre) {
         return redisTemplate.opsForValue().increment(key, incre);
