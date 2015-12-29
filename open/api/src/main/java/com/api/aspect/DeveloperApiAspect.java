@@ -29,7 +29,7 @@ public class DeveloperApiAspect {
     public void pointCut() {
     }
 
-    @Pointcut("execution(* queryObj(long ,long ))")
+    @Pointcut("execution(* queryObj(*,*))")
     private void queryObj() {
     }
 
@@ -46,7 +46,7 @@ public class DeveloperApiAspect {
             }
             obj = pjp.proceed();
             if (null != obj) {
-                this.redisCache.set(key, obj, RedisKey.REDIS_1D_EXPIRING);
+                this.redisCache.set(key, obj, RedisKey.REDIS_1H_EXPIRING);
             }
         }
         return obj;
