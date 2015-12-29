@@ -1,6 +1,7 @@
 package com.api.security;
 
 import com.api.entity.Developer;
+import com.api.pojo.APIKey;
 import com.api.service.api.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,5 +27,17 @@ public class DefaultAppSecretManager implements AppSecretManager {
         Developer developer = this.developerService.queryObj(appKey);
 
         return (null == developer) ? false : true;
+    }
+
+    @Override
+    public boolean isDisable(String appKey) {
+        Developer developer = this.developerService.queryObj(appKey);
+        if (null == developer) {
+            return true;
+        }
+        if (developer.getState() == APIKey.StateKey.DEVELOPER_STATE_DISABLE) {
+            return true;
+        }
+        return false;
     }
 }

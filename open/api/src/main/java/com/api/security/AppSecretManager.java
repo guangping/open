@@ -22,5 +22,14 @@ public interface AppSecretManager {
      * @return
      */
     boolean isValidAppKey(String appKey);
+
+
+    /**
+     * appKey是否可用
+     *
+     * @param appKey
+     * @return
+     */
+    boolean isDisable(String appKey);
 }
 

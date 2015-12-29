@@ -86,12 +86,16 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         long consumeTime = endTime - beginTime;
         if (consumeTime > 500) {
             //TODO 记录到日志文件
-            logger.error("{}耗时:{} ms", request.getRequestURI(), consumeTime);
+            logger.error("{}耗时:{} ms,error:{}", request.getRequestURI(), consumeTime, ex.getMessage());
+
+            //记录调用耗时过长日志
+
         }
         //TODO 调用次数存储
         APIRequest apiRequest = requestThreadLocal.get();
         logger.info("{}:{}", apiRequest.getAppKey(), apiRequest.getMethod());
         this.invokeTimesController.caculateInvokeTimes(apiRequest.getAppKey(), apiRequest.getMethod());
+
 
         super.afterCompletion(request, response, handler, ex);
     }

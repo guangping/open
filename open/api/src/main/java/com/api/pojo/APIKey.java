@@ -5,8 +5,11 @@ package com.api.pojo;
  */
 public class APIKey {
 
+    /**
+     * ContentType
+     * */
     public static class ContentType {
-        public static final String CONTENT_TYPE="Content-Type";
+        public static final String CONTENT_TYPE = "Content-Type";
         public static final String X_WWW_FORM_URLENCODED = "application/x-www-form-urlencoded;charset=utf-8";
         public static final String JSON = "application/json;charset=UTF-8";
     }
@@ -28,4 +31,18 @@ public class APIKey {
         //TODO 方法名
         public static final String METHOD = "method";
     }
+
+    /**
+     * 状态
+     */
+    public static class StateKey {
+        //TODO API状态 0 禁用  1 可用
+        public static final int API_STATE_DISABLE = 0;
+        public static final int API_STATE_NORMAL = 1;
+
+        //TODO 接入者状态 0 禁用  1 可用
+        public static final int DEVELOPER_STATE_DISABLE = 0;
+        public static final int DEVELOPER__STATE_NORMAL = 1;
+    }
+
 }

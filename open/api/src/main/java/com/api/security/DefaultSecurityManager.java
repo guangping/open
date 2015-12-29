@@ -32,7 +32,7 @@ public class DefaultSecurityManager implements SecurityManager {
         //获取springmvc映射地址
         String method = apiRequest.getMethod();
 
-        if(StringUtils.isBlank(appKey)){
+        if (StringUtils.isBlank(appKey)) {
             apiResult.setMsg(Msg.APPKEY_IS_NULL);
             return apiResult;
         }
@@ -54,6 +54,13 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
 
+        //检查是否可用
+        boolean disableSign = this.appSecretManager.isDisable(appKey);
+        if (disableSign) {
+            apiResult.setMsg(Msg.APPKEY_DISABLE);
+            return apiResult;
+        }
+
         //检查签名
         boolean checkSign = this.checkSign(appKey, timestamp, method, sign);
         if (!checkSign) {
@@ -68,13 +75,15 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
 
+        //检查方法是否可用
+
         //检查调用频率
         boolean frequencyExceed = this.invokeTimesController.isAppInvokeFrequencyExceed(appKey);
         if (!frequencyExceed) {
             apiResult.setMsg(Msg.OVERRUN);
             return apiResult;
         }
-        
+
         //检查方法调用次数
 
 
