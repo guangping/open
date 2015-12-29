@@ -22,6 +22,7 @@ public enum Msg {
     NOT_UNAUTHORIZED(104, "没有权限!"),
     OVERRUN(105, "调用次数超限!"),
     VALID_TIME(106, "请求时间戳不在有效期内!"),
+    APPKEY_DISABLE(107, "接入者不可用!"),
 
 
     //TODO Content-Type 类型错误
