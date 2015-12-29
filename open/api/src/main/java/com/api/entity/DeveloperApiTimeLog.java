@@ -18,7 +18,7 @@ public class DeveloperApiTimeLog implements Serializable {
 
     private Date createTime;
 
-    private int time=0;
+    private long time=0;
 
     public long getId() {
         return id;
@@ -52,11 +52,11 @@ public class DeveloperApiTimeLog implements Serializable {
         this.createTime = createTime;
     }
 
-    public int getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(long time) {
         this.time = time;
     }
 

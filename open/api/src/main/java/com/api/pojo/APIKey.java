@@ -5,6 +5,8 @@ package com.api.pojo;
  */
 public class APIKey {
 
+    public static final int TIME=500;
+
     /**
      * ContentType
      * */
