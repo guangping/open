@@ -31,11 +31,15 @@ public class DefaultSecurityManager implements SecurityManager {
         long timestamp = apiRequest.getTimestamp();
         //获取springmvc映射地址
         String method = apiRequest.getMethod();
-        if (StringUtils.isBlank(sign) || StringUtils.isBlank(method) || StringUtils.isBlank(appKey)) {
-            apiResult.setMsg(Msg.PARAM_IS_EMPTY);
+
+        if(StringUtils.isBlank(appKey)){
+            apiResult.setMsg(Msg.APPKEY_IS_NULL);
             return apiResult;
         }
-
+        if (StringUtils.isBlank(sign)) {
+            apiResult.setMsg(Msg.SIGN_IS_NULL);
+            return apiResult;
+        }
         //检查有效期
         long dValue = System.currentTimeMillis() / 1000 - timestamp;
         if (dValue > 600 || dValue < -600) {
