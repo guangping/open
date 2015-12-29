@@ -52,20 +52,6 @@ public class DeveloperApiService {
         return this.developerApiDBService.query(arg);
     }
 
-    public boolean query(String appKey, String method) {
-        boolean sign = false;
-        API api = this.apiService.queryObj(method);
-        Developer developer = this.developerService.queryObj(appKey);
-
-        if (null != api && null != developer) {
-            DeveloperApi developerApi = this.queryObj(api.getId(), developer.getId());
-            if (null != developerApi) {
-                sign = true;
-            }
-        }
-
-        return sign;
-    }
 
 
 }

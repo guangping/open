@@ -1,5 +1,6 @@
 package com.api.security;
 
+import com.api.entity.DeveloperApi;
 import com.api.service.api.DeveloperApiService;
 import com.api.utils.APIRedisKey;
 import com.varela.cache.RedisCache;
@@ -24,7 +25,12 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
 
     @Override
     public boolean checkMethod(String appKey, String method) {
-        return developerApiService.query(appKey, method);
+        boolean sign=false;
+        DeveloperApi developerApi=developerApiService.queryObj(appKey, method);
+        if (null != developerApi) {
+            sign = true;
+        }
+        return sign;
     }
 
     @Override
