@@ -29,7 +29,7 @@ public class APIHttpTest {
     }
 
 
-    @Test(invocationCount = 150)
+    @Test//(invocationCount = 150)
     public void sessionGet() {
         url = "http://magp.varela.com.cn/api/session/get";
 

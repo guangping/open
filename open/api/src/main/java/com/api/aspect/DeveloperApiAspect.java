@@ -29,8 +29,12 @@ public class DeveloperApiAspect {
     public void pointCut() {
     }
 
-    @Pointcut("execution(* queryObj(*,*))")
+    @Pointcut("execution(* queryObj(long ,long ))")
     private void queryObj() {
+    }
+
+    @Pointcut("execution(* queryObj(String ,String ))")
+    private void queryObj2() {
     }
 
 
@@ -52,4 +56,22 @@ public class DeveloperApiAspect {
         return obj;
     }
 
+
+    @Around("pointCut() && queryObj2()")
+    public Object around2(ProceedingJoinPoint pjp) throws Throwable {
+        Object params[] = pjp.getArgs();
+        Object obj = null;
+        if (params.length == 2) {
+            String key = APIRedisKey.getAppkeyMethodKey(String.valueOf(params[0]), String.valueOf(params[1]));
+            obj = this.redisCache.getObj(key, DeveloperApi.class);
+            if (null != obj) {
+                return obj;
+            }
+            obj = pjp.proceed();
+            if (null != obj) {
+                this.redisCache.set(key, obj, RedisKey.REDIS_1H_EXPIRING);
+            }
+        }
+        return obj;
+    }
 }

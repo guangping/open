@@ -26,6 +26,8 @@ public class DBTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private DeveloperApiService developerApiService;
 
+    private String appKey = "00001";
+
     @Test
     public void saveApi() {
         API api = new API();
@@ -73,8 +75,12 @@ public class DBTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void queryDeveloperApiByAppIdDeveloperId() {
-        DeveloperApi developerApi = this.developerApiService.queryObj(1, 1);
+ /*       DeveloperApi developerApi = this.developerApiService.queryObj(1, 1);
+        System.out.println(developerApi);*/
+        String method = "/api/session/get";
+        DeveloperApi developerApi = this.developerApiService.queryObj(appKey, method);
         System.out.println(developerApi);
+
     }
 
 

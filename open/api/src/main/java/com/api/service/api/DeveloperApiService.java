@@ -37,6 +37,15 @@ public class DeveloperApiService {
         return this.developerApiDBService.queryObj(developerApi);
     }
 
+    public DeveloperApi queryObj(String appKey, String method) {
+        API api = this.apiService.queryObj(method);
+        Developer developer = this.developerService.queryObj(appKey);
+        if (null != api && null != developer) {
+            return this.queryObj(api.getId(), developer.getId());
+        }
+        return null;
+    }
+
     public List<DeveloperApi> query(long appId) {
         DeveloperApi arg = new DeveloperApi();
         arg.setApiId(appId);

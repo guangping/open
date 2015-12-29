@@ -24,6 +24,8 @@ public class APIRedisKey {
 
     private static final String DEVELOPERID_APPID_KEY = "api:developerApi:appId:{0}:developerId:{1}";
 
+    private static final String APPKEY_METHOD_KEY = "api:developerApi:appKey:{0}:method:{1}";
+
     private static final String API_LIMIT = "api:limit:appKey:{0}";
 
     private static final String API_METHOD_LIMIT = "api:limit:appKey:{0}:method:{1}";
@@ -54,5 +56,9 @@ public class APIRedisKey {
 
     public static String getApiMethodLimit(String appKey, String method) {
         return MessageFormat.format(API_METHOD_LIMIT, appKey, method);
+    }
+
+    public static String getAppkeyMethodKey(String appKey, String method) {
+        return MessageFormat.format(APPKEY_METHOD_KEY, appKey, method);
     }
 }
