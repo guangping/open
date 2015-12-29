@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="DeveloperApiLog">
+
+    <resultMap id="resultMap-DeveloperApiLog" type="API">
+        <result property="createTime" column="create_time"/>
+        <result property="dayTime" column="day_time"/>
+        <result property="apiId" column="api_id"/>
+        <result property="developerId" column="developer_id"/>
+    </resultMap>
+
+    <insert id="save" parameterType="DeveloperApiLog" keyProperty="id">
+        <![CDATA[
+        INSERT INTO developer_api_log(api_id,developer_id,day_time,count,create_time)
+        VALUES(#{apiId},#{developerId},#{dayTime},#{count},now());
+        ]]>
+    </insert>
+
+    <insert id="saveBatch" parameterType="java.util.List">
+        <![CDATA[
+        INSERT INTO developer_api_log(api_id,developer_id,day_time,count,create_time)
+        VALUES
+        ]]>
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.apiId},#{item.developerId},#{item.dayTime},#{item.count},now())
+        </foreach>
+    </insert>
+
+</mapper>
