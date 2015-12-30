@@ -65,3 +65,14 @@ CREATE TABLE developer_api_log (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS developer_api_time_log;
+
+CREATE TABLE developer_api_time_log (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  developer_id bigint(20) DEFAULT NULL,
+  api_id bigint(20) DEFAULT NULL,
+  time int(11) DEFAULT '0' COMMENT '耗时ms',
+  create_time datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
