@@ -4,6 +4,8 @@ import com.api.pojo.User;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.ValidatorResult;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,6 +28,7 @@ public class ApiSessionController extends ApiController {
      */
     @ResponseBody
     @RequestMapping(value = "/session/get", method = {RequestMethod.GET, RequestMethod.POST})
+    @ApiOperation(value = "获取session",httpMethod = "GET",)
     public Object getSession() {
         APIResult apiResult = new APIResult();
         apiResult.setResult(UUID.randomUUID());

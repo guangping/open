@@ -87,5 +87,6 @@
         </property>
     </bean>
 
+    <import resource="applicationContext-swagger.xml"/>
 
 </beans>
