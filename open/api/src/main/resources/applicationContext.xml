@@ -21,8 +21,8 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:config/cache.properties</value>
-                <value>classpath:config/jdbc.properties</value>
+                <value>classpath:cache.properties</value>
+                <value>classpath:jdbc.properties</value>
             </list>
         </property>
     </bean>
