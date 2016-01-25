@@ -11,6 +11,24 @@
     <name>api Maven Webapp</name>
     <url>http://maven.apache.org</url>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <profiles.active>develop</profiles.active>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <profiles.active>production</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
+
     <properties>
         <jetty.maven.plugin.version>8.1.8.v20121106</jetty.maven.plugin.version>
         <tomcat7.maven.plugin.version>2.2</tomcat7.maven.plugin.version>
@@ -38,6 +56,11 @@
             <version>1.0.2.RELEASE</version>
             <type>pom</type>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
         <!--生成api-->
         <dependency>
@@ -63,6 +86,28 @@
     </dependencies>
     <build>
         <finalName>api</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>develop/*</exclude>
+                    <exclude>production/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${profiles.active}</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>

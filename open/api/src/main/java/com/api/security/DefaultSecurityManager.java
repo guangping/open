@@ -87,7 +87,7 @@ public class DefaultSecurityManager implements SecurityManager {
         //检查方法调用次数
 
 
-        apiResult.setMsg(Msg.Success);
+        apiResult.setMsg(Msg.SUCCESS);
         return apiResult;
     }
 

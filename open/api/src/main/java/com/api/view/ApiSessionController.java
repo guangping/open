@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -28,11 +29,11 @@ public class ApiSessionController extends ApiController {
      */
     @ResponseBody
     @RequestMapping(value = "/session/get", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "获取session",httpMethod = "GET",)
+    @ApiOperation(value = "获取session", httpMethod = "GET")
     public Object getSession() {
         APIResult apiResult = new APIResult();
         apiResult.setResult(UUID.randomUUID());
-        apiResult.setMsg(Msg.Success);
+        apiResult.setMsg(Msg.SUCCESS);
         return apiResult;
     }
 
@@ -41,7 +42,16 @@ public class ApiSessionController extends ApiController {
     @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
     public Object user(@Validated User user, BindingResult bindingResult) {
         APIResult apiResult = ValidatorResult.handle(bindingResult);
-      
+        if (!apiResult.isSuccess()) {
+            return apiResult;
+        }
+        apiResult = new APIResult();
+
+        user.setEmail("test@163.com");
+        user.setMobile("11111111111");
+        user.setCreateTime(new Date());
+        apiResult.setMsg(Msg.SUCCESS);
+        apiResult.setResult(user);
         return apiResult;
     }
 
