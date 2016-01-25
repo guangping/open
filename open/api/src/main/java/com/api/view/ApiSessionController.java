@@ -1,6 +1,7 @@
 package com.api.view;
 
 import com.api.pojo.User;
+import com.api.utils.HttpMethodConst;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.ValidatorResult;
@@ -29,7 +30,7 @@ public class ApiSessionController extends ApiController {
      */
     @ResponseBody
     @RequestMapping(value = "/session/get", method = {RequestMethod.GET, RequestMethod.POST})
-    @ApiOperation(value = "获取session", httpMethod = "GET")
+    @ApiOperation(value = "获取session", httpMethod = HttpMethodConst.GET, notes = "获取session")
     public Object getSession() {
         APIResult apiResult = new APIResult();
         apiResult.setResult(UUID.randomUUID());
@@ -39,7 +40,8 @@ public class ApiSessionController extends ApiController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/user", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    @ApiOperation(value = "用户", httpMethod = HttpMethodConst.POST, notes = "用户", response = User.class)
     public Object user(@Validated User user, BindingResult bindingResult) {
         APIResult apiResult = ValidatorResult.handle(bindingResult);
         if (!apiResult.isSuccess()) {
