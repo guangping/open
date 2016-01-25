@@ -65,6 +65,7 @@
     </mvc:annotation-driven>
 
     <mvc:interceptors>
+        <bean class="com.api.interceptors.ResourceInterceptor"/>
         <mvc:interceptor>
             <mvc:mapping path="/api/**"/>
             <bean class="com.api.interceptors.AuthInterceptor"/>
