@@ -16,7 +16,7 @@ import java.util.TreeMap;
  */
 public class APIHttpTest {
 
-    private String url = "http://magp.varela.com.cn";
+    private String url = "http://localhost";
     private TreeMap<String, String> params;
     private String appKey = "00001";
     private String secret = "123";
@@ -29,9 +29,9 @@ public class APIHttpTest {
     }
 
 
-    @Test//(invocationCount = 150)
+    @Test(invocationCount = 15)
     public void sessionGet() {
-        url = "http://magp.varela.com.cn/api/session/get";
+        url = "http://localhost/api/session/get";
 
         APIRequest apiRequest = new APIRequest();
         apiRequest.setTimestamp(System.currentTimeMillis() / 1000);
