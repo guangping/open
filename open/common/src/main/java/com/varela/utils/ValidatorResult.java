@@ -27,7 +27,7 @@ public class ValidatorResult {
             }
             apiResult.setMessage(MessageFormat.format(oe.getDefaultMessage(), fieldName));
         } else {
-            apiResult.setMsg(Msg.Success);
+            apiResult.setMsg(Msg.SUCCESS);
         }
         return apiResult;
     }

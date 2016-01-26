@@ -5,7 +5,7 @@ package com.varela.enumerate;
  */
 public enum Msg {
 
-    Success(0, "成功"),
+    SUCCESS(0, "成功"),
     //TODO 基础错误
     PARAM_IS_EMPTY(1, "参数{0}为空!"),
     PARAM_NOT_PATTERN(2, "参数{0}不合规范!"),
