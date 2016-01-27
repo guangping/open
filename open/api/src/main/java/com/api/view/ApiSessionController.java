@@ -6,7 +6,6 @@ import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.ValidatorResult;
 import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
