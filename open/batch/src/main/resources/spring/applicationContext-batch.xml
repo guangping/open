@@ -25,11 +25,14 @@
 
 
     <bean id="csvProcessor" class="com.varela.open.batch.processor.CsvProcessor"/>
+    <!--自定义skip策略-->
+    <bean id="myPolicy" class="com.varela.open.batch.policy.MyPolicy"/>
 
     <batch:job id="csvJob">
         <batch:step id="csvStep">
             <tasklet transaction-manager="transactionManager">
-                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1">
+                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1"
+                       skip-limit="50" skip-policy="myPolicy">
                 </chunk>
             </tasklet>
         </batch:step>
