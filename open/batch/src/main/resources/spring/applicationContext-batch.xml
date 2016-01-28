@@ -12,10 +12,24 @@
             http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
 
 
+    <!--jobLauncher负责batch的启动工作，jobRepository负责job的整个运行过程中的CRUD操作，transactionManager负责事务的管理操作。-->
+    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
+        <property name="jobRepository" ref="jobRepository"/>
+    </bean>
+
+    <bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"/>
+
+
+    <bean id="transactionManager"
+          class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
+
+
+    <bean id="csvProcessor" class="com.varela.open.batch.processor.CsvProcessor"/>
+
     <batch:job id="csvJob">
         <batch:step id="csvStep">
             <tasklet transaction-manager="transactionManager">
-                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvItemProcessor" commit-interval="1">
+                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1">
                 </chunk>
             </tasklet>
         </batch:step>
@@ -24,13 +38,13 @@
     <!--读取文件-->
     <bean id="csvItemReader"
           class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
-        <property name="resource" value="classpath:inputFile.csv"/>
+        <property name="resource" value="classpath:data/data.csv"/>
         <property name="lineMapper">
             <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
                 <property name="lineTokenizer" ref="lineTokenizer"/>
                 <property name="fieldSetMapper">
                     <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-                        <property name="prototypeBeanName" value="student"></property>
+                        <property name="prototypeBeanName" value="order"></property>
                     </bean>
                 </property>
             </bean>
@@ -41,45 +55,34 @@
         <property name="delimiter" value=","/>
         <property name="names">
             <list>
-                <value>ID</value>
-                <value>name</value>
-                <value>age</value>
-                <value>score</value>
+                <value>senderAddress</value>
+                <value>latitude</value>
+                <value>longitude</value>
+                <value>deliveryAddress</value>
+                <value>rLatitude</value>
+                <value>rLongitude</value>
+                <value>senderMobile</value>
+                <value>receiverMobile</value>
             </list>
         </property>
     </bean>
 
+    <bean id="order" class="com.varela.open.batch.pojo.Order"/>
     <!-- 写CSV文件 -->
     <bean id="csvItemWriter"
-               class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
-        <property name="resource" value="file:src/outputFile.csv"/>
+          class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
+        <property name="resource" value="file:src/1.csv"/>
         <property name="lineAggregator">
-            <bean
-                    class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+            <bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
                 <property name="delimiter" value=","></property>
                 <property name="fieldExtractor">
                     <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
-                        <property name="names" value="name,age,score"></property>
+                        <property name="names" value="senderAddress,latitude,longitude"></property>
+                    <!--    ,deliveryAddress
+                        ,rLatitude,rLongitude,senderMobile,receiverMobile-->
                     </bean>
                 </property>
             </bean>
         </property>
     </bean>
-
-    <!--   <job id="helloWorldJob">
-           <step id="step_hello" next="step_world">
-               <tasklet ref="hello" transaction-manager="transactionManager"></tasklet>
-           </step>
-           <step id="step_world">
-               <tasklet ref="world" transaction-manager="transactionManager"></tasklet>
-           </step>
-       </job>
-
-       <bean:bean id="hello" class="com.wanggc.springbatch.sample.helloworld.writeTasklet">
-           <bean:property name="message" value="Hello "></bean:property>
-       </bean:bean>
-
-       <bean:bean id="world" class="com.wanggc.springbatch.sample.helloworld.writeTasklet">
-           <bean:property name="message" value=" World!"></bean:property>
-       </bean:bean>-->
 </beans>

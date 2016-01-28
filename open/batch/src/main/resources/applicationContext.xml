@@ -5,16 +5,6 @@
        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
        default-autowire="byName" default-lazy-init="false">
 
-    <!--jobLauncher负责batch的启动工作，jobRepository负责job的整个运行过程中的CRUD操作，transactionManager负责事务的管理操作。-->
-    <bean id="jobLauncher" class="org.springframework.batch.core.launch.support.SimpleJobLauncher">
-        <property name="jobRepository" ref="jobRepository"/>
-    </bean>
-
-    <bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
-    </bean>
-
-    <bean id="transactionManager"
-          class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
 
     <import resource="classpath:spring/applicationContext-batch.xml"/>
 </beans>
