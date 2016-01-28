@@ -14,7 +14,7 @@ public class CsvProcessor<Order> implements ItemProcessor<Order, Order> {
 
     @Override
     public Order process(Order order) throws Exception {
-        logger.info("线程:{},处理中:{}", Thread.currentThread().getId(),JSON.toJSONString(order));
+        //logger.info("线程:{},处理中:{}", Thread.currentThread().getId(),JSON.toJSONString(order));
 
         return order;
     }
