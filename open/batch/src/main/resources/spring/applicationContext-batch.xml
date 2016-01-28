@@ -33,6 +33,11 @@
             <tasklet transaction-manager="transactionManager">
                 <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1"
                        skip-limit="50" skip-policy="myPolicy">
+                    <skippable-exception-classes>
+                        <include class="org.springframework.batch.item.file.FlatFileParseException"/>
+                        <!--  <include class="java.lang.Exception"/>
+                          <exclude class="java.io.FileNotFoundException"/>-->
+                    </skippable-exception-classes>
                 </chunk>
             </tasklet>
         </batch:step>
@@ -41,7 +46,7 @@
     <!--读取文件-->
     <bean id="csvItemReader"
           class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
-        <property name="resource" value="classpath:data/data.csv"/>
+        <property name="resource" value="#{jobParameters['inputFile']}"/>
         <property name="lineMapper">
             <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
                 <property name="lineTokenizer" ref="lineTokenizer"/>
@@ -74,7 +79,7 @@
     <!-- 写CSV文件 -->
     <bean id="csvItemWriter"
           class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
-        <property name="resource" value="file:src/1.csv"/>
+        <property name="resource" value="#{jobParameters['outputFile']}"/>
         <property name="lineAggregator">
             <bean class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
                 <property name="delimiter" value=","></property>

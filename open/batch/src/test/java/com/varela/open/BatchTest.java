@@ -1,9 +1,6 @@
 package com.varela.open;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
-import org.springframework.batch.core.JobParametersInvalidException;
+import org.springframework.batch.core.*;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
@@ -30,7 +27,12 @@ public class BatchTest extends AbstractTestNGSpringContextTests {
     public void run() {
 
         try {
-            JobExecution jobExecution = jobLauncher.run(csvJob, new JobParameters());
+           JobParametersBuilder builder=new JobParametersBuilder();
+            builder.addString("inputFile","file:E://data.csv");
+            builder.addString("outputFile","file:E://1.csv");
+
+            JobParameters jobParameters=builder.toJobParameters();
+            JobExecution jobExecution = jobLauncher.run(csvJob,jobParameters);
             System.out.println(jobExecution.toString());
         } catch (JobExecutionAlreadyRunningException e) {
             e.printStackTrace();
