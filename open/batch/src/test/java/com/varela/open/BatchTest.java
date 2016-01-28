@@ -27,13 +27,14 @@ public class BatchTest extends AbstractTestNGSpringContextTests {
     public void run() {
 
         try {
-           JobParametersBuilder builder=new JobParametersBuilder();
-            builder.addString("inputFile","file:E://data.csv");
-            builder.addString("outputFile","file:E://1.csv");
+            long startTime = System.currentTimeMillis();
+            JobParametersBuilder builder = new JobParametersBuilder();
+            builder.addString("inputFile", "file:E://data.csv");
+            builder.addString("outputFile", "file:E://1.csv");
 
-            JobParameters jobParameters=builder.toJobParameters();
-            JobExecution jobExecution = jobLauncher.run(csvJob,jobParameters);
-            System.out.println(jobExecution.toString());
+            JobParameters jobParameters = builder.toJobParameters();
+            JobExecution jobExecution = jobLauncher.run(csvJob, jobParameters);
+            System.out.println("耗时:" + (System.currentTimeMillis() - startTime));
         } catch (JobExecutionAlreadyRunningException e) {
             e.printStackTrace();
         } catch (JobRestartException e) {

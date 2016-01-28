@@ -17,9 +17,10 @@
         <property name="jobRepository" ref="jobRepository"/>
     </bean>
 
-    <bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean"/>
-
-
+    <bean id="jobRepository" class="org.springframework.batch.core.repository.support.MapJobRepositoryFactoryBean">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
+    <!--事物支持-->
     <bean id="transactionManager"
           class="org.springframework.batch.support.transaction.ResourcelessTransactionManager"/>
 
@@ -31,7 +32,7 @@
     <batch:job id="csvJob">
         <batch:step id="csvStep">
             <tasklet transaction-manager="transactionManager">
-                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1"
+                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1000"
                        skip-limit="50" skip-policy="myPolicy">
                     <skippable-exception-classes>
                         <include class="org.springframework.batch.item.file.FlatFileParseException"/>
@@ -42,6 +43,13 @@
             </tasklet>
         </batch:step>
     </batch:job>
+
+    <!--数据库
+    <bean id="jdbcCursorItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
+        <property name="dataSource" ref=""/>
+    </bean>
+      <bean id="myWriter" class="com.varela.open.batch.writer.MyWriter"/>
+    -->
 
     <!--读取文件-->
     <bean id="csvItemReader"
@@ -86,8 +94,8 @@
                 <property name="fieldExtractor">
                     <bean class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
                         <property name="names" value="senderAddress,latitude,longitude"></property>
-                    <!--    ,deliveryAddress
-                        ,rLatitude,rLongitude,senderMobile,receiverMobile-->
+                        <!--    ,deliveryAddress
+                            ,rLatitude,rLongitude,senderMobile,receiverMobile-->
                     </bean>
                 </property>
             </bean>
