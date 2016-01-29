@@ -24,19 +24,35 @@
     <bean id="csvProcessor" class="com.varela.open.batch.processor.CsvProcessor"/>
     <!--自定义skip策略-->
     <bean id="myPolicy" class="com.varela.open.batch.policy.MyPolicy"/>
+
+
+ <bean id="poolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+     <property name="corePoolSize" value="10"/>
+     <property name="maxPoolSize" value="20"/>
+ </bean>
     <!--
-        <bean id="taskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
-        task-executor="taskExecutor" throttle-limit="20"-->
+       <bean id="taskExecutor" class="org.springframework.core.task.SimpleAsyncTaskExecutor"/>
+       task-executor="taskExecutor" throttle-limit="20"-->
     <batch:job id="csvJob">
         <batch:step id="csvStep">
-            <batch:tasklet>
+            <batch:tasklet task-executor="poolTaskExecutor">
                 <batch:chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor"
-                commit-interval="1" skip-limit="100" skip-policy="myPolicy">
+                commit-interval="3000" skip-limit="100" skip-policy="myPolicy">
                     <batch:skippable-exception-classes>
                         <batch:exclude class="org.springframework.batch.item.file.FlatFileParseException"/>
                     </batch:skippable-exception-classes>
                 </batch:chunk>
             </batch:tasklet>
+          <!--  <tasklet transaction-manager="transactionManager">
+                <chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor" commit-interval="1"
+                       skip-limit="100">
+                    <skippable-exception-classes>
+                        <include class="org.springframework.batch.item.file.FlatFileParseException"/>
+                        &lt;!&ndash;  <include class="java.lang.Exception"/>
+                          <exclude class="java.io.FileNotFoundException"/>&ndash;&gt;
+                    </skippable-exception-classes>
+                </chunk>
+            </tasklet>-->
         </batch:step>
     </batch:job>
 
@@ -56,7 +72,8 @@
                 <property name="lineTokenizer" ref="lineTokenizer"/>
                 <property name="fieldSetMapper">
                     <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
-                        <property name="prototypeBeanName" value="order"></property>
+                <!--        <property name="prototypeBeanName" value="order"></property>  -->
+                        <property name="targetType" value="com.varela.open.batch.pojo.Order"/>
                     </bean>
                 </property>
             </bean>
@@ -79,7 +96,6 @@
         </property>
     </bean>
 
-    <bean id="order" class="com.varela.open.batch.pojo.Order"/>
     <!-- 写CSV文件 -->
     <bean id="csvItemWriter"
           class="org.springframework.batch.item.file.FlatFileItemWriter" scope="step">
