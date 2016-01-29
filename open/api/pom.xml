@@ -140,7 +140,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>${tomcat7.maven.plugin.version}</version>
                 <configuration>
-                    <port>80</port>
+                    <port>83</port>
                     <path>/</path>
                 </configuration>
             </plugin>
