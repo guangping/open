@@ -15,18 +15,24 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.batch.version>3.0.6.RELEASE</spring.batch.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-core</artifactId>
-            <version>3.0.6.RELEASE</version>
+            <version>${spring.batch.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.batch</groupId>
             <artifactId>spring-batch-infrastructure</artifactId>
-            <version>3.0.6.RELEASE</version>
+            <version>${spring.batch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.batch</groupId>
+            <artifactId>spring-batch-test</artifactId>
+            <version>${spring.batch.version}</version>
         </dependency>
     </dependencies>
 </project>
