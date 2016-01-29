@@ -45,7 +45,9 @@
                 <batch:chunk reader="csvItemReader" writer="csvItemWriter" processor="csvProcessor"
                              commit-interval="3000" skip-limit="100">
                     <batch:skippable-exception-classes>
-                        <batch:exclude class="org.springframework.batch.item.file.FlatFileParseException"/>
+                        <!--include是允许跳过的错，exclude是不允许跳过的错-->
+                        <batch:exclude class="java.io.FileNotFoundException"/>
+                        <batch:include class="org.springframework.batch.item.file.FlatFileParseException"/>
                     </batch:skippable-exception-classes>
                 </batch:chunk>
             </batch:tasklet>
