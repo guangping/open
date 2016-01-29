@@ -25,7 +25,6 @@ public class BatchTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void run() {
-
         try {
             long startTime = System.currentTimeMillis();
             JobParametersBuilder builder = new JobParametersBuilder();
@@ -34,7 +33,7 @@ public class BatchTest extends AbstractTestNGSpringContextTests {
 
             JobParameters jobParameters = builder.toJobParameters();
             JobExecution jobExecution = jobLauncher.run(csvJob, jobParameters);
-            System.out.println("耗时:" + (System.currentTimeMillis() - startTime));
+            System.out.println("耗时:" + (System.currentTimeMillis() - startTime)+"==》异常："+jobExecution);
         } catch (JobExecutionAlreadyRunningException e) {
             e.printStackTrace();
         } catch (JobRestartException e) {
