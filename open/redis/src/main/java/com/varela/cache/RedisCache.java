@@ -138,6 +138,17 @@ public class RedisCache {
         return true;
     }
 
+    public long lPush(String key, String value) {
+        return this.redisTemplate.boundListOps(key).leftPush(value);
+    }
+
+    public String rPop(String key) {
+        return this.redisTemplate.boundListOps(key).rightPop();
+    }
+
+    public long listSize(String key){
+        return this.redisTemplate.boundListOps(key).size();
+    }
 
     public void flushAll() {
         redisTemplate.execute(new RedisCallback<Integer>() {
@@ -164,6 +175,8 @@ public class RedisCache {
         redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
         return redisTemplate.opsForSet().add(key, values);
     }
+
+
 
     public Set<String> getSet(String key) {
         return redisTemplate.opsForSet().members(key);

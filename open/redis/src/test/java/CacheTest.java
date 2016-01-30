@@ -1,5 +1,6 @@
 import com.alibaba.fastjson.JSON;
 import com.varela.cache.RedisCache;
+import com.varela.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
@@ -32,5 +33,16 @@ public class CacheTest extends AbstractTestNGSpringContextTests {
     @Test
     public void setList(){
 
+    }
+
+
+    @Test
+    public void push(){
+        String key="city:list";
+        long s=0;
+        for(int i=0;i<200;i++){
+            s=this.redisCache.lPush(key, RandomUtil.getRandomStr());
+            System.out.println(s);
+        }
     }
 }

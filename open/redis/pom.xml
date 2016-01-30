@@ -13,6 +13,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.varela.open</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>${jedis.version}</version>
