@@ -9,7 +9,7 @@ public class HtmlUtils {
 
     public static String filter(String message) {
 
-        if(StringUtils.isBlank(message)){
+        if (StringUtils.isBlank(message)) {
             return null;
         }
         char content[] = new char[message.length()];
