@@ -20,7 +20,8 @@ public class HtmlUtils {
                 case '<':
                     result.append("&lt;");
                     break;
-                case '>':
+                case
+                        '>':
                     result.append("&gt;");
                     break;
                 case '&':
