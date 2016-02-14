@@ -6,11 +6,11 @@
        http://www.springframework.org/schema/data/elasticsearch/spring-elasticsearch.xsd
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--
-        <elasticsearch:node-client id="client" local="true"/>
-    -->
+
+    <elasticsearch:node-client id="client" cluster-name="elasticsearch" local="true"/>
+
     <elasticsearch:repositories base-package="com.varela.open.esearch"/>
-    <elasticsearch:transport-client id="client" cluster-nodes="127.0.0.1:9300" cluster-name="elasticsearch"/>
+    <!-- <elasticsearch:transport-client id="client" cluster-nodes="127.0.0.1:9300" cluster-name="elasticsearch"/>-->
     <bean name="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
         <constructor-arg name="client" ref="client"/>
     </bean>
