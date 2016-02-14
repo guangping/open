@@ -16,9 +16,11 @@
         <module>unionpay</module>
         <module>rop-client</module>
         <module>admin</module>
+        <module>batch</module>
         <module>lock</module>
         <module>api</module>
         <module>mongodb</module>
+        <module>esearch</module>
     </modules>
     <packaging>pom</packaging>
 
