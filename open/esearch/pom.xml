@@ -17,7 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <elasticsearch.version>2.2.0</elasticsearch.version>
         <spring.data-commons.version>1.5.0.RELEASE</spring.data-commons.version>
-        <spring.data.elasticsearch>1.3.0.RELEASE</spring.data.elasticsearch>
+        <spring.data.elasticsearch>1.3.1.RELEASE</spring.data.elasticsearch>
     </properties>
 
     <dependencies>
@@ -28,11 +28,11 @@
             <version>${elasticsearch.version}</version>
         </dependency>-->
 
-        <dependency>
+   <!--     <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-elasticsearch</artifactId>
             <version>${spring.data.elasticsearch}</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 </project>

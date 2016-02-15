@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration("classpath:applicationContext-esearch-test.xml")
 public class ESearchTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+  /*  @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
 
 
@@ -26,7 +26,7 @@ public class ESearchTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void run() {
-        System.out.println(this.elasticsearchTemplate);
+        System.out.println(this.elasticsearchTemplate+":"+this.addressElasticsearchRepository);
 
     }
 
@@ -50,6 +50,6 @@ public class ESearchTest extends AbstractTestNGSpringContextTests {
     @Test
     public void deleteIndex() {
 
-    }
+    }*/
 
 }

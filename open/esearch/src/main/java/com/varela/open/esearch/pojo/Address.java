@@ -1,5 +1,6 @@
 package com.varela.open.esearch.pojo;
 
+/*
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -8,9 +9,11 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
 
+*/
 /**
  * Created by lance on 2016/2/14.
- */
+ *//*
+
 @Document(indexName = "address",type = "address-entity")
 public class Address implements Serializable {
     @Field(type = FieldType.String, index = FieldIndex.analyzed, store = true)
@@ -66,3 +69,4 @@ public class Address implements Serializable {
                 '}';
     }
 }
+*/
