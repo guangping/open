@@ -52,6 +52,23 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--使用不同的事务管理器
+     @Transactional("tran_1")
+     @Transactional("tran_2")
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <qualifier value="tran_1"/>
+    </bean>
+
+      <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+        <qualifier value="tran_2"/>
+    </bean>
+    -->
+
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
     <tx:advice id="transactionManagerAdivice"
                transaction-manager="transactionManager">
