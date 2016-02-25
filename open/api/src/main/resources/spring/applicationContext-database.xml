@@ -59,4 +59,7 @@
             <tx:method name="*" no-rollback-for="java.lang.RuntimeException" rollback-for="java.lang.Exception"/>
         </tx:attributes>
     </tx:advice>
+    <!--代码中设置回滚
+     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+    -->
 </beans>
