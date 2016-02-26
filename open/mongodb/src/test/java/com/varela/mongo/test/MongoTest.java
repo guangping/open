@@ -1,6 +1,8 @@
 package com.varela.mongo.test;
 
+import com.mongodb.WriteResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.test.context.ContextConfiguration;
@@ -46,7 +48,29 @@ public class MongoTest extends AbstractTestNGSpringContextTests {
         System.out.println(access);
 
         Query query = new Query();
-        this.mongoTemplate.find(query, Access.class);
+        query.limit(10);
+        query.with(new Sort(new Sort.Order(Sort.Direction.DESC, "id")));
+        List<Access> list = this.mongoTemplate.find(query, Access.class);
+        System.out.println(list);
+    }
+
+    @Test
+    public void remove() {
+        Access access = new Access();
+        access.setId(1);
+        WriteResult writeResult = this.mongoTemplate.remove(access);
+        System.out.println(writeResult);
+    }
+
+    @Test
+    public void update() {
+        Access access = new Access();
+        access.setAccessId(UUID.randomUUID().toString());
+        access.setSecret(String.valueOf(new Random(10000).nextLong()));
+        access.setDateTime(new Date(System.currentTimeMillis()));
+        access.setStatus(1);
+        access.setId(2);
+        this.mongoTemplate.save(access);
     }
 
 
