@@ -11,5 +11,35 @@
 
     <artifactId>common</artifactId>
 
+    <!--profiles 配置不同环境-->
+    <build>
+        <finalName>common</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*/*</include>
+                    <include>*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <weibo>测试</weibo>
+                <mac>Mac Book</mac>
+            </properties>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties/>
+        </profile>
+    </profiles>
 
 </project>
