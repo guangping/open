@@ -25,20 +25,11 @@
     </typeAliases>
 
     <plugins>
-        <!--分页插件一-->
-        <plugin interceptor="com.github.pagehelper.PageHelper">
-            <!-- 方言 -->
-            <property name="dialect" value="mysql"/>
-            <!-- 默认为false ,设置为true时，使用RowBounds分页会进行count查询，查询数据总条数 -->
-            <property name="rowBoundsWithCount" value="true"/>
-        </plugin>
-        <!--分页插件二
+        <!-- 分页插件二-->
         <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
             <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.MySQLDialect"/>
         </plugin>
-        -->
     </plugins>
 
-    <mappers/>
 
 </configuration>

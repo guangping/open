@@ -32,7 +32,7 @@
         <property name="filters" value="stat,log4j"/>
     </bean>
 
-    <!--Mybatis整合方式一-->
+    <!--Mybatis整合方式一
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation">
             <value>classpath:sql-map-config.xml</value>
@@ -41,22 +41,23 @@
             <value>classpath:maps/*.xml</value>
         </property>
         <property name="dataSource" ref="dataSource"/>
-    </bean>
+    </bean>-->
 
 
-    <!-- Mybatis整合方式二
+    <!-- Mybatis整合方式二-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
          <property name="dataSource" ref="dataSource"/>
          <property name="configLocation">
              <value>classpath:sql-map-config.xml</value>
          </property>
-         <property name="typeAliasesPackage" value="com.shunbaiyou.model"/>
+        <property name="mapperLocations" value="classpath*:maps/*.xml"/>
+         <property name="typeAliasesPackage" value="com.varela.entity"/>
      </bean>
 
      <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-         <property name="basePackage" value="com.shunbaiyou.dao"/>
+         <property name="basePackage" value="com.varela.dao"/>
          <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-     </bean>-->
+     </bean>
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
