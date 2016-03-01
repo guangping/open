@@ -52,6 +52,13 @@
                         <value>WriteNullStringAsEmpty</value>
                         <value>WriteNullBooleanAsFalse</value>
                         <value>WriteDateUseDateFormat</value>
+                        <value>QuoteFieldNames</value>
+                        <value>WriteNullNumberAsZero</value>
+
+                        <!--浏览器兼容-->
+                        <value>BrowserCompatible</value>
+                        <!--斜杠处理-->
+                        <value>WriteSlashAsSpecial</value>
                     </array>
                 </property>
             </bean>
