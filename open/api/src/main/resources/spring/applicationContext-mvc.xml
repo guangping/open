@@ -54,6 +54,7 @@
                         <value>WriteDateUseDateFormat</value>
                         <value>QuoteFieldNames</value>
                         <value>WriteNullNumberAsZero</value>
+                        <value>UseSingleQuotes</value>
 
                         <!--浏览器兼容-->
                         <value>BrowserCompatible</value>
