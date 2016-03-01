@@ -3,7 +3,7 @@ package com.varela.dao;
 import com.varela.entity.User;
 
 
-public interface UserMapper {
+public interface UserDao {
     int deleteByPrimaryKey(Long id);
 
     int insert(User record);

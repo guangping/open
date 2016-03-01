@@ -2,7 +2,7 @@
 import com.varela.service.api.bus.LevelService;
 import org.springframework.beans.factory.annotation.Autowired;*/
 
-import com.varela.dao.UserMapper;
+import com.varela.dao.UserDao;
 import com.varela.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -16,17 +16,17 @@ import org.testng.annotations.Test;
 public class DBTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
 
     @Test
     public void run(){
-        System.out.println(userMapper);
+        System.out.println(userDao);
     }
 
     @Test
     public void queryById(){
         long id=1;
-        User user=this.userMapper.selectByPrimaryKey(id);
+        User user=this.userDao.selectByPrimaryKey(id);
         System.out.println(user);
     }
 }
