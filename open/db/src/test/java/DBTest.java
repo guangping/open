@@ -19,14 +19,22 @@ public class DBTest extends AbstractTestNGSpringContextTests {
     private UserDao userDao;
 
     @Test
-    public void run(){
+    public void run() {
         System.out.println(userDao);
     }
 
     @Test
-    public void queryById(){
-        long id=1;
-        User user=this.userDao.selectByPrimaryKey(id);
+    public void queryById() {
+        long id = 1;
+        User user = this.userDao.selectByPrimaryKey(id);
         System.out.println(user);
+    }
+
+    @Test
+    public void insert() {
+        User user = new User();
+        user.setName("东海");
+        this.userDao.insert(user);
+        System.out.println("id==>" + user.getId());
     }
 }
