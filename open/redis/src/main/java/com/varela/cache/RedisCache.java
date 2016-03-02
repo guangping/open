@@ -41,7 +41,7 @@ public class RedisCache {
      */
     public boolean setNx(String key, String value) {
         final RedisSerializer<String> serializer = this.redisTemplate.getStringSerializer();
-        Boolean sign = (Boolean) this.redisTemplate.execute(new RedisCallback<Boolean>() {
+        Boolean sign = this.redisTemplate.execute(new RedisCallback<Boolean>() {
             @Override
             public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
                 boolean val = redisConnection.setNX(serializer.serialize(key), serializer.serialize(value));
