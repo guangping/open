@@ -1,5 +1,6 @@
 package com.varela.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.varela.enumerate.Msg;
 
 import java.io.Serializable;
@@ -11,6 +12,7 @@ public class APIResult implements Serializable {
     private String message;
     private Object result;
 
+    @JSONField(serialize = false)
     private boolean success = false;
 
     public boolean isSuccess() {
