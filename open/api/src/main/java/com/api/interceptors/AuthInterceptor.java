@@ -6,7 +6,6 @@ import com.api.pojo.APIKey;
 import com.api.pojo.APIRequest;
 import com.api.security.DefaultInvokeTimesController;
 import com.api.security.DefaultSecurityManager;
-import com.api.service.api.DeveloperApiTimeLogService;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.StringCommonUtils;
@@ -44,8 +43,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private DefaultInvokeTimesController invokeTimesController;
 
-    @Autowired
-    private DeveloperApiTimeLogService apiTimeLogService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -94,7 +91,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         if (consumeTime > APIKey.TIME) {
             //TODO 记录到日志文件
             //记录调用耗时过长日志
-            this.apiTimeLogService.set(apiRequest.getAppKey(), apiRequest.getMethod(), consumeTime);
+           // this.apiTimeLogService.set(apiRequest.getAppKey(), apiRequest.getMethod(), consumeTime);
         }
         //TODO 调用次数存储
         this.invokeTimesController.caculateInvokeTimes(apiRequest.getAppKey(), apiRequest.getMethod());

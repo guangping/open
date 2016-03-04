@@ -1,7 +1,5 @@
 package com.api.security;
 
-import com.api.entity.DeveloperApi;
-import com.api.service.api.DeveloperApiService;
 import com.api.utils.APIRedisKey;
 import com.varela.cache.RedisCache;
 import com.varela.cache.RedisKey;
@@ -17,19 +15,14 @@ import java.util.Calendar;
 @Component
 public class DefaultInvokeTimesController implements InvokeTimesController {
 
-    @Autowired
-    private DeveloperApiService developerApiService;
 
     @Autowired
     private RedisCache redisCache;
 
     @Override
     public boolean checkMethod(String appKey, String method) {
-        boolean sign=false;
-        DeveloperApi developerApi=developerApiService.queryObj(appKey, method);
-        if (null != developerApi) {
-            sign = true;
-        }
+        boolean sign=true;
+
         return sign;
     }
 
