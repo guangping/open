@@ -24,6 +24,12 @@ public class AMapUtils {
     private static String aMapGeoUrl = "http://restapi.amap.com/v3/geocode/geo?key=19677bd2a7375b7015925554269d2095&address={0}&output=json";
 
     /**
+     * 根据地址获取省份信息
+     */
+    private static String aMapGeoUrl2 = "http://restapi.amap.com/v3/geocode/geo?key=19677bd2a7375b7015925554269d2095&address={0}&city={1}&output=json";
+
+
+    /**
      * 根据经纬度获取地址
      */
     public static AMapAddress getAddress(double longitude, double latitude) {
@@ -85,7 +91,33 @@ public class AMapUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return address;
+    }
 
+    public static AMapAddress getAddress(String addressStr,String city) {
+        AMapAddress address = null;
+        String url = MessageFormat.format(aMapGeoUrl2, addressStr,city);
+        String str = HttpUtils.get(url);
+        try {
+            if (StringUtils.isNotBlank(str)) {
+                JSONObject json = JSONObject.parseObject(str);
+                if (null != json) {
+                    int status = json.getIntValue("status");
+                    if (status == 1) {
+                        JSONArray geocodes = json.getJSONArray("geocodes");
+                        if(null!=geocodes && geocodes.size()>0){
+                            JSONObject jsonAddress=geocodes.getJSONObject(0);
+                            address=new AMapAddress();
+                            address.setCity(jsonAddress.getString("city"));
+                            address.setCityCode(jsonAddress.getString("citycode"));
+                            address.setProvince(jsonAddress.getString("province"));
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return address;
     }
 }
