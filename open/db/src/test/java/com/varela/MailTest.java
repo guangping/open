@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -12,6 +11,7 @@ import org.testng.annotations.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 /**
  * Created by 51offer on 2016/3/4.
@@ -25,7 +25,7 @@ public class MailTest extends AbstractTestNGSpringContextTests {
     @Value("${mail.username}")
     private String mail;
 
-    private String recMail="guangping.m@51offer.com";
+    private String recMail = "guangping.m@51offer.com";
 
     @Test
     public void send() {
@@ -33,7 +33,7 @@ public class MailTest extends AbstractTestNGSpringContextTests {
         mailMessage.setFrom(mail);//发送人
         mailMessage.setSubject("测试邮件!");//主题
         mailMessage.setTo(recMail);//接收人
-        String msg="测试";
+        String msg = "测试";
         mailMessage.setText(msg);//邮件内容
 
         mailSender.send(mailMessage);
@@ -42,17 +42,34 @@ public class MailTest extends AbstractTestNGSpringContextTests {
 
     /**
      * 发送html的邮件
-     * */
+     */
     @Test
-    public void sendHtml()throws MessagingException {
-        MimeMessage mailMessage=mailSender.createMimeMessage();
+    public void sendHtml() throws MessagingException {
+        MimeMessage mailMessage = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(mailMessage,
                 "UTF-8");
         messageHelper.setTo(recMail);
         messageHelper.setFrom(mail);//发送人
         messageHelper.setSubject("测试HTML邮件!");//主题
-        String msg=html();
-        messageHelper.setText(msg,true);//邮件内容
+        String msg = html();
+        messageHelper.setText(msg, true);//邮件内容
+
+        mailSender.send(mailMessage);
+        System.out.println("对象:" + mailSender);
+    }
+
+    @Test
+    public void sendFile()throws MessagingException{
+        MimeMessage mailMessage = mailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mailMessage,true,
+                "UTF-8");
+        messageHelper.setTo(recMail);
+        messageHelper.setFrom(mail);//发送人
+        messageHelper.setSubject("测试HTML邮件!");//主题
+        //附件
+        messageHelper.addAttachment("icon.xml",new File("F:\\maven\\settings.xml"));
+        String msg = html();
+        messageHelper.setText(msg, true);//邮件内容
 
         mailSender.send(mailMessage);
         System.out.println("对象:" + mailSender);
@@ -76,4 +93,6 @@ public class MailTest extends AbstractTestNGSpringContextTests {
 
         return builder.toString();
     }
+
+
 }
