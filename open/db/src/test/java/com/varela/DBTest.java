@@ -25,8 +25,6 @@ public class DBTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private DiscoverViewerDataDao discoverViewerDataDao;
 
     @Test
     public void run() {
@@ -48,67 +46,6 @@ public class DBTest extends AbstractTestNGSpringContextTests {
         System.out.println("id==>" + user.getId());
     }
 
-    @Test
-    public void list() {
-        long start = System.currentTimeMillis();
-        PageBounds pageBounds = null;
-        DiscoverViewerData param = null;
-        List<DiscoverViewerData> list = null;
-        for (int i = 0; i < 200; i++) {
-            pageBounds = new PageBounds();
-            pageBounds.setAsyncTotalCount(true);
-            pageBounds.setPage((i + 1));
-            pageBounds.setLimit(500);
 
-            param = new DiscoverViewerData();
-            list = this.discoverViewerDataDao.queryList(param, pageBounds);
-            if (list.isEmpty()) {
-                System.out.println("page:" + (i + 1));
-                break;
-            }
-            this.update(list);
-            //System.out.println("===>" + list.size());
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("耗时:" + (end - start));
-    }
-
-
-    public void update(List<DiscoverViewerData> list) {
-        DiscoverViewerData param = null;
-        int i=0;
-        for (DiscoverViewerData obj : list) {
-            //判断是否修改
-            if (StringUtils.isNotBlank(obj.getLocName2())) {
-                String items[] = obj.getLocName2().split("\\s+");
-                if (null!=items && items.length == 2) {
-                    param = new DiscoverViewerData();
-                    param.setId(obj.getId());
-                    param.setLocName2(items[0]);
-                    param.setLocName3(items[1]);
-                    i=this.update(param);
-                    System.out.println("影响记录数:"+i+",id:"+obj.getId());
-                }
-            }
-        }
-    }
-
-    @Transactional
-    public int update(DiscoverViewerData param) {
-        int i=this.discoverViewerDataDao.updateByPrimaryKeySelective(param);
-        if(i>=1){
-            throw new RuntimeException("测试");
-        }
-        return i;
-    }
-
-
-    @Test
-    public void update(){
-        DiscoverViewerData param=new DiscoverViewerData();
-        param.setId(1);
-        param.setLocName1("中国");
-        this.update(param);
-    }
 
 }
