@@ -83,6 +83,13 @@
             <artifactId>jackson-core</artifactId>
             <version>${version.jackson}</version>
         </dependency>
+
+        <!--log4j 日志写到MongoDB-->
+        <dependency>
+            <groupId>org.log4mongo</groupId>
+            <artifactId>log4mongo-java</artifactId>
+            <version>0.7.4</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>api</finalName>
