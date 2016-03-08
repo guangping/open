@@ -42,7 +42,7 @@ public class DefaultSecurityManager implements SecurityManager {
         }
         //检查有效期
         long dValue = System.currentTimeMillis() / 1000 - timestamp;
-        if (dValue > 600 || dValue < -600) {
+        if (dValue > APIKey.TIME_OUT || dValue < -APIKey.TIME_OUT) {
             apiResult.setMsg(Msg.VALID_TIME);
             return apiResult;
         }

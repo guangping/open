@@ -7,6 +7,8 @@ public class APIKey {
 
     public static final int TIME=500;
 
+    public static final int TIME_OUT=600;
+
     /**
      * ContentType
      * */
