@@ -8,7 +8,7 @@ public interface InvokeTimesController {
     /**
      * 应用调用权限
      */
-    boolean checkMethod(String appKey, String method);
+    boolean checkMethodPermissions(String appKey, String method);
 
     /**
      * 计算应用、服务调用次数

@@ -20,7 +20,7 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
     private RedisCache redisCache;
 
     @Override
-    public boolean checkMethod(String appKey, String method) {
+    public boolean checkMethodPermissions(String appKey, String method) {
         boolean sign=true;
 
         return sign;

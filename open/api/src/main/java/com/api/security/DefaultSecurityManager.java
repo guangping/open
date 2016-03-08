@@ -69,7 +69,7 @@ public class DefaultSecurityManager implements SecurityManager {
         }
 
         //检查方法调用权限
-        boolean checkMethodSign = this.checkMethod(appKey, method);
+        boolean checkMethodSign = this.checkMethodPermissions(appKey, method);
         if (!checkMethodSign) {
             apiResult.setMsg(Msg.NOT_UNAUTHORIZED);
             return apiResult;
@@ -106,8 +106,8 @@ public class DefaultSecurityManager implements SecurityManager {
         return false;
     }
 
-    private boolean checkMethod(String appKey, String method) {
-        return this.invokeTimesController.checkMethod(appKey, method);
+    private boolean checkMethodPermissions(String appKey, String method) {
+        return this.invokeTimesController.checkMethodPermissions(appKey, method);
     }
 
 
