@@ -29,7 +29,7 @@ public enum Msg {
     CONTENT_TYPE_ERROR(200, "Content-Type类型错误!"),
 
 
-    ERROR(9999, "未知错误!");
+    ERROR(9999, "服务器繁忙,请稍后再试!");
 
 
     private final int code;
