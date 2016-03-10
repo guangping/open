@@ -123,12 +123,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
      * 拦截器中返回json数据
      */
     public void writeJson(String json, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(APIKey.ContentType.JSON);
         response.getWriter().write(json);
     }
 
     public void writeJson(Object obj, HttpServletResponse response) throws IOException {
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(APIKey.ContentType.JSON);
         response.getWriter().write(JSONObject.toJSONString(obj, SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty, SerializerFeature.WriteNullBooleanAsFalse));
     }
 }
