@@ -32,7 +32,7 @@ public class ApiSessionController extends ApiController {
     @ApiOperation(value = "获取session", httpMethod = HttpMethodConst.GET, notes = "获取session")
     public Object getSession() {
         APIResult apiResult = new APIResult();
-        apiResult.setResult(UUID.randomUUID());
+        apiResult.setData(UUID.randomUUID());
         apiResult.setMsg(Msg.SUCCESS);
         return apiResult;
     }
@@ -52,7 +52,7 @@ public class ApiSessionController extends ApiController {
         user.setMobile("11111111111");
         user.setCreateTime(new Date());
         apiResult.setMsg(Msg.SUCCESS);
-        apiResult.setResult(user);
+        apiResult.setData(user);
         return apiResult;
     }
 
