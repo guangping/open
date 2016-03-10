@@ -1,20 +1,10 @@
-package com.varela;/*import com.varela.entity.Level;
-import com.varela.service.api.bus.LevelService;
-import org.springframework.beans.factory.annotation.Autowired;*/
-
-import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
-import com.varela.dao.DiscoverViewerDataDao;
+package com.varela;
 import com.varela.dao.UserDao;
-import com.varela.entity.DiscoverViewerData;
 import com.varela.entity.User;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 /**
  * Created by lance on 10/14/2015.
