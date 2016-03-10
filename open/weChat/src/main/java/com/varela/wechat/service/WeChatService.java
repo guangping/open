@@ -125,7 +125,7 @@ public class WeChatService {
 
         if (post.isSuccess()) {
             JSONObject jo = JSONObject.parseObject(post.getResult());
-            apiResult.setResult(jo.getString("openid"));
+            apiResult.setData(jo.getString("openid"));
             apiResult.setMsg(Msg.SUCCESS);
             return apiResult;
         }
