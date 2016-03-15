@@ -22,7 +22,6 @@
         <module>mongodb</module>
         <module>esearch</module>
         <module>elasticsearch</module>
-        <module>activemq</module>
     </modules>
     <packaging>pom</packaging>
 
