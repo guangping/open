@@ -9,7 +9,7 @@
 
     <context:annotation-config/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
-    <context:component-scan base-package="com.api,com.varela">
+    <context:component-scan base-package="com.varela.*">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
@@ -23,12 +23,13 @@
             <list>
                 <value>classpath:cache.properties</value>
                 <value>classpath:jdbc.properties</value>
+                <value>classpath:mongodb.properties</value>
             </list>
         </property>
     </bean>
     <bean class="com.varela.spring.SpringApplicationContext"/>
     <import resource="classpath:spring/applicationContext-redis.xml"/>
     <import resource="classpath:spring/applicationContext-database.xml"/>
-
+    <import resource="classpath:spring/applicationContext-mongo.xml"/>
 
 </beans>

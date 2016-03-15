@@ -76,10 +76,10 @@
     </mvc:annotation-driven>
 
     <mvc:interceptors>
-        <bean class="com.api.interceptors.ResourceInterceptor"/>
+        <bean class="com.varela.api.interceptors.ResourceInterceptor"/>
         <mvc:interceptor>
             <mvc:mapping path="/api/**"/>
-            <bean class="com.api.interceptors.AuthInterceptor"/>
+            <bean class="com.varela.api.interceptors.AuthInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
