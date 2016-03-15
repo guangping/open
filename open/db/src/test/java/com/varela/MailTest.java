@@ -1,7 +1,9 @@
 package com.varela;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -24,6 +26,10 @@ public class MailTest extends AbstractTestNGSpringContextTests {
 
     @Value("${mail.username}")
     private String mail;
+
+    @Autowired
+    @Qualifier("emailTaskExecutor")
+    private TaskExecutor taskExecutor;
 
     private String recMail = "guangping.m@51offer.com";
 
@@ -94,5 +100,17 @@ public class MailTest extends AbstractTestNGSpringContextTests {
         return builder.toString();
     }
 
+
+    /**
+     * 异步发送邮件
+     * */
+    private void sendMail(){
+        this.taskExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+               // mailSender.send(null);
+            }
+        });
+    }
 
 }
