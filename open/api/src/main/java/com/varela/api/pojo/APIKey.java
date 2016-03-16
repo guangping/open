@@ -34,6 +34,8 @@ public class APIKey {
         public static final String TIMESTAMP = "timestamp";
         //TODO 方法名
         public static final String METHOD = "method";
+
+        public static final String TOKEN="token";
     }
 
     /**
