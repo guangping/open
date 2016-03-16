@@ -37,6 +37,17 @@ public class ApiSessionController extends ApiController {
         return apiResult;
     }
 
+    /**
+     * 获取token
+     * */
+    @RequestMapping(value = "/token/get", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public APIResult getToken(){
+        APIResult apiResult=new APIResult();
+        apiResult.setMsg(Msg.SUCCESS);
+        return apiResult;
+    }
+
 
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.POST)
