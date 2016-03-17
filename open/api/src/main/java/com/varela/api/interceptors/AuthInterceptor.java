@@ -5,7 +5,6 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.varela.api.pojo.APIKey;
 import com.varela.api.pojo.APIRequest;
 import com.varela.api.security.DefaultInvokeTimesController;
-import com.varela.api.security.DefaultSecurityManager;
 import com.varela.enumerate.Msg;
 import com.varela.pojo.APIResult;
 import com.varela.utils.StringCommonUtils;
@@ -38,7 +37,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             new NamedThreadLocal("access-request");
 
     @Autowired
-    private DefaultSecurityManager securityManager;
+    private com.varela.api.security.SecurityManager  securityManager;
 
     @Autowired
     private DefaultInvokeTimesController invokeTimesController;
@@ -60,7 +59,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         APIRequest apiRequest = this.getRequest(request);
         requestThreadLocal.set(apiRequest);
         //TODO 请求验证
-    /*    APIResult apiResult = this.securityManager.validateParams(apiRequest);
+   /*     APIResult apiResult = this.securityManager.validateParams(apiRequest);
         if (!apiResult.isSuccess()) {
             this.writeJson(apiResult, response);
             return false;
