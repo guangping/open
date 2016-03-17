@@ -50,8 +50,6 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         long beginTime = System.currentTimeMillis();
         startTimeThreadLocal.set(beginTime);
 
-        logger.info("请求地址:{},请求参数:{}", request.getRequestURI(), JSONObject.toJSONString(request.getParameterMap()));
-
         String contentType = request.getContentType();
         if (StringUtils.isBlank(contentType) || !contentType.startsWith(APIKey.ContentType.X_WWW_FORM_URLENCODED)) {
             APIResult apiResult = new APIResult();
@@ -87,9 +85,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         long consumeTime = endTime - beginTime;
 
         APIRequest apiRequest = requestThreadLocal.get();
-        logger.info("接口: {} 耗时:{}ms", request.getRequestURI(), consumeTime);
+        logger.info("接口:{},耗时:{}ms,参数:{}", request.getRequestURI(), consumeTime,JSONObject.toJSONString(request.getParameterMap()));
         if (consumeTime > APIKey.TIME) {
-            //TODO 记录到日志文件
+            //TODO 记录到日志文件 monogo
             //记录调用耗时过长日志
            // this.apiTimeLogService.set(apiRequest.getAppKey(), apiRequest.getMethod(), consumeTime);
         }
