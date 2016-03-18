@@ -8,6 +8,10 @@
         <result property="apiId" column="api_id"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id,developer_id,api_id,create_time,modify_time
+    </sql>
+
     <insert id="save" parameterType="DeveloperApi" keyProperty="id">
 		 <![CDATA[
         	insert into developer_api
@@ -17,7 +21,9 @@
 	</insert>
 
     <select id="queryList" parameterType="DeveloperApi" resultMap="resultMap-DeveloperApi">
-        <![CDATA[ select * from developer_api ]]>
+       select
+        <include refid="Base_Column_List"/>
+        from developer_api
         <where>
             <if test="id != -1">
                 <![CDATA[  and id = #{id} ]]>

@@ -25,4 +25,8 @@ public class APIService  {
         long id=api.getId();
         return id;
     }
+
+    public API queryByMethod(String method){
+        return this.apiDao.queryByMethod(method);
+    }
 }

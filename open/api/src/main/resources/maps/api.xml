@@ -29,5 +29,9 @@
         ]]>
     </insert>
 
+    <select id="queryByMethod" parameterType="java.lang.String" resultMap="resultMap-api">
+        select <include refid="Base_Column_List"/> from api where method=#{method}
+    </select>
+
 
 </mapper>
