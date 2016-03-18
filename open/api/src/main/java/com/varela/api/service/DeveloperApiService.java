@@ -1,7 +1,11 @@
 package com.varela.api.service;
 
+import com.varela.api.entity.API;
 import com.varela.api.entity.Developer;
 import com.varela.api.entity.DeveloperApi;
+import com.varela.api.pojo.RedisApiKey;
+import com.varela.cache.RedisCache;
+import com.varela.cache.RedisKey;
 import com.varela.dao.DeveloperApiDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +16,16 @@ import java.util.List;
  * Created by lance on 2016/3/18.
  */
 @Service
-public class DeveloperApiService {
+public class DeveloperApiService implements CacheService<DeveloperApi> {
 
     @Autowired
     private DeveloperApiDao developerApiDao;
 
-
     @Autowired
     private DeveloperService developerService;
+
+    @Autowired
+    private RedisCache redisCache;
 
 
     public List<DeveloperApi> queryList(DeveloperApi developerApi) {
@@ -44,5 +50,20 @@ public class DeveloperApiService {
             return null;
         }
         return this.queryListByDeveloperId(developer.getId());
+    }
+
+    @Override
+    public void setCache(DeveloperApi arg) {
+        if (null != arg) {
+            String developerKey = RedisApiKey.getDeveloperId(String.valueOf(arg.getDeveloperId()));
+            String apiKey = RedisApiKey.getApiId(String.valueOf(arg.getApiId()));
+
+            Developer developer = this.redisCache.getObj(developerKey, Developer.class);
+            API api = this.redisCache.getObj(apiKey, API.class);
+            if (null != developer && null != api) {
+                String key = RedisApiKey.getDeveloperApi(developer.getAppKey(), api.getMethod());
+                this.redisCache.set(key, true, RedisKey.REDIS_1H_EXPIRING);
+            }
+        }
     }
 }
