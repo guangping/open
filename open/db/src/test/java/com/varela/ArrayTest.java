@@ -14,7 +14,9 @@ public class ArrayTest {
         int index=takeApart(arrays,23);
         System.out.println(index);
     }
-
+    /**
+     * 折半算法
+     * */
     public int takeApart(int arrays[],int arg){
         int index=-1;
 
@@ -35,4 +37,9 @@ public class ArrayTest {
         }
         return index;
     }
+
+
+    /**
+     *
+     * */
 }
