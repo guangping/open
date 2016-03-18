@@ -2,6 +2,7 @@ package com.varela.api.interceptors;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.varela.api.entity.AccessLog;
 import com.varela.api.pojo.APIKey;
 import com.varela.api.pojo.APIRequest;
 import com.varela.api.security.DefaultInvokeTimesController;
@@ -13,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by lance on 12/8/2015.
@@ -37,10 +40,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
             new NamedThreadLocal("access-request");
 
     @Autowired
-    private com.varela.api.security.SecurityManager  securityManager;
+    private com.varela.api.security.SecurityManager securityManager;
 
     @Autowired
     private DefaultInvokeTimesController invokeTimesController;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 
     @Override
@@ -59,13 +65,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         APIRequest apiRequest = this.getRequest(request);
         requestThreadLocal.set(apiRequest);
         //TODO 请求验证
-   /*     APIResult apiResult = this.securityManager.validateParams(apiRequest);
+        APIResult apiResult = this.securityManager.validateParams(apiRequest);
         if (!apiResult.isSuccess()) {
             this.writeJson(apiResult, response);
             return false;
-        }*/
+        }
         //相关验证处理
-        return true;
+        return super.preHandle(request, response, handler);
     }
 
     /**
@@ -78,18 +84,22 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        Map params = request.getParameterMap();
         //TODO 结束时间
         long endTime = System.currentTimeMillis();
         long beginTime = startTimeThreadLocal.get();
         long consumeTime = endTime - beginTime;
-
         APIRequest apiRequest = requestThreadLocal.get();
-        logger.info("接口:{},耗时:{}ms,参数:{}", request.getRequestURI(), consumeTime,JSONObject.toJSONString(request.getParameterMap()));
-        if (consumeTime > APIKey.TIME) {
-            //TODO 记录到日志文件 monogo
-            //记录调用耗时过长日志
-           // this.apiTimeLogService.set(apiRequest.getAppKey(), apiRequest.getMethod(), consumeTime);
-        }
+        logger.info("接口:{},耗时:{}ms,参数:{}", request.getRequestURI(), consumeTime, JSONObject.toJSONString(params));
+
+        //TODO 记录调用日志 monogo
+        AccessLog accessLog = new AccessLog();
+        accessLog.setAppKey(apiRequest.getAppKey());
+        accessLog.setMethod(accessLog.getMethod());
+        accessLog.setConsumeTime(consumeTime);
+        accessLog.setParam(params);
+        this.mongoTemplate.insert(accessLog);
+
         //TODO 调用次数存储
         this.invokeTimesController.caculateInvokeTimes(apiRequest.getAppKey(), apiRequest.getMethod());
         super.afterCompletion(request, response, handler, ex);

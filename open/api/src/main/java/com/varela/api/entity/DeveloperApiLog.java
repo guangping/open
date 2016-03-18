@@ -1,14 +1,12 @@
 package com.varela.api.entity;
 
-import org.apache.ibatis.type.Alias;
-
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by lance on 12/29/2015.
  */
-@Alias("DeveloperApiLog")
+
 public class DeveloperApiLog implements Serializable {
     private long id=-1;
 

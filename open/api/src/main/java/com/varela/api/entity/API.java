@@ -1,13 +1,12 @@
 package com.varela.api.entity;
 
-import org.apache.ibatis.type.Alias;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Date;
 
-@Alias("API")
+
 public class API implements Serializable {
 
 

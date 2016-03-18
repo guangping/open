@@ -1,10 +1,8 @@
 package com.varela.api.entity;
 
-import org.apache.ibatis.type.Alias;
-
 import java.io.Serializable;
 
-@Alias("DeveloperApi")
+
 public class DeveloperApi implements Serializable {
 
 	private long id=-1;
