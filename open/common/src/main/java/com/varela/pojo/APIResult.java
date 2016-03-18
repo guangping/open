@@ -5,12 +5,12 @@ import com.varela.enumerate.Msg;
 
 import java.io.Serializable;
 
-public class APIResult implements Serializable {
+public class APIResult<T> implements Serializable {
 
     private static final long serialVersionUID = -727491457719169035L;
     private int code = -1;
     private String message;
-    private Object data;
+    private T data;
 
     @JSONField(serialize = false)
     private boolean success = false;
@@ -22,11 +22,11 @@ public class APIResult implements Serializable {
         return success;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 
@@ -39,7 +39,7 @@ public class APIResult implements Serializable {
         this.message = msg.getMsg();
     }
 
-    public void setMsg(Msg msg, Object data) {
+    public void setMsg(Msg msg, T data) {
         this.code = msg.getCode();
         this.message = msg.getMsg();
         this.data = data;
