@@ -36,6 +36,10 @@ public class RedisCache {
         return true;
     }
 
+    public boolean set(String key,boolean value){
+        return this.set(key,String.valueOf(value));
+    }
+
     /**
      * 存在返回false,否则返回true
      */
