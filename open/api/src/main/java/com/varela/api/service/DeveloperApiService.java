@@ -16,7 +16,7 @@ public class DeveloperApiService {
 
     @Autowired
     private DeveloperApiDao developerApiDao;
-    
+
 
     @Autowired
     private DeveloperService developerService;
