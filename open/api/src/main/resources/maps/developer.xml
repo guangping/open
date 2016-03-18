@@ -8,8 +8,12 @@
         <result property="appKey" column="app_key"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id,app_Key,contacts,mobile,description,secret,state,TYPE,create_time,modify_time
+    </sql>
+
     <select id="queryList" parameterType="Developer" resultMap="resultMap-developer">
-        <![CDATA[select * from developer ]]>
+        select <include refid="Base_Column_List"/> from developer
         <where>
             <if test="id != -1">
                 <![CDATA[  and id = #{id} ]]>
@@ -29,4 +33,11 @@
 		values(#{appKey},#{contacts},#{mobile},#{description},#{secret}) ]]>
 	</insert>
 
+    <select id="queryByAppKey" parameterType="java.lang.String" resultMap="resultMap-developer">
+        select <include refid="Base_Column_List"/> from developer where app_key = #{appKey}
+    </select>
+
+    <select id="queryById" parameterType="java.lang.Long" resultMap="resultMap-developer">
+        select <include refid="Base_Column_List"/> from developer where id = #{id}
+    </select>
 </mapper>

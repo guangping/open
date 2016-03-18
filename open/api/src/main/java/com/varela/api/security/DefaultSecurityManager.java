@@ -17,10 +17,10 @@ import java.util.TreeMap;
 @Component
 public class DefaultSecurityManager implements SecurityManager {
     @Autowired
-    private DefaultAppSecretManager appSecretManager;
+    private AppSecretManager appSecretManager;
 
     @Autowired
-    private DefaultInvokeTimesController invokeTimesController;
+    private InvokeTimesController invokeTimesController;
 
 
     @Override
@@ -47,21 +47,21 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
 
-        //检查appKey是否存在
+        //TODO 检查appKey是否存在
         boolean appKeySign = this.appSecretManager.isValidAppKey(appKey);
         if (!appKeySign) {
             apiResult.setMsg(Msg.APPKEY_NOT_EXISTS);
             return apiResult;
         }
 
-        //检查是否可用
+        //TODO 检查是否可用
         boolean disableSign = this.appSecretManager.isDisable(appKey);
         if (disableSign) {
             apiResult.setMsg(Msg.APPKEY_DISABLE);
             return apiResult;
         }
 
-        //检查签名
+        //TODO 检查签名
         boolean checkSign = this.checkSign(appKey, timestamp, method, sign);
         if (!checkSign) {
             apiResult.setMsg(Msg.SIGN_ERROR);
@@ -74,8 +74,6 @@ public class DefaultSecurityManager implements SecurityManager {
             apiResult.setMsg(Msg.NOT_UNAUTHORIZED);
             return apiResult;
         }
-
-        //检查方法是否可用
 
         //检查调用频率
         boolean frequencyExceed = this.invokeTimesController.isAppInvokeFrequencyExceed(appKey);

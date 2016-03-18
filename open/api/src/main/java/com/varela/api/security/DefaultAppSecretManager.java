@@ -1,5 +1,9 @@
 package com.varela.api.security;
 
+import com.varela.api.entity.Developer;
+import com.varela.api.pojo.APIKey;
+import com.varela.api.service.DeveloperService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,20 +12,31 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultAppSecretManager implements AppSecretManager {
 
+    @Autowired
+    private DeveloperService developerService;
 
 
     @Override
     public String getSecret(String appKey) {
-       return null;
+        Developer developer = this.developerService.queryByAppKey(appKey);
+        if (null != developer) {
+            return developer.getSecret();
+        }
+        return null;
     }
 
     @Override
     public boolean isValidAppKey(String appKey) {
-        return true;
+        Developer developer = this.developerService.queryByAppKey(appKey);
+        return (null == developer) ? false : true;
     }
 
     @Override
     public boolean isDisable(String appKey) {
-        return true;
+        Developer developer = this.developerService.queryByAppKey(appKey);
+        if (null != developer) {
+            return developer.getState() == APIKey.DEVELOPER__STATE_NORMAL ? true : false;
+        }
+        return false;
     }
 }

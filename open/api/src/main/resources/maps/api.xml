@@ -7,8 +7,12 @@
         <result property="createTime" column="create_time"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id,method,title,create_time,modify_time,state
+    </sql>
+
     <select id="queryList" parameterType="API" resultMap="resultMap-api">
-        <![CDATA[  select * from api ]]>
+          select <include refid="Base_Column_List"/> from api
         <where>
             <if test=" method!=null and method!='' ">
                 and method = #{method}

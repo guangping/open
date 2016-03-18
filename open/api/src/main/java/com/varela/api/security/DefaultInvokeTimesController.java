@@ -1,5 +1,8 @@
 package com.varela.api.security;
 
+import com.varela.api.entity.Developer;
+import com.varela.api.pojo.APIKey;
+import com.varela.api.service.DeveloperService;
 import com.varela.api.utils.APIRedisKey;
 import com.varela.cache.RedisCache;
 import com.varela.cache.RedisKey;
@@ -19,11 +22,18 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
     @Autowired
     private RedisCache redisCache;
 
+    @Autowired
+    private DeveloperService developerService;
+
     @Override
     public boolean checkMethodPermissions(String appKey, String method) {
-        boolean sign=true;
-
-        return sign;
+        Developer developer=this.developerService.queryByAppKey(appKey);
+        if(null!=developer){
+           if(developer.getType()== APIKey.DEVELOPER__TYPE_1){
+               return true;
+           }
+        }
+        return false;
     }
 
     @Override

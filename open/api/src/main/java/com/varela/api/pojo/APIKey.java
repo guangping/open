@@ -38,17 +38,16 @@ public class APIKey {
         public static final String TOKEN="token";
     }
 
-    /**
-     * 状态
-     */
-    public static class StateKey {
-        //TODO API状态 0 禁用  1 可用
-        public static final int API_STATE_DISABLE = 0;
-        public static final int API_STATE_NORMAL = 1;
+    //TODO API状态 0 禁用  1 可用
+    public static final int API_STATE_DISABLE = 0;
+    public static final int API_STATE_NORMAL = 1;
 
-        //TODO 接入者状态 0 禁用  1 可用
-        public static final int DEVELOPER_STATE_DISABLE = 0;
-        public static final int DEVELOPER__STATE_NORMAL = 1;
-    }
+    //TODO 接入者状态 0 禁用  1 可用
+    public static final int DEVELOPER_STATE_DISABLE = 0;
+    public static final int DEVELOPER__STATE_NORMAL = 1;
+
+    //TODO 接入者类型 0 普通  1 自己
+    public static final int DEVELOPER_TYPE_0 = 0;
+    public static final int DEVELOPER__TYPE_1 = 1;
 
 }
