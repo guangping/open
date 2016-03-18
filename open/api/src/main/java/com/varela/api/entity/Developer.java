@@ -23,6 +23,8 @@ public class Developer implements Serializable {
 
     private int state ;
 
+    private int type;
+
     private Date createTime;
 
     public long getId() {
@@ -89,6 +91,14 @@ public class Developer implements Serializable {
         this.secret = secret;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "Developer{" +
@@ -99,6 +109,7 @@ public class Developer implements Serializable {
                 ", description='" + description + '\'' +
                 ", secret='" + secret + '\'' +
                 ", state=" + state +
+                ", type=" + type +
                 ", createTime=" + createTime +
                 '}';
     }

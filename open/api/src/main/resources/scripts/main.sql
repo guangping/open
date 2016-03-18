@@ -31,6 +31,7 @@ CREATE TABLE developer (
   description varchar(512) DEFAULT NULL COMMENT '说明',
   secret varchar(32) DEFAULT NULL COMMENT '接入者密钥',
   state tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态 0 禁用  1 可用',
+  type tinyint(4) NOT NULL DEFAULT '0' COMMENT '类型 0 普通  1 自己',
   PRIMARY KEY (id),
   UNIQUE KEY app_Key (app_Key)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
