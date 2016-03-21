@@ -50,4 +50,7 @@ public class APIKey {
     public static final int DEVELOPER_TYPE_0 = 0;
     public static final int DEVELOPER__TYPE_1 = 1;
 
+    //ip访问次数
+    public static final int IP_COUNT=150;
+
 }

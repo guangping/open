@@ -30,6 +30,10 @@ public class APIRedisKey {
 
     private static final String API_METHOD_LIMIT = "api:limit:appKey:{0}:method:{1}";
 
+    // ip访问次数
+    private static final String IP_COUNT = "ip:count:{0}";
+
+
     public static String getApiKey(String id) {
         return MessageFormat.format(API_KEY, id);
     }
@@ -60,5 +64,9 @@ public class APIRedisKey {
 
     public static String getAppkeyMethodKey(String appKey, String method) {
         return MessageFormat.format(APPKEY_METHOD_KEY, appKey, method);
+    }
+
+    public static String getIpCount(String ip) {
+        return MessageFormat.format(IP_COUNT, ip);
     }
 }
