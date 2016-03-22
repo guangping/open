@@ -6,5 +6,8 @@ package com.varela.api.service;
  */
 public interface CacheService<T> {
 
+    /**
+     * 设置缓存信息
+     * */
     void setCache(T arg);
 }

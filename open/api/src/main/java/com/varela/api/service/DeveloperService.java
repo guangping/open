@@ -23,6 +23,10 @@ public class DeveloperService implements CacheService<Developer> {
     private RedisCache redisCache;
 
 
+    /**
+     * 添加开发者
+     * @param developer
+     * */
     @Transactional
     public long save(Developer developer) {
         this.developerDao.save(developer);
@@ -33,12 +37,32 @@ public class DeveloperService implements CacheService<Developer> {
         return this.developerDao.queryList(developer);
     }
 
+    /**
+     * 根据id查询开发者信息
+     * @param id
+     * */
     public Developer queryById(Long id) {
-        return this.developerDao.queryById(id);
+        String key = RedisApiKey.getDeveloperId(String.valueOf(id));
+        Developer developer = this.redisCache.getObj(key, Developer.class);
+        if (null == developer) {
+            developer = this.developerDao.queryById(id);
+            this.setCache(developer);
+        }
+        return developer;
     }
 
+    /**
+     * 根据appKey查询开发者信息
+     * @param appKey
+     * **/
     public Developer queryByAppKey(String appKey) {
-        return this.developerDao.queryByAppKey(appKey);
+        String key = RedisApiKey.getDeveloperAppkey(appKey);
+        Developer developer = this.redisCache.getObj(key, Developer.class);
+        if (null == developer) {
+            developer = this.developerDao.queryByAppKey(appKey);
+            this.setCache(developer);
+        }
+        return developer;
     }
 
     @Override
