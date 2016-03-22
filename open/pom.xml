@@ -22,6 +22,7 @@
         <module>mongodb</module>
         <module>esearch</module>
         <module>elasticsearch</module>
+        <module>mp</module>
     </modules>
     <packaging>pom</packaging>
 
