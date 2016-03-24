@@ -15,6 +15,18 @@
   <sql id="Base_Column_List" >
     id, user_name, email, phone, create_time, modify_time, state, type, password
   </sql>
+
+  <select id="queryList" resultMap="BaseResultMap" parameterType="com.varela.entity.SysUser" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    <where>
+      <if test="id != null" >
+        and id=#{id}
+      </if>
+    </where>
+  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
