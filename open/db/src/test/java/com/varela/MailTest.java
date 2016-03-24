@@ -13,7 +13,10 @@ import org.testng.annotations.Test;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
 
 /**
  * Created by 51offer on 2016/3/4.
@@ -65,15 +68,15 @@ public class MailTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void sendFile()throws MessagingException{
+    public void sendFile() throws MessagingException {
         MimeMessage mailMessage = mailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mailMessage,true,
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mailMessage, true,
                 "UTF-8");
         messageHelper.setTo(recMail);
         messageHelper.setFrom(mail);//发送人
         messageHelper.setSubject("测试HTML邮件!");//主题
         //附件
-        messageHelper.addAttachment("icon.xml",new File("F:\\maven\\settings.xml"));
+        messageHelper.addAttachment("icon.xml", new File("F:\\maven\\settings.xml"));
         String msg = html();
         messageHelper.setText(msg, true);//邮件内容
 
@@ -103,14 +106,24 @@ public class MailTest extends AbstractTestNGSpringContextTests {
 
     /**
      * 异步发送邮件
-     * */
-    private void sendMail(){
+     */
+    private void sendMail() {
         this.taskExecutor.execute(new Runnable() {
             @Override
             public void run() {
-               // mailSender.send(null);
+                // mailSender.send(null);
             }
         });
+    }
+
+    /**
+     * 获取异常信息
+     * */
+    public String getExceptionMsg(Exception e) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        e.printStackTrace(new PrintStream(out));
+        String content = out.toString();
+        return content;
     }
 
 }
