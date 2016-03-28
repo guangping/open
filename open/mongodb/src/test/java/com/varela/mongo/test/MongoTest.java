@@ -73,5 +73,21 @@ public class MongoTest extends AbstractTestNGSpringContextTests {
         this.mongoTemplate.save(access);
     }
 
+    @Test
+    public void insertCollections(){
+        List<Access> list=new ArrayList<>();
+        Access access = null;
+        for (int i = 0; i < 100; i++) {
+            access = new Access();
+            access.setAccessId(UUID.randomUUID().toString());
+            access.setSecret(String.valueOf(new Random(10000).nextLong()));
+            access.setDateTime(new Date(System.currentTimeMillis()));
+            access.setStatus(1);
+            access.setId((i + 2));
+            list.add(access);
+        }
+        this.mongoTemplate.insert(list,Access.class);
+    }
+
 
 }
