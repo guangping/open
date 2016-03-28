@@ -62,7 +62,7 @@ public class DeveloperApiService implements CacheService<DeveloperApi> {
             API api = this.redisCache.getObj(apiKey, API.class);
             if (null != developer && null != api) {
                 String key = APIRedisKey.getAppkeyMethodKey(developer.getAppKey(), api.getMethod());
-                this.redisCache.set(key, true, RedisKey.REDIS_1H_EXPIRING);
+                this.redisCache.set(key, arg, RedisKey.REDIS_1H_EXPIRING);
             }
         }
     }
