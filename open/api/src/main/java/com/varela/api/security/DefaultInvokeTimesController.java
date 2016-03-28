@@ -1,6 +1,7 @@
 package com.varela.api.security;
 
 import com.varela.api.entity.Developer;
+import com.varela.api.entity.DeveloperApi;
 import com.varela.api.pojo.APIKey;
 import com.varela.api.service.DeveloperService;
 import com.varela.api.utils.APIRedisKey;
@@ -33,7 +34,11 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
                 return true;
             }
             //普通开发者
-
+            String key = APIRedisKey.getAppkeyMethodKey(appKey, method);
+            DeveloperApi developerApi = this.redisCache.getObj(key, DeveloperApi.class);
+            if (null != developerApi) {
+                return true;
+            }
         }
         return false;
     }
