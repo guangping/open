@@ -12,15 +12,15 @@ public class APIRedisKey {
     public static final int MINUTES_COUNT = 1000;
 
     //TODO api
-    private static final String API_KEY = "api:api:id:{0}";
+    private static final String API_KEY = "api:id:{0}";
 
-    private static final String API_METHOD_KEY = "api:api:method:{0}";
+    private static final String API_METHOD_KEY = "api:method:{0}";
 
-    //TODO developer
+    //TODO developer id  appKey
     private static final String DEVELOPER_KEY = "api:developer:id:{0}";
 
-    //TODO developer appKey
     private static final String DEVELOPER_APP_KEY = "api:developer:appKey:{0}";
+
 
     private static final String DEVELOPERID_APPID_KEY = "api:developerApi:appId:{0}:developerId:{1}";
 
@@ -38,6 +38,11 @@ public class APIRedisKey {
         return MessageFormat.format(API_KEY, id);
     }
 
+    public static String getApiMethodKey(String method) {
+        return MessageFormat.format(API_METHOD_KEY, method);
+    }
+
+
     public static String getDeveloperKey(String id) {
         return MessageFormat.format(DEVELOPER_KEY, id);
     }
@@ -46,9 +51,6 @@ public class APIRedisKey {
         return MessageFormat.format(DEVELOPER_APP_KEY, appKey);
     }
 
-    public static String getApiMethodKey(String method) {
-        return MessageFormat.format(API_METHOD_KEY, method);
-    }
 
     public static String getDeveloperidAppidKey(String appId, String developerId) {
         return MessageFormat.format(DEVELOPERID_APPID_KEY, appId, developerId);

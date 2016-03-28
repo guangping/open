@@ -65,11 +65,11 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         APIRequest apiRequest = this.getRequest(request);
         requestThreadLocal.set(apiRequest);
         //TODO 请求验证
-        APIResult apiResult = this.securityManager.validateParams(apiRequest);
+    /*    APIResult apiResult = this.securityManager.validateParams(apiRequest);
         if (!apiResult.isSuccess()) {
             this.writeJson(apiResult, response);
             return false;
-        }
+        }*/
         //相关验证处理
         return super.preHandle(request, response, handler);
     }

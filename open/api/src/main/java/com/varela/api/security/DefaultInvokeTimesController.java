@@ -6,7 +6,6 @@ import com.varela.api.service.DeveloperService;
 import com.varela.api.utils.APIRedisKey;
 import com.varela.cache.RedisCache;
 import com.varela.cache.RedisKey;
-import com.varela.utils.StringCommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,11 +26,14 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
 
     @Override
     public boolean checkMethodPermissions(String appKey, String method) {
-        Developer developer=this.developerService.queryByAppKey(appKey);
-        if(null!=developer){
-           if(developer.getType()== APIKey.DEVELOPER__TYPE_1){
-               return true;
-           }
+        Developer developer = this.developerService.queryByAppKey(appKey);
+        if (null != developer) {
+            //系统开发者
+            if (developer.getType() == APIKey.DEVELOPER__TYPE_1) {
+                return true;
+            }
+            //普通开发者
+
         }
         return false;
     }
@@ -50,7 +52,7 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
 
         //3.调用记录入库
 
-        
+
     }
 
     @Override
@@ -61,7 +63,7 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
     @Override
     public boolean isAppInvokeFrequencyExceed(String appKey) {
         String limitKey = APIRedisKey.getApiLimit(appKey);
-        long count = this.redisCache.incre(limitKey,1);
+        long count = this.redisCache.incre(limitKey, 1);
         //获取接入者1分钟内可调用次数
         if (count > APIRedisKey.MINUTES_COUNT) {
             return false;

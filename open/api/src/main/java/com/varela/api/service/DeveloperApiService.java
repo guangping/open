@@ -3,7 +3,7 @@ package com.varela.api.service;
 import com.varela.api.entity.API;
 import com.varela.api.entity.Developer;
 import com.varela.api.entity.DeveloperApi;
-import com.varela.api.pojo.RedisApiKey;
+import com.varela.api.utils.APIRedisKey;
 import com.varela.cache.RedisCache;
 import com.varela.cache.RedisKey;
 import com.varela.dao.DeveloperApiDao;
@@ -55,13 +55,13 @@ public class DeveloperApiService implements CacheService<DeveloperApi> {
     @Override
     public void setCache(DeveloperApi arg) {
         if (null != arg) {
-            String developerKey = RedisApiKey.getDeveloperId(String.valueOf(arg.getDeveloperId()));
-            String apiKey = RedisApiKey.getApiId(String.valueOf(arg.getApiId()));
+            String developerKey = APIRedisKey.getDeveloperKey(String.valueOf(arg.getDeveloperId()));
+            String apiKey = APIRedisKey.getApiKey(String.valueOf(arg.getApiId()));
 
             Developer developer = this.redisCache.getObj(developerKey, Developer.class);
             API api = this.redisCache.getObj(apiKey, API.class);
             if (null != developer && null != api) {
-                String key = RedisApiKey.getDeveloperApi(developer.getAppKey(), api.getMethod());
+                String key = APIRedisKey.getAppkeyMethodKey(developer.getAppKey(), api.getMethod());
                 this.redisCache.set(key, true, RedisKey.REDIS_1H_EXPIRING);
             }
         }

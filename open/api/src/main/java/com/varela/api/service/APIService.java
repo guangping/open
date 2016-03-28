@@ -1,7 +1,7 @@
 package com.varela.api.service;
 
 import com.varela.api.entity.API;
-import com.varela.api.pojo.RedisApiKey;
+import com.varela.api.utils.APIRedisKey;
 import com.varela.cache.RedisCache;
 import com.varela.dao.APIDao;
 import org.slf4j.Logger;
@@ -45,8 +45,8 @@ public class APIService implements CacheService<API> {
     public void setCache(API arg) {
         String idKey = null, methodKey = null;
         if (null != arg) {
-            idKey = RedisApiKey.getApiId(String.valueOf(arg.getId()));
-            methodKey = RedisApiKey.getApiMethod(arg.getMethod());
+            idKey = APIRedisKey.getApiKey(String.valueOf(arg.getId()));
+            methodKey = APIRedisKey.getApiMethodKey(arg.getMethod());
 
             this.redisCache.set(idKey, arg);
             this.redisCache.set(methodKey, arg);
