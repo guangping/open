@@ -61,6 +61,13 @@ public class DefaultSecurityManager implements SecurityManager {
             return apiResult;
         }
 
+        //检查调用频率
+        boolean frequencyExceed = this.invokeTimesController.isAppInvokeFrequencyExceed(appKey);
+        if (!frequencyExceed) {
+            apiResult.setMsg(Msg.OVERRUN);
+            return apiResult;
+        }
+
         //TODO 检查签名
         boolean checkSign = this.checkSign(appKey, timestamp, method, sign);
         if (!checkSign) {
@@ -72,13 +79,6 @@ public class DefaultSecurityManager implements SecurityManager {
         boolean checkMethodSign = this.checkMethodPermissions(appKey, method);
         if (!checkMethodSign) {
             apiResult.setMsg(Msg.NOT_UNAUTHORIZED);
-            return apiResult;
-        }
-
-        //检查调用频率
-        boolean frequencyExceed = this.invokeTimesController.isAppInvokeFrequencyExceed(appKey);
-        if (!frequencyExceed) {
-            apiResult.setMsg(Msg.OVERRUN);
             return apiResult;
         }
 

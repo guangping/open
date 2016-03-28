@@ -9,7 +9,7 @@ public class APIRedisKey {
 
 
     //一分钟调用次数
-    public static final int MINUTES_COUNT = 100;
+    public static final int MINUTES_COUNT = 1000;
 
     //TODO api
     private static final String API_KEY = "api:api:id:{0}";

@@ -61,7 +61,7 @@ public class DefaultInvokeTimesController implements InvokeTimesController {
     @Override
     public boolean isAppInvokeFrequencyExceed(String appKey) {
         String limitKey = APIRedisKey.getApiLimit(appKey);
-        long count = StringCommonUtils.getSafeLong(this.redisCache.get(limitKey));
+        long count = this.redisCache.incre(limitKey,1);
         //获取接入者1分钟内可调用次数
         if (count > APIRedisKey.MINUTES_COUNT) {
             return false;
