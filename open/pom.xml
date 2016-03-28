@@ -23,6 +23,7 @@
         <module>esearch</module>
         <module>elasticsearch</module>
         <module>mp</module>
+        <module>replication</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -51,7 +52,7 @@
         <httpclient.version>4.5</httpclient.version>
         <cglib.version>3.1</cglib.version>
         <aspectj.version>1.8.6</aspectj.version>
-        <mysql.version>5.1.35</mysql.version>
+        <mysql.version>5.1.38</mysql.version>
         <spring.rabbit.version>1.4.5.RELEASE</spring.rabbit.version>
         <logback.version>1.1.3</logback.version>
         <mybatis.paginator.version>1.2.15</mybatis.paginator.version>
