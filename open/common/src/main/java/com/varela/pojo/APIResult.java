@@ -8,7 +8,7 @@ public class APIResult<T> implements Serializable {
 
     private static final long serialVersionUID = -727491457719169035L;
     private int code = -1;
-    private String message;
+    private String message="服务异常,请稍后再试!";
     private T data;
 
     @JSONField(serialize = false)
