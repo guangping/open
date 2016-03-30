@@ -1,7 +1,6 @@
 package com.varela.pojo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.varela.enumerate.Msg;
 
 import java.io.Serializable;
 
@@ -34,12 +33,12 @@ public class APIResult<T> implements Serializable {
         this.code = code;
     }
 
-    public void setMsg(Msg msg) {
+    public void setMsg(BaseMsg msg) {
         this.code = msg.getCode();
         this.message = msg.getMsg();
     }
 
-    public void setMsg(Msg msg, T data) {
+    public void setMsg(BaseMsg msg, T data) {
         this.code = msg.getCode();
         this.message = msg.getMsg();
         this.data = data;

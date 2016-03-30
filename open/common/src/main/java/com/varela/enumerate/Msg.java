@@ -1,9 +1,11 @@
 package com.varela.enumerate;
 
+import com.varela.pojo.BaseMsg;
+
 /**
  * Created by lance on 12/3/2015.
  */
-public enum Msg {
+public enum Msg implements BaseMsg {
 
     SUCCESS(0, "成功"),
     //TODO 基础错误
