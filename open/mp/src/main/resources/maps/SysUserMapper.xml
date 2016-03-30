@@ -130,7 +130,7 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="login" resultMap="BaseResultMap" parameterType="com.varela.entity.SysUser" >
+  <select id="queryUser" resultMap="BaseResultMap" parameterType="com.varela.entity.SysUser" >
     select
     <include refid="Base_Column_List" />
     from sys_user

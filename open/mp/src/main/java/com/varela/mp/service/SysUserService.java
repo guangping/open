@@ -25,7 +25,7 @@ public class SysUserService {
         pageBounds.setContainsTotalCount(true);
         PageList<SysUser> pageList = this.sysUserDao.queryList(sysUser, pageBounds);
 
-        Page page=new Page();
+        Page page = new Page();
         page.setCurrPage(pageIndex);
         page.setData(pageList);
         page.setPageSize(pageSize);
@@ -41,13 +41,19 @@ public class SysUserService {
     }
 
     @Transactional
-    public int updateById(SysUser sysUser){
+    public int updateById(SysUser sysUser) {
         return this.sysUserDao.updateByPrimaryKeySelective(sysUser);
     }
 
-    public SysUser login(SysUser sysUser){
-
-        return null;
+    /**
+     * 根据用户名 手机 email 查询用户信息
+     */
+    public SysUser queryUser(String userName, String email, String mobile) {
+        SysUser sysUser = new SysUser();
+        sysUser.setUserName(userName);
+        sysUser.setEmail(email);
+        sysUser.setPhone(mobile);
+        return this.sysUserDao.queryUser(sysUser);
     }
 
 }

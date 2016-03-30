@@ -18,4 +18,6 @@ public interface SysUserDao {
     int updateByPrimaryKey(SysUser record);
 
     PageList<SysUser> queryList(SysUser sysUser, PageBounds pageBounds);
+
+    SysUser queryUser(SysUser arg);
 }
