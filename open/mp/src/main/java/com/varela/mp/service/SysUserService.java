@@ -45,4 +45,9 @@ public class SysUserService {
         return this.sysUserDao.updateByPrimaryKeySelective(sysUser);
     }
 
+    public SysUser login(SysUser sysUser){
+
+        return null;
+    }
+
 }

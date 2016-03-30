@@ -46,7 +46,7 @@ public class SysResourcesService {
         PageList<SysResources> pageList = this.sysResourcesDao.queryList(new SysResources(), pageBounds);
 
         for(SysResources obj:pageList){
-            
+
         }
 
 

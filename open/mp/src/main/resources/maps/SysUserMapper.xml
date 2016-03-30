@@ -130,4 +130,21 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="login" resultMap="BaseResultMap" parameterType="com.varela.entity.SysUser" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    <where>
+      <if test="email !=null and email !='' ">
+        and email=#{email}
+      </if>
+      <if test="phone !=null and phone !='' ">
+        and phone=#{phone}
+      </if>
+      <if test="userName !=null and userName !='' ">
+        and user_name=#{userName}
+      </if>
+    </where>
+    limit 1
+  </select>
 </mapper>
