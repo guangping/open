@@ -25,5 +25,17 @@ public class DBTest extends AbstractTestNGSpringContextTests {
         System.out.println("id==>" + user.getId());
     }
 
+    @Test
+    public void save() {
+        try {
+            User user = new User();
+            user.setName("ddd");
+            this.userService.save2(user);
+            System.out.println("id==>" + user.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

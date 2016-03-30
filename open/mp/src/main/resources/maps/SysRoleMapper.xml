@@ -33,23 +33,17 @@
         where id = #{id}
     </delete>
     <insert id="insert" parameterType="com.varela.entity.SysRole">
-    insert into sys_role (id, name)
-    values (#{id}, #{name})
+    insert into sys_role (name)
+    values ( #{name})
     </insert>
     <insert id="insertSelective" parameterType="com.varela.entity.SysRole">
         insert into sys_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
             <if test="name != null">
                 name,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id},
-            </if>
             <if test="name != null">
                 #{name},
             </if>

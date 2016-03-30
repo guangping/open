@@ -17,10 +17,22 @@ public class UserService {
 
     @Transactional
     public long save(User user) {
-        int count = this.userDao.insert(user);
-        if (count > 0) {
-            throw new RuntimeException("测试事务!");
+        try{
+            int count = this.userDao.insert(user);
+            if (count > 0) {
+                throw new RuntimeException("测试事务!");
+            }
+        }catch (Exception e){
+            throw e;
+
         }
+        return user.getId();
+    }
+
+    @Transactional
+    public long save2(User user){
+        int count = this.userDao.insert(user);
+
         return user.getId();
     }
 }

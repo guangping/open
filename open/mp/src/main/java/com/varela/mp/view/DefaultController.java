@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DefaultController extends BaseController {
 
+    /**
+     * 默认页
+     * */
     @RequestMapping(value = "/")
     public String execute() {
         return "index";
