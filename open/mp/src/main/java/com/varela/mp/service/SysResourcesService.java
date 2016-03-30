@@ -35,24 +35,7 @@ public class SysResourcesService {
         return page;
     }
 
-    /**
-     * 构建菜单
-     * */
-    public void getMenus(){
-        PageBounds pageBounds = new PageBounds();
-        pageBounds.setPage(1);
-        pageBounds.setLimit(Integer.MAX_VALUE);
-        pageBounds.setContainsTotalCount(true);
-        PageList<SysResources> pageList = this.sysResourcesDao.queryList(new SysResources(), pageBounds);
 
-        for(SysResources obj:pageList){
-            if(obj.getParentId()==0){//一级菜单
-
-            }
-        }
-
-
-    }
 
 
 
