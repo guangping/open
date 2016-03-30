@@ -1,5 +1,7 @@
 package com.varela.dao;
 
+import com.github.miemiedev.mybatis.paginator.domain.PageBounds;
+import com.github.miemiedev.mybatis.paginator.domain.PageList;
 import com.varela.entity.SysRole;
 
 public interface SysRoleDao {
@@ -14,4 +16,6 @@ public interface SysRoleDao {
     int updateByPrimaryKeySelective(SysRole record);
 
     int updateByPrimaryKey(SysRole record);
+
+    PageList<SysRole> queryList(SysRole arg, PageBounds pageBounds);
 }
