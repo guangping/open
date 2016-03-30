@@ -1,14 +1,11 @@
 package com.varela.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import java.io.Serializable;
 import java.util.Date;
 
 public class SysRole implements Serializable {
     private Long id;
 
-    @NotEmpty(message = "角色名不能为空!")
     private String name;
 
     private Date createTime;

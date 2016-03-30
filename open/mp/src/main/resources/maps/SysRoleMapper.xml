@@ -52,7 +52,7 @@
     <update id="updateByPrimaryKeySelective" parameterType="com.varela.entity.SysRole">
         update sys_role
         <set>
-            <if test="name != null">
+            <if test="name != null and name !=''">
                 name = #{name},
             </if>
         </set>
