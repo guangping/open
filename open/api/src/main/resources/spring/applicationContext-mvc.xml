@@ -15,6 +15,11 @@
     </context:component-scan>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+<!--
+    controller中使用 @Value
+    <context:property-placeholder ignore-unresolvable="true" location="classpath*:message.properties"/>
+-->
+
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
         <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
         <property name="validationMessageSource" ref="messageSource"/>
