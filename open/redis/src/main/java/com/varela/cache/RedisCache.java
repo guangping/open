@@ -36,8 +36,8 @@ public class RedisCache {
         return true;
     }
 
-    public boolean set(String key,boolean value){
-        return this.set(key,String.valueOf(value));
+    public boolean set(String key, boolean value) {
+        return this.set(key, String.valueOf(value));
     }
 
     /**
@@ -150,7 +150,7 @@ public class RedisCache {
         return this.redisTemplate.boundListOps(key).rightPop();
     }
 
-    public long listSize(String key){
+    public long listSize(String key) {
         return this.redisTemplate.boundListOps(key).size();
     }
 
@@ -163,7 +163,6 @@ public class RedisCache {
             }
         });
     }
-
 
     public List<String> keys() {
         Set<String> set = redisTemplate.keys("*");
@@ -180,10 +179,21 @@ public class RedisCache {
         return redisTemplate.opsForSet().add(key, values);
     }
 
-
-
     public Set<String> getSet(String key) {
         return redisTemplate.opsForSet().members(key);
+    }
+
+    public long getExpire(String key) {
+        return this.redisTemplate.getExpire(key);
+    }
+
+    public long dbSize() {
+        return redisTemplate.execute(new RedisCallback<Long>() {
+            public Long doInRedis(RedisConnection redisConnection)
+                    throws DataAccessException {
+                return redisConnection.dbSize();
+            }
+        });
     }
 
 }
