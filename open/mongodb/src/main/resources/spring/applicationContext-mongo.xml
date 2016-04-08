@@ -7,7 +7,11 @@
             http://www.springframework.org/schema/data/mongo
             http://www.springframework.org/schema/data/mongo/spring-mongo.xsd">
 
-    <mongo:mongo host="${mongodb.host}" port="${mongodb.port}"/>
+    <mongo:mongo host="${mongodb.host}" port="${mongodb.port}">
+        <mongo:options connections-per-host="10"
+                       threads-allowed-to-block-for-connection-multiplier="10"
+                       auto-connect-retry="true"/>
+    </mongo:mongo>
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
         <constructor-arg ref="mongo"/>
         <constructor-arg name="databaseName" value="${mongodb.databaseName}"/>
