@@ -19,7 +19,7 @@ public class DBTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void queryById() {
-        User user = this.userService.selectByPrimaryKey(30l);
+        User user = this.userService.selectByPrimaryKey(2l);
         System.out.println(user);
     }
 
