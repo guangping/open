@@ -15,8 +15,8 @@
         <property name="sentinels">
             <set>
                 <bean class="redis.clients.jedis.HostAndPort">
-                    <constructor-arg index="0" value="${redis.cluster.ip.1}"></constructor-arg>
-                    <constructor-arg index="1" value="${redis.cluster.port.1}"></constructor-arg>
+                    <constructor-arg name="host" value="${redis.cluster.ip.1}"/>
+                    <constructor-arg name="port" value="${redis.cluster.port.1}"/>
                 </bean>
             </set>
         </property>
