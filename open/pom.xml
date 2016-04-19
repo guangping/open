@@ -24,7 +24,6 @@
         <module>elasticsearch</module>
         <module>mp</module>
         <module>replication</module>
-        <module>memcached</module>
     </modules>
     <packaging>pom</packaging>
 
