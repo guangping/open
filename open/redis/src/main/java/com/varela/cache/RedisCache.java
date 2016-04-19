@@ -36,6 +36,11 @@ public class RedisCache {
         return true;
     }
 
+    public boolean set(String key, Integer value) {
+        redisTemplate.opsForValue().set(key, String.valueOf(value));
+        return true;
+    }
+
     public boolean set(String key, boolean value) {
         return this.set(key, String.valueOf(value));
     }

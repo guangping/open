@@ -3,12 +3,24 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="minIdle" value="${redis.minIdle}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
     <bean id="clusterConfiguration" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
         <property name="clusterNodes">
             <list>
                 <bean class="org.springframework.data.redis.connection.RedisClusterNode">
                     <constructor-arg name="host" value="${redis.cluster.ip.1}"/>
                     <constructor-arg name="port" value="${redis.cluster.port.1}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisClusterNode">
+                    <constructor-arg name="host" value="${redis.cluster.ip.2}"/>
+                    <constructor-arg name="port" value="${redis.cluster.port.2}"/>
                 </bean>
             </list>
         </property>
@@ -17,5 +29,13 @@
     <bean id="redisConnectionFactory"
           class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <constructor-arg name="clusterConfig" ref="clusterConfiguration"/>
+        <property name="poolConfig" ref="poolConfig"/>
+    </bean>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="redisConnectionFactory"/>
+        <property name="defaultSerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
     </bean>
 </beans>
