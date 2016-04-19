@@ -3,7 +3,6 @@ package com.varela.cache;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
 import redis.clients.jedis.HostAndPort;
 import redis.clients.jedis.JedisCluster;
 
@@ -13,7 +12,6 @@ import java.util.Set;
  * Created by lance on 2016/4/18.
  * redis集群
  */
-@Component
 public class JedisClusterFactory implements FactoryBean<JedisCluster>, InitializingBean {
 
     private Set<HostAndPort> sentinels;
