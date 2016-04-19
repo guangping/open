@@ -22,7 +22,7 @@
         </property>
     </bean>
 
-    <import resource="classpath:spring/applicationContext-redis.xml"/>
+
 
 
 </beans>

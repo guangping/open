@@ -13,7 +13,10 @@ import java.util.List;
 /**
  * Created by lance on 10/14/2015.
  */
-@ContextConfiguration("classpath:applicationContext-test.xml")
+@ContextConfiguration({
+        "classpath:applicationContext-test.xml",
+        "classpath:spring/applicationContext-redis.xml"
+})
 public class CacheTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
@@ -27,6 +30,33 @@ public class CacheTest extends AbstractTestNGSpringContextTests {
         list = this.redisCache.keys("insurance:cargo:type");
         System.out.println(JSON.toJSONString(list));
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void setList() {
