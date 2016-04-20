@@ -11,6 +11,18 @@
 
     <artifactId>common</artifactId>
 
+    <properties>
+        <freemarker.version>2.3.23</freemarker.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
+        </dependency>
+    </dependencies>
+
     <!--profiles 配置不同环境-->
     <build>
         <finalName>common</finalName>
