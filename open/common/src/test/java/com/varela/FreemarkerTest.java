@@ -5,7 +5,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class FreemarkerTest {
 
     @Test
     public void templete() {
-        Configuration cfg = new Configuration();
+        Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
         //Template template=new Template();
 
         StringTemplateLoader stringLoader = new StringTemplateLoader();
