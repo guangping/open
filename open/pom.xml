@@ -24,6 +24,7 @@
         <module>elasticsearch</module>
         <module>mp</module>
         <module>replication</module>
+        <module>IdGenerator</module>
     </modules>
     <packaging>pom</packaging>
 
