@@ -8,6 +8,7 @@ import java.util.Map;
 
 /**
  * Created by lance on 2016/4/19.
+ * 消息处理
  */
 public class DefaultMessageDelegate implements MessageDelegate {
     private Logger logger= LoggerFactory.getLogger(DefaultMessageDelegate.class);
