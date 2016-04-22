@@ -5,8 +5,8 @@ package com.varela.utils.http;
  */
 public enum HttpMsg {
 
-    Success(0, "成功"),
-    Time_Out(999999, "请求超时");
+    SUCCESS(0, "成功"),
+    TIME_OUT(999999, "请求超时");
 
 
     private final int code;

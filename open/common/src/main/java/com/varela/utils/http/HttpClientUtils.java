@@ -67,7 +67,7 @@ public class HttpClientUtils {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setHttpMsg(HttpMsg.Success);
+                        rval.setHttpMsg(HttpMsg.SUCCESS);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -76,7 +76,7 @@ public class HttpClientUtils {
                 response.close();
             }
         } catch (IOException e) {
-            rval.setHttpMsg(HttpMsg.Time_Out);
+            rval.setHttpMsg(HttpMsg.TIME_OUT);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
@@ -124,7 +124,7 @@ public class HttpClientUtils {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setHttpMsg(HttpMsg.Success);
+                        rval.setHttpMsg(HttpMsg.SUCCESS);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -133,7 +133,7 @@ public class HttpClientUtils {
                 response.close();
             }
         } catch (IOException e) {
-            rval.setHttpMsg(HttpMsg.Time_Out);
+            rval.setHttpMsg(HttpMsg.TIME_OUT);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
@@ -183,7 +183,7 @@ public class HttpClientUtils {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setHttpMsg(HttpMsg.Success);
+                        rval.setHttpMsg(HttpMsg.SUCCESS);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -192,7 +192,7 @@ public class HttpClientUtils {
                 response.close();
             }
         } catch (IOException e) {
-            rval.setHttpMsg(HttpMsg.Time_Out);
+            rval.setHttpMsg(HttpMsg.TIME_OUT);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
@@ -228,7 +228,7 @@ public class HttpClientUtils {
                     HttpEntity entity = response.getEntity();
                     if (entity != null) {
                         rsp = EntityUtils.toString(entity, CHARSET);
-                        rval.setHttpMsg(HttpMsg.Success);
+                        rval.setHttpMsg(HttpMsg.SUCCESS);
                         rval.setResult(rsp);
                         logger.info("Response content: " + rsp);
                     }
@@ -237,7 +237,7 @@ public class HttpClientUtils {
                 response.close();
             }
         } catch (IOException e) {
-            rval.setHttpMsg(HttpMsg.Time_Out);
+            rval.setHttpMsg(HttpMsg.TIME_OUT);
             e.printStackTrace();
         } finally {
             // 关闭连接,释放资源
