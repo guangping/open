@@ -25,6 +25,7 @@
         <module>mp</module>
         <module>replication</module>
         <module>IdGenerator</module>
+        <module>qiniu</module>
     </modules>
     <packaging>pom</packaging>
 
