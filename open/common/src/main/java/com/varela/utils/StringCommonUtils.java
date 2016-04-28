@@ -72,10 +72,10 @@ public class StringCommonUtils {
 
     public static Integer getSafeInterger(String value) {
         if (StringUtils.isBlank(value)) {
-            return 0;
+            return null;
         }
         if (!isDigit(value)) {
-            return 0;
+            return null;
         }
         return Integer.valueOf(value);
     }
