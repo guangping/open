@@ -1,6 +1,7 @@
 package com.varela.cache;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -241,6 +242,11 @@ public class RedisCache<T> {
 
     public Set<String> getZSet(String key, long start, long end) {
         return redisTemplate.opsForZSet().range(key, start, end);
+    }
+
+    public Set<T> getZSet(String key, long start, long end,Class<T> clazz) {
+        Set<String> set=redisTemplate.opsForZSet().range(key, start, end);
+        return JSONObject.parseObject(JSONObject.toJSONString(set),new TypeReference<Set<T>>(){});
     }
 
     public Set<String> getReverseZSet(String key, long start, long end) {
