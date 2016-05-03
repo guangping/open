@@ -32,7 +32,7 @@ public class RedisCache<T> {
             .getLogger(RedisCache.class);
 
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate redisTemplate;
 
 
     public boolean set(String key, String value) {
@@ -54,7 +54,7 @@ public class RedisCache<T> {
      */
     public boolean setNx(String key, String value) {
         final RedisSerializer<String> serializer = this.redisTemplate.getStringSerializer();
-        Boolean sign = this.redisTemplate.execute(new RedisCallback<Boolean>() {
+        Boolean sign = (Boolean) this.redisTemplate.execute(new RedisCallback<Boolean>() {
             @Override
             public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
                 boolean val = redisConnection.setNX(serializer.serialize(key), serializer.serialize(value));
@@ -92,8 +92,9 @@ public class RedisCache<T> {
     }
 
 
-    public String get(final String key) {
-        return redisTemplate.opsForValue().get(key);
+    public String get(String key) {
+        Object object = redisTemplate.opsForValue().get(key);
+        return (null == object) ? "" : object.toString();
     }
 
     public <T> T getObj(String key, TypeReference<T> type) {
@@ -156,7 +157,8 @@ public class RedisCache<T> {
     }
 
     public String rPop(String key) {
-        return this.redisTemplate.boundListOps(key).rightPop();
+        Object object = this.redisTemplate.boundListOps(key).rightPop();
+        return (null == object) ? "" : object.toString();
     }
 
     public long listSize(String key) {
@@ -197,7 +199,7 @@ public class RedisCache<T> {
     }
 
     public long dbSize() {
-        return redisTemplate.execute(new RedisCallback<Long>() {
+        return (Long) redisTemplate.execute(new RedisCallback<Long>() {
             public Long doInRedis(RedisConnection redisConnection)
                     throws DataAccessException {
                 return redisConnection.dbSize();
@@ -223,8 +225,8 @@ public class RedisCache<T> {
         return redisTemplate.opsForZSet().add(key, set);
     }
 
-    public long setZSet(String key, ZSetOperations.TypedTuple<String> typedTuple) {
-        Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>();
+    public long setZSet(String key, ZSetOperations.TypedTuple<T> typedTuple) {
+        Set<ZSetOperations.TypedTuple<T>> set = new HashSet<>();
         set.add(typedTuple);
         return redisTemplate.opsForZSet().add(key, set);
     }
@@ -244,9 +246,10 @@ public class RedisCache<T> {
         return redisTemplate.opsForZSet().range(key, start, end);
     }
 
-    public Set<T> getZSet(String key, long start, long end,Class<T> clazz) {
-        Set<String> set=redisTemplate.opsForZSet().range(key, start, end);
-        return JSONObject.parseObject(JSONObject.toJSONString(set),new TypeReference<Set<T>>(){});
+    public Set<T> getZSet(String key, long start, long end, Class<T> clazz) {
+        Set<String> set = redisTemplate.opsForZSet().range(key, start, end);
+        return JSONObject.parseObject(JSONObject.toJSONString(set), new TypeReference<Set<T>>() {
+        });
     }
 
     public Set<String> getReverseZSet(String key, long start, long end) {
