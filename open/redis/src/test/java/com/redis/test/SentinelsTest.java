@@ -1,6 +1,7 @@
 package com.redis.test;
 
 import com.varela.cache.RedisCache;
+import com.varela.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -25,6 +26,7 @@ public class SentinelsTest extends AbstractTestNGSpringContextTests {
     public void get(){
         System.out.println(this.redisCache.get("mac"));
     }
+
 
 
 }

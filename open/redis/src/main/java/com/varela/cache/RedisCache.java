@@ -8,12 +8,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.DefaultTypedTuple;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -22,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * Created by guangping.lance on 2015-04-30.
  */
 @Component
-public class RedisCache {
+public class RedisCache<T> {
 
     private static final Logger logger = LoggerFactory
             .getLogger(RedisCache.class);
@@ -199,6 +202,53 @@ public class RedisCache {
                 return redisConnection.dbSize();
             }
         });
+    }
+
+    /**
+     * 排序
+     */
+    public long setZSet(String key, long seconds, String values) {
+        redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+        DefaultTypedTuple<String> typedTuple = new DefaultTypedTuple<String>(values, 1d);
+        Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>();
+        set.add(typedTuple);
+        return redisTemplate.opsForZSet().add(key, set);
+    }
+
+    public long setZSet(String key, String values) {
+        DefaultTypedTuple<String> typedTuple = new DefaultTypedTuple<String>(values, 1d);
+        Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>();
+        set.add(typedTuple);
+        return redisTemplate.opsForZSet().add(key, set);
+    }
+
+    public long setZSet(String key, ZSetOperations.TypedTuple<String> typedTuple) {
+        Set<ZSetOperations.TypedTuple<String>> set = new HashSet<>();
+        set.add(typedTuple);
+        return redisTemplate.opsForZSet().add(key, set);
+    }
+
+
+    public boolean setZSet(String key, String value, double score) {
+        return redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+    public boolean setZSet(String key, long seconds, String value, double score) {
+        redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+        return redisTemplate.opsForZSet().add(key, value, score);
+    }
+
+
+    public Set<String> getZSet(String key, long start, long end) {
+        return redisTemplate.opsForZSet().range(key, start, end);
+    }
+
+    public Set<String> getReverseZSet(String key, long start, long end) {
+        return redisTemplate.opsForZSet().reverseRange(key, start, end);
+    }
+
+    public long getZSetSize(String key) {
+        return redisTemplate.opsForZSet().size(key);
     }
 
 }
