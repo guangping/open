@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mycat:server SYSTEM "server.dtd">
+<mycat:server xmlns:mycat="http://org.opencloudb/">
+    <system>
+        <property name="defaultSqlParser">druidparser</property>
+        <property name="useCompression">1</property> <!--1为开启mysql压缩协议-->
+
+        <!--用于指定可用线程数，实际上由于现在的多核CPU和超线程技术，这个值可以酌情调高 CPU核数的4倍-->
+        <property name="processors">16</property>
+        <!--类似于线程池大小的参数，酌情修改即可-->
+        <property name="processorExecutor">16</property>
+        <!--
+        processorBufferPool+processorBufferChunk影响的server缓存，
+        保持processorBufferChunk大小合理的情况下，增加buffer块的数量才是关键；
+        -->
+        <property name="processorBufferPool">204800000</property>
+        <!--每一个Buffer块的大小 processorBufferPool/processorBufferChun可以得到buffer块的数量-->
+        <property name="processorBufferChunk">40960</property>
+        <!--默认是65535 64K 用于sql解析时最大文本长度 -->
+        <property name="maxStringLiteralLength">65535</property>
+        <!--<property name="sequnceHandlerType">0</property>-->
+        <!--<property name="backSocketNoDelay">1</property>-->
+        <!--<property name="frontSocketNoDelay">1</property>-->
+
+        <property name="mutiNodeLimitType">1</property>
+        <property name="mutiNodePatchSize">100</property>
+        <property name="serverPort">8066</property>
+        <property name="managerPort">9066</property>
+
+        <!-- 0：开启小数量级（默认） ；1：开启亿级数据排序
+        <property name="mutiNodeLimitType">1</property>
+        <property name="mutiNodePatchSize">100</property>亿级数量排序批量
+        <property name="serverPort">8066</property>
+        <property name="managerPort">9066</property>
+        <property name="idleTimeout">300000</property>
+        <property name="bindIp">0.0.0.0</property>
+        <property name="frontWriteQueueSize">4096</property>
+       -->
+    </system>
+    <user name="api">
+        <property name="password">123456</property>
+        <property name="schemas">api1</property>
+    </user>
+
+    <user name="user">
+        <property name="password">user</property>
+        <property name="schemas">TESTDB</property>
+        <!--配置只读-->
+        <property name="readOnly">true</property>
+    </user>
+    <!--
+    <quarantine>
+       <whitehost>
+          <host host="127.0.0.1" user="mycat"/>
+          <host host="127.0.0.2" user="mycat"/>
+       </whitehost>
+       <blacklist check="false"></blacklist>
+    </quarantine>
+    -->
+
+</mycat:server>

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://org.opencloudb/">
+
+    <!--checkSQLschema这个参数为False的时候,表明MyCAT会自动忽略掉表名前的数据库名,比如说mydatabase1.test1,会被当做test1;
+                sqlMaxLimit指定了SQL语句返回的行数限制;-->
+    <schema name="api1" checkSQLschema="false" sqlMaxLimit="100">
+        <table name="department" dataNode="dn1,dn2,dn3,dn4" rule="rule1"/>
+        <table name="user" dataNode="dn1,dn2,dn3" rule="auto-sharding-long"/>
+        <!--type="global" 代表全局配置 所有dataNode中都会有相同的数据 针对全局表的查询,只会分发到某一个节点上-->
+        <table name="company" primaryKey="ID" type="global" dataNode="dn1,dn2,dn3"/>
+    </schema>
+    <schema name="TESTDB" checkSQLschema="false" sqlMaxLimit="100">
+        <!-- auto sharding by id (long) -->
+        <table name="travelrecord" dataNode="dn1,dn2,dn3" rule="auto-sharding-long"/>
+
+        <!-- global table is auto cloned to all defined data nodes ,so can join
+            with any table whose sharding node is in the same data node -->
+        <table name="company" primaryKey="ID" type="global" dataNode="dn1,dn2,dn3"/>
+        <table name="goods" primaryKey="ID" type="global" dataNode="dn1,dn2"/>
+        <!-- random sharding using mod sharind rule -->
+        <table name="hotnews" primaryKey="ID" dataNode="dn1,dn2,dn3"
+               rule="mod-long"/>
+        <!-- <table name="dual" primaryKey="ID" dataNode="dnx,dnoracle2" type="global"
+            needAddLimit="false"/> <table name="worker" primaryKey="ID" dataNode="jdbc_dn1,jdbc_dn2,jdbc_dn3"
+            rule="mod-long" /> -->
+        <table name="employee" primaryKey="ID" dataNode="dn1,dn2"
+               rule="sharding-by-intfile"/>
+        <table name="customer" primaryKey="ID" dataNode="dn1,dn2"
+               rule="sharding-by-intfile">
+            <childTable name="orders" primaryKey="ID" joinKey="customer_id"
+                        parentKey="id">
+                <childTable name="order_items" joinKey="order_id"
+                            parentKey="id"/>
+            </childTable>
+            <childTable name="customer_addr" primaryKey="ID" joinKey="customer_id"
+                        parentKey="id"/>
+        </table>
+        <!-- <table name="oc_call" primaryKey="ID" dataNode="dn1$0-743" rule="latest-month-calldate"
+            /> -->
+    </schema>
+    <!-- <dataNode name="dn1$0-743" dataHost="localhost1" database="db$0-743"
+        /> -->
+    <dataNode name="dn1" dataHost="localhost1" database="api1"/>
+    <dataNode name="dn2" dataHost="localhost1" database="api2"/>
+    <dataNode name="dn3" dataHost="localhost1" database="api3"/>
+    <dataNode name="dn4" dataHost="localhost1" database="api4"/>
+
+    <!--dataHost配置的是实际的后端数据库集群 writeType和balance是用来控制后端集群的读写分离的关键参数-->
+    <dataHost name="localhost1" maxCon="1000" minCon="10" balance="0"
+              writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">
+        <heartbeat>select user()</heartbeat>
+        <writeHost host="hostM1" url="192.168.37.120:3306" user="root" password="test1234">
+            <!--<readHost host="hostS1" url="localhost:3307" user="root" password="wangwenan"/>-->
+        </writeHost>
+    </dataHost>
+
+</mycat:schema>
