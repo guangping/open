@@ -46,7 +46,17 @@
     <dataNode name="dn3" dataHost="localhost1" database="api3"/>
     <dataNode name="dn4" dataHost="localhost1" database="api4"/>
 
-    <!--dataHost配置的是实际的后端数据库集群 writeType和balance是用来控制后端集群的读写分离的关键参数-->
+    <!--dataHost配置的是实际的后端数据库集群 writeType和balance是用来控制后端集群的读写分离的关键参数
+    writeType:
+    0 默认配置
+    1 代表配置多主,mycat会往所有写节点，随机写数据，但是每次只会写入一个节点，此模式下无读节点，节点之间开启数据库级别同步。
+
+    balance:
+    0，不开启读写分离机制
+    1，全部的readHost与stand by writeHost参与select语句的负载均衡，简单的说，当双主双从模式(M1->S1，M2->S2，
+    并且M1与M2互为主备)，正常情况下，M2,S1,S2都参与select语句的负载均衡。
+    2，所有的readHost与writeHost都参与select语句的负载均衡，也就是说，当系统的写操作压力不大的情况下，所有主机都可以承担负载均衡
+    -->
     <dataHost name="localhost1" maxCon="1000" minCon="10" balance="0"
               writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">
         <heartbeat>select user()</heartbeat>

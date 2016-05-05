@@ -4,14 +4,14 @@
     <tableRule name="rule1">
         <rule>
             <columns>id</columns>
-            <algorithm>func1</algorithm>
+            <algorithm>sharding-by-long</algorithm>
         </rule>
     </tableRule>
 
     <tableRule name="rule2">
         <rule>
             <columns>user_id</columns>
-            <algorithm>func1</algorithm>
+            <algorithm>sharding-by-long</algorithm>
         </rule>
     </tableRule>
 
@@ -36,7 +36,7 @@
     <tableRule name="sharding-by-murmur">
         <rule>
             <columns>id</columns>
-            <algorithm>murmur</algorithm>
+            <algorithm>sharding-by-hash</algorithm>
         </rule>
     </tableRule>
     <tableRule name="sharding-by-month">
@@ -71,7 +71,7 @@
         此规则优点在于扩容时迁移数据量比较少，前提分片节点比较多，虚拟节点分配多些。
         虚拟节点少的缺点是会造成数据分布不够均匀
         如果实际分片数量比较少，迁移量会比较多-->
-    <function name="murmur" class="org.opencloudb.route.function.PartitionByMurmurHash">
+    <function name="sharding-by-hash" class="org.opencloudb.route.function.PartitionByMurmurHash">
         <property name="seed">0</property><!-- 默认是0 -->
         <property name="count">2</property><!-- 要分片的数据库节点数量，必须指定，否则没法分片 -->
         <property name="virtualBucketTimes">160</property><!-- 一个实际的数据库节点被映射为这么多虚拟节点，默认是160倍，也就是虚拟节点数是物理节点数的160倍 -->
@@ -109,7 +109,7 @@
         <property name="partitionCount">2,1</property>
         <property name="partitionLength">256,512</property>
     -->
-    <function name="func1" class="org.opencloudb.route.function.PartitionByLong">
+    <function name="sharding-by-long" class="org.opencloudb.route.function.PartitionByLong">
         <property name="partitionCount">4</property>
         <property name="partitionLength">256</property>
     </function>
