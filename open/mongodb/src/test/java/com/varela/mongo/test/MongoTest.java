@@ -1,6 +1,10 @@
 package com.varela.mongo.test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.mongodb.WriteResult;
+import com.varela.utils.ChineseUtils;
+import com.varela.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,14 +30,13 @@ public class MongoTest extends AbstractTestNGSpringContextTests {
         Access access = null;
         for (int i = 0; i < 1000; i++) {
             access = new Access();
-            access.setAccessId(UUID.randomUUID().toString());
-            access.setSecret(String.valueOf(new Random(10000).nextLong()));
+            access.setAccessId(RandomUtil.getRandomStr());
+            access.setSecret(ChineseUtils.getRandomChinese());
             access.setDateTime(new Date(System.currentTimeMillis()));
             access.setStatus(1);
             access.setId((i + 2));
-            this.mongoTemplate.insert(access);
+            this.mongoTemplate.insert(JSONObject.toJSONString(access),"access");
         }
-
     }
 
     @Test
