@@ -19,7 +19,7 @@ public class RedisSessionManager implements SessionManager {
 
     public Session getSession(String sessionId) {
         String key = RedisKey.getSessionKey(sessionId);
-        return this.redisCache.getObj(key, Session.class);
+        return (Session) this.redisCache.getObj(key, Session.class);
     }
 
     public void removeSession(String sessionId) {
