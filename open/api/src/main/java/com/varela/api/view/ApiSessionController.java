@@ -1,5 +1,6 @@
 package com.varela.api.view;
 
+import com.varela.api.pojo.Query;
 import com.varela.api.pojo.User;
 import com.varela.api.utils.HttpMethodConst;
 import com.varela.enumerate.Msg;
@@ -49,10 +50,13 @@ public class ApiSessionController extends ApiController {
     }
 
 
+    /**
+     * 
+     * */
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ApiOperation(value = "用户", httpMethod = HttpMethodConst.POST, notes = "用户", response = User.class)
-    public Object user(@Validated User user, BindingResult bindingResult) {
+    public Object user(@Validated({Query.class}) User user, BindingResult bindingResult) {
         APIResult apiResult = ValidatorResult.handle(bindingResult);
         if (!apiResult.isSuccess()) {
             return apiResult;

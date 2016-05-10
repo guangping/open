@@ -14,10 +14,10 @@ import java.util.Date;
 public class User implements Serializable {
 
 
-    @Pattern(regexp = "^1\\d{10}$", message = "{message.content.pattern}")
+
     private String mobile;
 
-    @NotEmpty(message="参数{0}不能为空")
+
     private String email;
 
     @DateTimeFormat(pattern = DatePattern.YYYY_MM_DD_HH_MM_SS)
@@ -32,6 +32,11 @@ public class User implements Serializable {
         this.createTime = createTime;
     }
 
+    /**
+     * 分情况验证不同的字段
+     * groups区分
+     * */
+    @Pattern(regexp = "^1\\d{10}$", message = "{message.content.pattern}",groups = {Query.class})
     public String getMobile() {
         return mobile;
     }
@@ -40,6 +45,7 @@ public class User implements Serializable {
         this.mobile = mobile;
     }
 
+    @NotEmpty(message="参数{0}不能为空")
     public String getEmail() {
         return email;
     }
