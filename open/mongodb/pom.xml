@@ -15,14 +15,22 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mongodb.version>1.9.1.RELEASE</mongodb.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-mongodb</artifactId>
-            <version>1.8.1.RELEASE</version>
+            <version>${mongodb.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.varela.open</groupId>
+            <artifactId>common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
