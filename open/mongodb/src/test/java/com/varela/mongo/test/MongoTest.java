@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mongodb.WriteResult;
 import com.varela.utils.ChineseUtils;
 import com.varela.utils.RandomUtil;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,7 +27,7 @@ public class MongoTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void run(){
-        Access access = new Access();
+        val access = new Access();
         access.setAccessId(RandomUtil.getRandomStr());
         access.setSecret(ChineseUtils.getRandomChinese());
         access.setDateTime(new Date(System.currentTimeMillis()));
