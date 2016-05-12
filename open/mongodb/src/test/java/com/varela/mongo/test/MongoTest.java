@@ -1,6 +1,5 @@
 package com.varela.mongo.test;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mongodb.WriteResult;
 import com.varela.utils.ChineseUtils;
@@ -24,6 +23,17 @@ public class MongoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+
+    @Test
+    public void run(){
+        Access access = new Access();
+        access.setAccessId(RandomUtil.getRandomStr());
+        access.setSecret(ChineseUtils.getRandomChinese());
+        access.setDateTime(new Date(System.currentTimeMillis()));
+        access.setStatus(1);
+        access.setId(2);
+        System.out.println(access);
+    }
 
     @Test
     public void insert() {

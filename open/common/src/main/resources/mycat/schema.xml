@@ -50,12 +50,19 @@
     writeType:
     0 默认配置
     1 代表配置多主,mycat会往所有写节点，随机写数据，但是每次只会写入一个节点，此模式下无读节点，节点之间开启数据库级别同步。
+    writeType=1仅仅对于galera for mysql集群这种多主多节点都能写入的集群起效，此时Mycat会随机选择一个writeHost并写
 
     balance:
     0，不开启读写分离机制
     1，全部的readHost与stand by writeHost参与select语句的负载均衡，简单的说，当双主双从模式(M1->S1，M2->S2，
     并且M1与M2互为主备)，正常情况下，M2,S1,S2都参与select语句的负载均衡。
     2，所有的readHost与writeHost都参与select语句的负载均衡，也就是说，当系统的写操作压力不大的情况下，所有主机都可以承担负载均衡
+
+    switchType:
+    -1 表示不自动切换
+    1 默认值，自动切换
+    2 基于MySQL主从同步的状态决定是否切换
+
     -->
     <dataHost name="localhost1" maxCon="1000" minCon="10" balance="0"
               writeType="0" dbType="mysql" dbDriver="native" switchType="1" slaveThreshold="100">

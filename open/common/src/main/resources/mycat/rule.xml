@@ -67,10 +67,7 @@
     </tableRule>
 
     <!--一致性Hash分片：此规则优点在于扩容时迁移数据量比较少，前提分片节点比较多，虚拟节点分配多些。
-        虚拟节点少的缺点是会造成数据分布不够均匀
-        此规则优点在于扩容时迁移数据量比较少，前提分片节点比较多，虚拟节点分配多些。
-        虚拟节点少的缺点是会造成数据分布不够均匀
-        如果实际分片数量比较少，迁移量会比较多-->
+        虚拟节点少的缺点是会造成数据分布不够均匀-->
     <function name="sharding-by-hash" class="org.opencloudb.route.function.PartitionByMurmurHash">
         <property name="seed">0</property><!-- 默认是0 -->
         <property name="count">2</property><!-- 要分片的数据库节点数量，必须指定，否则没法分片 -->
