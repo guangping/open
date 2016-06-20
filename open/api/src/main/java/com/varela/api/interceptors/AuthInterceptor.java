@@ -2,6 +2,7 @@ package com.varela.api.interceptors;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.varela.annotation.GuestPage;
 import com.varela.api.entity.AccessLog;
 import com.varela.api.pojo.APIKey;
 import com.varela.api.pojo.APIRequest;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -55,6 +57,12 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         long beginTime = System.currentTimeMillis();
         startTimeThreadLocal.set(beginTime);
 
+      /*  HandlerMethod handlerMethod = (HandlerMethod) handler;
+        GuestPage guestPage=handlerMethod.getMethodAnnotation(GuestPage.class);
+        if(null!=guestPage){
+            return true;
+        }
+*/
         String contentType = request.getContentType();
         if (StringUtils.isBlank(contentType) || !contentType.startsWith(APIKey.ContentType.X_WWW_FORM_URLENCODED)) {
             APIResult apiResult = new APIResult();
