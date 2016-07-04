@@ -29,14 +29,18 @@ public class Constants {
     public static final boolean FALSE = false;
 
 
-    /**
-     * 分隔符
-     */
-    public static String COMMA = ",";
-    public static String DOT = ".";
-    public static String COMMA_CN = "，";
-    public static String GAN = "-";
-    public static String SHU = "|";
-    public static String COLON = ":";
+    public static class Symbol{
+        /**
+         * 分隔符
+         */
+        public static String COMMA = ",";
+        public static String DOT = ".";
+        public static String COMMA_CN = "，";
+        public static String GAN = "-";
+        public static String SHU = "|";
+        public static String COLON = ":";
+    }
+
+
 
 }
