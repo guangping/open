@@ -44,6 +44,35 @@ public class MainTest {
         }
     }
 
+
+    @Test
+    public void runBatch() {
+        ExecutorService es = Executors.newFixedThreadPool(5);
+
+        List<MyTask2> list = new ArrayList<>();
+        Map data = new HashMap();
+        data.put("id", 1);
+        list.add(new MyTask2(data));
+
+        data = new HashMap();
+        data.put("id", 2);
+        list.add(new MyTask2(data));
+        try {
+            List<Future<List<String>>> futures = es.invokeAll(list, 2000, TimeUnit.MILLISECONDS);
+
+            List<String> values;
+            for (Future<List<String>> future : futures) {
+                values = future.get();
+                System.out.printf(JSONObject.toJSONString(values));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static class MyTask implements Runnable {
         @Override
         public void run() {
