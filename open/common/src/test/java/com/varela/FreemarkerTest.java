@@ -3,10 +3,12 @@ package com.varela;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.junit.Before;
 import org.testng.annotations.Test;
 
 import java.io.StringWriter;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -14,27 +16,36 @@ import java.util.Map;
  */
 public class FreemarkerTest {
 
-    @Test
-    public void templete() {
-        Configuration cfg = new Configuration(Configuration.VERSION_2_3_23);
-        //Template template=new Template();
+    private Configuration cfg = null;
+
+    @Before
+    public void setUp() {
+        cfg = new Configuration(Configuration.VERSION_2_3_23);
+        cfg.setLocale(Locale.CHINA);
+        cfg.setDefaultEncoding("utf-8");
+        cfg.setCacheStorage(new freemarker.cache.MruCacheStorage(20, 250));
 
         StringTemplateLoader stringLoader = new StringTemplateLoader();
-        String templateContent = "欢迎：${name}";
-        stringLoader.putTemplate("myTemplate", templateContent);
-
+        stringLoader.putTemplate("name", "this is cache ${name}");
+        stringLoader.putTemplate("tem", "this is name ${name}");
         cfg.setTemplateLoader(stringLoader);
-        try {
-            Template template = cfg.getTemplate("myTemplate", "utf-8");
-            Map root = new HashMap();
-            root.put("name", "javaboy2012");
+    }
 
-            StringWriter writer = new StringWriter();
-            template.process(root, writer);
-            System.out.println(writer.toString());
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    @org.junit.Test
+    public void run() throws Exception {
+        Map param = new HashMap<>();
+        param.put("name", "北京");
+
+        Template template = cfg.getTemplate("name", Locale.CHINA);
+
+        StringWriter writer = new StringWriter();
+        template.process(param, writer);
+        System.out.println(writer.toString());
+
+        template = cfg.getTemplate("tem", Locale.CHINA);
+
+        writer = new StringWriter();
+        template.process(param, writer);
+        System.out.println(writer.toString());
     }
 }

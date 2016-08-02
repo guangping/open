@@ -1,5 +1,6 @@
 package com.varela.new8;
 
+import com.varela.utils.ChineseUtils;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -28,12 +29,29 @@ public class MainTest {
         list.add("d");
         list.add("a");
 
-        //list.stream().forEach(System.out::println);
+        list.stream().forEach(System.out::println);
 
-        List itmes=list.stream().filter(s -> s.contains("a")).collect(Collectors.toList());
-        System.out.println(itmes);
+    /*    List itmes=list.stream().filter(s -> s.contains("a")).collect(Collectors.toList());
+        System.out.println(itmes);*/
 
 
 
     }
+
+
+    @Test
+    public void chinese(){
+        String str="af北京";
+        System.out.println(ChineseUtils.getSubString(str,2));
+    }
+
+
+    @Test
+    public void judge(){
+        Integer a=-1130;
+        Integer b=-1130;
+        System.out.println(a==b);
+        System.out.println(a.equals(b));
+    }
+
 }
